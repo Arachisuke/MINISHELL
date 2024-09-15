@@ -26,7 +26,6 @@ LIB_SRCS = $(addprefix $(LIB_DIR)/, $(LIB_SRCS_FILES))
 
 OBJECTS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o)) $(addprefix $(OBJS_DIR)/, $(LIB_SRCS:.c=.o))
 
-# Bonus sources (désactivez ou configurez correctement)
 BONUS_SRCS_FILES =  \
 
 BONUS_SRCS_DIR = ./srcs_bonus
@@ -54,7 +53,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)/$(LIB_DIR)
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
-	@mkdir -p $(dir $@)  # Crée le répertoire s'il n'existe pas
+	@mkdir -p $(dir $@) 
 	$(CC) $(FLAGS) $(DEP_FLAGS) -c $< -o $@
 
 clean:
