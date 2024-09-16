@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/15 13:52:36 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:15:32 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "libft/libft.h"
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -45,5 +46,8 @@ typedef struct s_lexer
 	struct s_lexer	*next;
 	struct s_lexer	*prev;
 }					t_lexer;
+
+int	is_space(char c);
+
 
 #endif
