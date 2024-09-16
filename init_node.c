@@ -6,11 +6,11 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:36:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/16 12:05:18 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/16 14:38:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "inc/minishell.h"
 
 int	create_node(t_lexer **lexer, char *line)
 {

@@ -6,14 +6,14 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/16 11:15:32 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/16 17:27:10 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -47,7 +47,9 @@ typedef struct s_lexer
 	struct s_lexer	*prev;
 }					t_lexer;
 
-int	is_space(char c);
-
+int					is_space(char c);
+char				**malloc_input(char *line);
+int					count_word(const char *str);
+int					is_token(char c);
 
 #endif
