@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 15:31:38 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/15 14:24:16 by ankammer         ###   ########.fr       */
+/*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
+/*   Updated: 2024/09/17 13:58:57 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_strlen(char *str)
+char	*get_current_dir(void)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-void	get_current_dir(char *current_directory)
-{
-	int	i;
+	int		i;
+	char	*line;
+	char	current_directory[PATH_MAX];
 
 	i = 0;
 	getcwd(current_directory, PATH_MAX);
@@ -34,20 +24,29 @@ void	get_current_dir(char *current_directory)
 	current_directory[i] = '>';
 	current_directory[i + 1] = ' ';
 	current_directory[i + 2] = '\0';
+	line = readline(current_directory);
+	return (line);
 }
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	if (argc != 1 && argv)
-		return (0);
+	int		i;
+	t_lexer	*lexer;
+	char	**strs;
+	char	*line;
 
-	char current_directory[PATH_MAX];
-	char *line;
+	line = NULL;
+	i = -1;
 	while (1)
 	{
-		get_current_dir(current_directory);
-		line = readline(current_directory); // notre prompt
-		printf("line = %s\n", line);
+		line = get_current_dir();
+		if (ft_strncmp(line, "exit", 4) == 0)
+			break ;
+		all_verifs(line);
+		strs = malloc_input(line);
+		strs = parse_line(line, strs, i);
+		lexer = create_node(&lexer, strs);
+		node_affichage(lexer);
 	}
 	return (0);
 }

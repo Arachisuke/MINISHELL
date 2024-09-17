@@ -6,14 +6,11 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/16 10:20:00 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/17 12:29:02 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-#define SQ '\''
-#define DQ '\"'
+#include "../inc/minishell.h"
 
 char	*verif_quotes(char *line)
 {
@@ -38,11 +35,7 @@ char	*verif_quotes(char *line)
 	}
 	if (flag == 1)
 		return(0);
-	return (1);
-}
-int	is_space(char c)
-{
-	return (c == 32 || (c >= 9 && c <= 13));
+	return (NULL);
 }
 char *verif_space(char *line)
 {
@@ -50,12 +43,12 @@ char *verif_space(char *line)
 
 	i = 0;
 		if (!line)
-		return (1);
+		return (NULL);
 	while (is_space(line[i]))
 		i++;
-	if (i == ft_strlen(line))
-		return (1);
-	return(0);
+	if ((size_t)i == ft_strlen(line))
+		return (NULL);
+	return(NULL);
 }
 
 int all_verifs(char *line)
@@ -65,3 +58,8 @@ int all_verifs(char *line)
 
 	return(0);
 }
+
+
+
+
+

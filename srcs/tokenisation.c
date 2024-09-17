@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/16 18:57:19 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/17 12:28:33 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/minishell.h"
+#include "../inc/minishell.h"
 
 int	is_token(char c)
 {
@@ -62,6 +62,8 @@ char	*remplir(char *line, int start, int end)
 
 	i = 0;
 	j = start;
+	if (ft_strlen(line) == (size_t)end + 1)
+		end = ft_strlen(line);
 	str = malloc(sizeof(char) * (end - start + 1));
 	while (end - start > i)
 	{
@@ -83,63 +85,32 @@ char	*tokenisation(char c, int *j)
 	return (str);
 }
 
-int	main(void)
+char	**parse_line(char *line, char **strs, int i) // a tester
 {
-	int		i;
-	char	*line;
-	char	**strs;
-	int		j;
-	int		r;
-	int		g;
-	int		flag;
+	int j;
+	int end;
+	int start;
 
-	r = -1;
 	j = 0;
-	flag = 0;
-	i = 0;
-	g = 0;
-	line = "<infile cat|ls -la>>outfile";
-	strs = malloc_input(line);
-	while (line[++r])
+	end = 0;
+	start = 0;
+	while (line[++i])
 	{
-		if (!is_token_space(line[r]) && line[r])
+		if (!is_token_space(line[i]) && line[i])
 		{
-			i = r;
-			g = r;
+			start = i;
+			end = i;
+			while (!is_token_space(line[i]) && line[i + 1])
+			{
+				end++;
+				i++;
+			}
+			strs[j++] = remplir(line, start, end);
 		}
-		while (!is_token_space(line[r]) && line[r])
-		{
-			r++;
-			i++;
-			flag = 1;
-		}
-		if (flag == 1)
-		{
-			strs[j++] = remplir(line, g, i);
-			flag = 0;
-		}
-		if (is_token(line[r]))
-			strs[j] = tokenisation(line[r], &j);
+		if (is_token(line[i]))
+			strs[j] = tokenisation(line[i], &j);
 	}
-	i = 0;
-	// while (strs[i])
-	// {
-	// 	printf("strs[%d] = %s", i, strs[i]);
-	// 	i++;
-	// }
-	// test = 0;
-	// while(test < 10)
-	// {
-	// 	printf("strs[%d] = %s", test, strs[test]);
-	// 	test++;
-	// }
+	return (strs);
 }
 
-// while (line[r])
-// {
-// 	while (!is_token(line[r]))
-// 		strs[j][i++] = line[r++];
-// 	i = 0;
-// 	if (is_token(line[r]))
-// 		strs[++j][i] = line[r++];
-// }
+
