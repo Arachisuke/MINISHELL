@@ -6,13 +6,13 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:42:38 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/16 13:55:26 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/18 15:57:01 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	count_word(const char *str, char c)
+int	count_words(const char *str, char c)
 {
 	int	i;
 	int	compteur;
@@ -23,8 +23,8 @@ int	count_word(const char *str, char c)
 	compteur = 0;
 	while (str[i])
 	{
-		if ((str[i] != c && str[i + 1] == c)
-			|| (str[i] != c && str[i + 1] == '\0'))
+		if ((str[i] != c && str[i + 1] == c) || (str[i] != c && str[i
+				+ 1] == '\0'))
 			compteur++;
 		i++;
 	}
@@ -52,7 +52,7 @@ char	**mallocmax(const char *str, char c)
 
 	i = 0;
 	j = 0;
-	strs = malloc(sizeof(char *) * (count_word(str, c) + 1));
+	strs = malloc(sizeof(char *) * (count_words(str, c) + 1));
 	if (strs == NULL)
 		return (NULL);
 	while (str[i])

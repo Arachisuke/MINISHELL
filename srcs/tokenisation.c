@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/17 12:28:33 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/18 15:57:16 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,26 +74,40 @@ char	*remplir(char *line, int start, int end)
 	str[i] = '\0';
 	return (str);
 }
-char	*tokenisation(char c, int *j)
+char	*tokenisation(char *line, int *index, int *j)
 {
 	char	*str;
 
-	str = malloc(sizeof(char) * 2);
-	str[0] = c;
-	str[1] = '\0';
+	if ((line[*index] == '<' || line[*index] == '>') && (line[*index + 1] == '<' || line[*index + 1] == '>'))
+	{
+		str = malloc(sizeof(char) * 3);
+		str[0] = line[*index];
+		str[1] = line[*index + 1];
+		str[2] = '\0';
+		if ((size_t)(index + 2) != ft_strlen(line))
+			(*index)++;
+	}
+	else
+	{
+		str = malloc(sizeof(char) * 2);
+		str[0] = line[*index];
+		str[1] = '\0';
+	}
 	(*j)++;
 	return (str);
 }
 
-char	**parse_line(char *line, char **strs, int i) // a tester
+char	**parse_line(char *line, char **strs) // a tester
 {
-	int j;
 	int end;
 	int start;
+	int j;
+	int i;
 
-	j = 0;
 	end = 0;
 	start = 0;
+	j = 0;
+	i = -1;
 	while (line[++i])
 	{
 		if (!is_token_space(line[i]) && line[i])
@@ -108,9 +122,7 @@ char	**parse_line(char *line, char **strs, int i) // a tester
 			strs[j++] = remplir(line, start, end);
 		}
 		if (is_token(line[i]))
-			strs[j] = tokenisation(line[i], &j);
+			strs[j] = tokenisation(line, &i, &j);
 	}
 	return (strs);
 }
-
-
