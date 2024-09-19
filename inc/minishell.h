@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 11:07:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:17:12 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ typedef struct s_simple_cmds
 {
 	int						name;
 	char					**strs;
-	char					*str;
 	// int						(*builtin)(t_tools *, struct s_simple_cmds *);
 	bool					is_builtin;
 	int						num_redirections;
-	char					*hd_file_name;
-	t_lexer					*redirections;
+	char					*infile;
+	char					*outfile;
+	int						redir_infile;
+	int						redir_outfile;
 	struct s_simple_cmds	*next;
 	struct s_simple_cmds	*prev;
 }							t_simple_cmds;
@@ -72,6 +73,7 @@ bool						is_builtin(char *str);
 t_simple_cmds				*create_node_cmds(t_simple_cmds **cmds,
 								int nb_pipe);
 t_simple_cmds				*ft_new_cmds(int i);
+char						*strjoinfree(char const *s1, char const *s2);
 
 int							is_token_space(char c);
 int							count_word(const char *str);
@@ -93,5 +95,6 @@ int							state_string(t_lexer *stack);
 int							state_pipe(t_lexer *stack);
 int							state_redirection(t_lexer *stack);
 void						cmds_affichage(t_simple_cmds *cmds);
+void						init_redirection(t_lexer *redirection);
 
 #endif

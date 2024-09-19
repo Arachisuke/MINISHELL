@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 12:16:50 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 13:56:51 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void	other(char *str)
 	// builtin
 	// les code d'exit et free garbage close struct fd
 	// cas speciale : premier mot qui nest pas une commande
+	// regrouper DLOWER LOWER GREATER DGREATER
 }
