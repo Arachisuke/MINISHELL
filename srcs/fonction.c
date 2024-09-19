@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fonction.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 15:29:15 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:15:22 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	cmds_affichage(t_simple_cmds *cmds)
 			printf("strs[%d] = %s\n", i, tmp->strs[i]);
 			i++;
 		}
+		printf("\n");
 		i = 0;
 		tmp = tmp->next;
 		/*printf("content = %s\ncurrent = %p\n prev = %p\n next = %p\ntoken =

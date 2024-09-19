@@ -1,5 +1,6 @@
 NAME = minishell
-SRC	= srcs/fonction.c srcs/main.c srcs/init_node.c srcs/tokenisation.c srcs/verif_line.c srcs/automate.c srcs/sort_cmds.c srcs/init_tcmds.c srcs/sort_cmds_utils.c
+SRC	= srcs/fonction.c srcs/main.c srcs/init_node.c srcs/tokenisation.c srcs/verif_line.c srcs/automate.c \
+		 srcs/sort_cmds.c srcs/init_tcmds.c srcs/sort_cmds_utils.c srcs/free.c
 OBJ = $(SRC:.c=.o)
 LIBFT = ./libft/libft.a
 CC = gcc

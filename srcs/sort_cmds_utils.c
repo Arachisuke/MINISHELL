@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_cmds_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:25:10 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/19 15:17:39 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 17:20:28 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,25 @@ bool	is_builtin(char *str)
 	return (0);
 }
 
+char	*free_nodes(t_simple_cmds *cmds)
+{
+	t_simple_cmds	*curr;
+
+	if (!cmds)
+		return (NULL) ;
+	curr = cmds;
+	while (cmds)
+	{
+		if (cmds->strs)
+			ft_free(cmds->strs);
+		curr = cmds->next;
+		free(cmds);
+		cmds = NULL;
+		cmds = curr;
+	}
+	return (NULL);
+}
+
 t_simple_cmds	*malloc_cmds_struct(t_lexer *current)
 {
 	int				nb_pipe;
@@ -46,7 +65,7 @@ t_simple_cmds	*malloc_cmds_struct(t_lexer *current)
 	}
 	create_node_cmds(&cmds, nb_pipe);
 	if (!cmds)
-		return (NULL);
+		return (free_nodes(cmds), NULL);
 	return (cmds);
 }
 char	*strjoinfree(char const *s1, char const *s2)
@@ -75,4 +94,15 @@ char	*strjoinfree(char const *s1, char const *s2)
 	s[i] = '\0';
 	free((char *)s1);
 	return (s);
+}
+
+char	**malloc_strs(int arg_count)
+{
+	char	**strs;
+
+	strs = malloc(sizeof(char *) * arg_count + 1);
+	if (!strs)
+		return (NULL);
+	strs[arg_count] = NULL;
+	return (strs);
 }

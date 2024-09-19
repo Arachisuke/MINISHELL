@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 15:17:12 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 17:19:17 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,8 @@ int							state_pipe(t_lexer *stack);
 int							state_redirection(t_lexer *stack);
 void						cmds_affichage(t_simple_cmds *cmds);
 void						init_redirection(t_lexer *redirection);
+char						**malloc_strs(int arg_count);
+char						*free_nodes(t_simple_cmds *cmds);
+void						ft_free(char **strs);
 
 #endif
