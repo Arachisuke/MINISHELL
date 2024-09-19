@@ -16,7 +16,7 @@ CC	=	cc
 
 RM	=	rm -f
 
-CFLAGS	=	-Wall -Wextra -Werror -I.
+CFLAGS	=	-Wall -Wextra -Werror -g3 -I.
 
 NAME	=	libft.a
 

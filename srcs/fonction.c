@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/18 18:58:52 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:56:47 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,21 @@ void	node_affichage(t_lexer *lexer)
 void	cmds_affichage(t_simple_cmds *cmds)
 {
 	t_simple_cmds	*tmp;
+	// int				i;
 
+	// i = 0;
 	tmp = cmds;
 	while (tmp)
 	{
-		printf("name = %d\nis builtin = %d\tokenredir = %d\n file_name = %s\n", tmp->name,
-			tmp->is_builtin, tmp->redirections->token, tmp->hd_file_name);
+		printf("name = %d\nis builtin = %d\ntokenredir = %d\nfile_name = %s\n",
+			tmp->name, tmp->is_builtin, tmp->redirections->token,
+			tmp->hd_file_name);
+		// while (tmp->strs[i])
+		// {
+		// 	printf("strs[%d] = %s\n", i, tmp->strs[i]);
+		// 	i++;
+		// }
+		// i = 0;
 		tmp = tmp->next;
 		/*printf("content = %s\ncurrent = %p\n prev = %p\n next = %p\ntoken =
 			%d\n",
@@ -69,7 +78,7 @@ void	cmds_affichage(t_simple_cmds *cmds)
 
 void	init_token(t_lexer *lexer)
 {
-	if (ft_strlen(lexer->string) == 2 && is_token(lexer->string[0]))// 1
+	if (ft_strlen(lexer->string) == 2 && is_token(lexer->string[0])) // 1
 	{
 		if (lexer->string[0] == '<' && lexer->string[1] == '<')
 			lexer->token = D_LOWER;

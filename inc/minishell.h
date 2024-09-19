@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/18 18:09:28 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:07:58 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ typedef struct s_lexer
 typedef struct s_simple_cmds
 {
 	int						name;
-	char					**str;
+	char					**strs;
+	char					*str;
 	// int						(*builtin)(t_tools *, struct s_simple_cmds *);
 	bool					is_builtin;
 	int						num_redirections;

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:21:06 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/18 18:09:17 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:58:35 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ t_simple_cmds	*ft_new_cmds(int i)
 	elem->name = i;
 	elem->next = NULL;
 	elem->prev = NULL;
+	elem->str =  NULL;
 	elem->redirections = NULL;
 	elem->hd_file_name = NULL;
 	elem->num_redirections = 0;
-	elem->str = NULL;
+	elem->strs = NULL;
 	return (elem);
 }
 void	ft_back_cmds(t_simple_cmds **lst, t_simple_cmds *new)

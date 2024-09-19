@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/18 17:58:45 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:38:04 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,15 @@ int	main(void)
 	while (1)
 	{
 		line = get_current_dir();
+		if (!*line || !line) // que faire quand ya rien ?
+			continue;
 		if (ft_strncmp(line, "exit", 4) == 0)
 			break ;
 		all_verifs(line);
 		strs = malloc_input(line);
 		strs = parse_line(line, strs);
 		lexer = create_node(&lexer, strs);
-		node_affichage(lexer);
+		//node_affichage(lexer);
 		state_init(lexer);
 		cmds = sort_cmds(lexer);
 		cmds_affichage(cmds);
