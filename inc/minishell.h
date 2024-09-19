@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 15:17:12 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:26:02 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,12 @@ t_simple_cmds				*create_node_cmds(t_simple_cmds **cmds,
 								int nb_pipe);
 t_simple_cmds				*ft_new_cmds(int i);
 char						*strjoinfree(char const *s1, char const *s2);
+void						ft_free(char **strs);
 
 int							is_token_space(char c);
 int							count_word(const char *str);
-char						*remplir(char *line, int start, int end);
-char						*tokenisation(char *line, int *index, int *j);
+char						*remplir(char **strs, char *line, int start, int end);
+char						*tokenisation(char **strs, char *line, int *index, int *j);
 char	**parse_line(char *line, char **strs); // a tester
 t_lexer						*create_node(t_lexer **lexer, char **strs);
 t_lexer						*ft_new(void *content, int i);

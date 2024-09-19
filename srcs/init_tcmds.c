@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:21:06 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 15:29:21 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 17:33:21 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_simple_cmds	*ft_new_cmds(int i)
 	elem->prev = NULL;
 	elem->infile = NULL;
 	elem->outfile = NULL;
+	elem->redir_infile = 0;
+	elem->redir_outfile = 0;
 	elem->num_redirections = 0;
 	elem->strs = NULL;
 	return (elem);

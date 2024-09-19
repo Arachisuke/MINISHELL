@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 15:27:35 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 17:53:22 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	count_arg(t_lexer *curr)
 }
 void	sort_cmds_args(t_lexer *curr, t_simple_cmds *tmp, int *i)
 {
-	if (curr->token == STRING && curr->prev && curr->prev->token == STRING)
+	if ((curr->token == STRING && curr->prev && curr->prev->token == STRING) || (curr->token == STRING && (!curr->prev || curr->prev->token == PIPE)))
 	{
 		tmp->strs[*i] = ft_strdup(curr->string);
 		(*i)++;
