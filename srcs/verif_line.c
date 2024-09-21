@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/17 12:29:02 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:57:40 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*verif_quotes(char *line)
 	int		flag;
 
 	i = 0;
+	quote = 0;
 	flag = 0;
 	i = -1;
 	while (line[++i])

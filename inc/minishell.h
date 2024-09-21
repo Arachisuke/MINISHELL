@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/21 15:44:00 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:14:43 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int							is_space(char c);
 char						**malloc_input(char *line);
 int							is_token(char c);
 int							all_verifs(char *line);
-t_simple_cmds				*sort_cmds(t_lexer *lexer);
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
 bool						is_builtin(char *str);
 t_simple_cmds				*create_node_cmds(t_simple_cmds **cmds,
@@ -75,11 +74,14 @@ t_simple_cmds				*create_node_cmds(t_simple_cmds **cmds,
 t_simple_cmds				*ft_new_cmds(int i);
 char						*strjoinfree(char const *s1, char const *s2);
 void						ft_free(char **strs);
+t_simple_cmds				*sort_cmds(t_lexer **lexer);
 
 int							is_token_space(char c);
 int							count_word(const char *str);
-char						*remplir(char **strs, char *line, int start, int end);
-char						*tokenisation(char **strs, char *line, int *index, int *j);
+char						*remplir(char **strs, char *line, int start,
+								int end);
+char						*tokenisation(char **strs, char *line, int *index,
+								int *j);
 char	**parse_line(char *line, char **strs); // a tester
 t_lexer						*create_node(t_lexer **lexer, char **strs);
 t_lexer						*ft_new(void *content, int i);
@@ -95,7 +97,7 @@ int							state_init(t_lexer *stack);
 int							state_string(t_lexer *stack);
 int							state_pipe(t_lexer *stack);
 int							state_redirection(t_lexer *stack);
-void						cmds_affichage(t_simple_cmds *cmds);
+void						cmds_affichage(t_simple_cmds **cmds);
 void						init_redirection(t_lexer *redirection);
 char						**malloc_strs(int arg_count);
 char						*free_nodes(t_simple_cmds *cmds);

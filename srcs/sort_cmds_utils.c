@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_cmds_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:25:10 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/19 17:20:28 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:24:41 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*free_nodes(t_simple_cmds *cmds)
 	t_simple_cmds	*curr;
 
 	if (!cmds)
-		return (NULL) ;
+		return (NULL);
 	curr = cmds;
 	while (cmds)
 	{
@@ -100,7 +100,7 @@ char	**malloc_strs(int arg_count)
 {
 	char	**strs;
 
-	strs = malloc(sizeof(char *) * arg_count + 1);
+	strs = malloc(sizeof(char *) * (arg_count + 1));
 	if (!strs)
 		return (NULL);
 	strs[arg_count] = NULL;

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 17:28:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:30:50 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	parser_line(char *str, char **garbage, t_lexer **lexer)
 
 void	other(char *str)
 {
-	// proteger les mallocs
-	// expander
+	// proteger les mallocs @@@@
+	// expander 
 	// guillemet ...
 	// gerer les arguments, a voir dans liste de commande "'$shell'"
 	// if une env existe pas je le met pas dans ma node
@@ -55,6 +55,7 @@ void	other(char *str)
 // gerer dans sort cmds, << heredoc, dire que c un limiteur le caractere dapres...
 // gerer dans sortcmds les expands....
 // historique
+// cree une structure VOIR MAIN
 
 
 < in1 << in2 cat >out1 >out2 -e  >out3 >out4 -er | >  -l out4 cd -l  >out4 -l 

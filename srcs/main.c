@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 12:22:17 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:14:24 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ int	main(void)
 	char			*line;
 
 	line = NULL;
+	lexer = NULL;
+	cmds = NULL;
+	strs = NULL;
 	while (1)
 	{
 		line = get_current_dir();
@@ -53,8 +56,8 @@ int	main(void)
 		lexer = create_node(&lexer, strs);
 		// node_affichage(lexer);
 		state_init(lexer);
-		cmds = sort_cmds(lexer);
-		cmds_affichage(cmds);
+		cmds = sort_cmds(&lexer);
+		cmds_affichage(&cmds);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/21 15:48:46 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:14:32 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**malloc_input(char *line)
 			count++;
 		i++;
 	}
-	strs = malloc(sizeof(char *) * count + 1);
+	strs = malloc(sizeof(char *) * (count + 1));
 	if (!strs)
 		return (NULL);
 	strs[count] = NULL;
@@ -50,13 +50,13 @@ void	node_affichage(t_lexer *lexer)
 		// tmp = tmp->next; */
 	}
 }
-void	cmds_affichage(t_simple_cmds *cmds)
+void	cmds_affichage(t_simple_cmds **cmds)
 {
 	t_simple_cmds	*tmp;
 	int				i;
 
 	i = 0;
-	tmp = cmds;
+	tmp = *cmds;
 	while (tmp)
 	{
 		printf("node = %d\nis builtin = %d\nredir_infile = %d\nredir_outfile = %d\noutfile = %s\ninfile = %s\n",
