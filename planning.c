@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 13:56:51 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 17:28:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,9 @@ void	other(char *str)
 	// cas speciale : premier mot qui nest pas une commande
 	// regrouper DLOWER LOWER GREATER DGREATER
 }
+// gerer dans sort cmds, << heredoc, dire que c un limiteur le caractere dapres...
+// gerer dans sortcmds les expands....
+// historique
+
+
+< in1 << in2 cat >out1 >out2 -e  >out3 >out4 -er | >  -l out4 cd -l  >out4 -l 

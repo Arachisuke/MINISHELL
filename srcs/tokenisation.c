@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 12:33:39 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:25:40 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	count_word(const char *str)
 	}
 	return (compteur);
 }
-char	*remplir(char *line, int start, int end)
+char	*remplir(char **strs, char *line, int start, int end)
 {
 	char	*str;
 	int		i;
@@ -66,7 +66,7 @@ char	*remplir(char *line, int start, int end)
 		end = ft_strlen(line);
 	str = malloc(sizeof(char) * (end - start + 1));
 	if (!str)
-		return(NULL);
+		ft_free(strs); // sortie d'erreur free puis exit! utiliser erno
 	while (end - start > i)
 	{
 		str[i] = line[j];
@@ -76,13 +76,16 @@ char	*remplir(char *line, int start, int end)
 	str[i] = '\0';
 	return (str);
 }
-char	*tokenisation(char *line, int *index, int *j)
+char	*tokenisation(char **strs, char *line, int *index, int *j)
 {
 	char	*str;
 
-	if ((line[*index] == '<' || line[*index] == '>') && (line[*index + 1] == '<' || line[*index + 1] == '>'))
+	if ((line[*index] == '<' || line[*index] == '>') && (line[*index + 1] == '<'
+			|| line[*index + 1] == '>'))
 	{
 		str = malloc(sizeof(char) * 3);
+		if (!str)
+			ft_free(strs); // sortie d'erreur free puis exit! utiliser erno
 		str[0] = line[*index];
 		str[1] = line[*index + 1];
 		str[2] = '\0';
@@ -92,6 +95,8 @@ char	*tokenisation(char *line, int *index, int *j)
 	else
 	{
 		str = malloc(sizeof(char) * 2);
+		if (!str)
+			ft_free(strs); // sortie d'erreur free puis exit! utiliser erno
 		str[0] = line[*index];
 		str[1] = '\0';
 	}
@@ -99,7 +104,7 @@ char	*tokenisation(char *line, int *index, int *j)
 	return (str);
 }
 
-char	**parse_line(char *line, char **strs) 
+char	**parse_line(char *line, char **strs)
 {
 	int end;
 	int start;
@@ -121,10 +126,10 @@ char	**parse_line(char *line, char **strs)
 				end++;
 				i++;
 			}
-			strs[j++] = remplir(line, start, end);
+			strs[j++] = remplir(strs, line, start, end);
 		}
 		if (is_token(line[i]))
-			strs[j] = tokenisation(line, &i, &j);
+			strs[j] = tokenisation(strs, line, &i, &j);
 	}
 	return (strs);
 }
