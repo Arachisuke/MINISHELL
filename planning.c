@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/21 17:30:50 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/22 16:02:53 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ void	other(char *str)
 }
 // gerer dans sort cmds, << heredoc, dire que c un limiteur le caractere dapres...
 // gerer dans sortcmds les expands....
-// historique
+// historique @@@@
 // cree une structure VOIR MAIN
 
 
 < in1 << in2 cat >out1 >out2 -e  >out3 >out4 -er | >  -l out4 cd -l  >out4 -l 
+// verifier le com qui est dans sort_cmds

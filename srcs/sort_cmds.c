@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/21 17:29:20 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/22 16:36:31 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,16 @@ int	count_arg(t_lexer *curr)
 	t_lexer	*tmp;
 	int		count;
 
-	count = 1;
+	count = 0;
 	tmp = curr;
-	while (tmp)
+	if (tmp->token == STRING && !tmp->prev) // premier mot forcement une cmd
+		count = 1;
+	if (tmp->token == PIPE && tmp->next)
+		tmp = tmp->next;
+	while (tmp && tmp->token != PIPE)
 	{
-		if (tmp->string && tmp->string[0] == '-')
+		if (tmp->token == STRING && tmp->prev && (tmp->prev->token == STRING
+				|| tmp->prev->token == PIPE))
 			count++;
 		tmp = tmp->next;
 	}
@@ -33,7 +38,6 @@ void	sort_cmds_args(t_lexer *curr, t_simple_cmds **tmp, int *i)
 		|| (curr->token == STRING && (!curr->prev
 				|| curr->prev->token == PIPE)))
 	{
-		(*tmp)->strs[*i] = NULL;
 		(*tmp)->strs[*i] = ft_strdup(curr->string);
 		(*i)++;
 	}
@@ -47,7 +51,7 @@ void	sort_redir(t_lexer *curr, t_simple_cmds **tmp)
 		(*tmp)->redir_outfile = curr->token;
 	else if (curr->token == LOWER || curr->token == D_LOWER)
 		(*tmp)->redir_infile = curr->token;
-	if (curr->next  && curr->next->token == STRING)
+	if (curr->next && curr->next->token == STRING)
 	{
 		if (curr->token == GREATER || curr->token == D_GREATER)
 			(*tmp)->outfile = curr->next->string;
@@ -99,7 +103,8 @@ t_simple_cmds	*sort_cmds(t_lexer **lexer)
 			sort_redir_and_cmds_args(&curr, &tmp, &i);
 		else if (!passing_next_cmds(&tmp, curr, &cmds, &i))
 			return (NULL);
-		curr = curr->next;
+		if (curr)
+			curr = curr->next;
 	}
 	return (cmds);
 }

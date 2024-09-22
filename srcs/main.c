@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/21 17:14:24 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/22 16:00:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	main(void)
 			break ;
 		all_verifs(line);
 		strs = malloc_input(line);
+		if (line)
+		add_history(line);
 		if (!strs)
 			return (errno);
 		strs = parse_line(line, strs);
