@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/21 17:14:43 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/22 17:59:18 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_lexer
 	struct s_lexer			*next;
 	struct s_lexer			*prev;
 }							t_lexer;
+
 typedef struct s_simple_cmds
 {
 	int						name;
@@ -63,8 +64,18 @@ typedef struct s_simple_cmds
 	struct s_simple_cmds	*prev;
 }							t_simple_cmds;
 
+typedef struct s_all
+{
+	t_lexer					*lexer;
+	t_lexer					*tmp_lexer;
+	t_simple_cmds			*cmds;
+	t_simple_cmds			*tmp_cmds;
+	char					*line;
+	char					**strs;
+}							t_all;
+
 int							is_space(char c);
-char						**malloc_input(char *line);
+int							malloc_input(t_all *all);
 int							is_token(char c);
 int							all_verifs(char *line);
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
@@ -74,7 +85,7 @@ t_simple_cmds				*create_node_cmds(t_simple_cmds **cmds,
 t_simple_cmds				*ft_new_cmds(int i);
 char						*strjoinfree(char const *s1, char const *s2);
 void						ft_free(char **strs);
-t_simple_cmds				*sort_cmds(t_lexer **lexer);
+int							sort_cmds(t_all *all);
 
 int							is_token_space(char c);
 int							count_word(const char *str);
@@ -90,15 +101,14 @@ t_lexer						*ft_last(t_lexer *lst);
 int							ft_size(t_lexer *lst);
 char						*get_current_dir(void);
 void						node_affichage(t_lexer *lexer);
-char						*verif_space(char *line);
-char						*verif_quotes(char *line);
+int							verif_quotes(char *line);
+int							verif_space(char *line);
 void						init_token(t_lexer *lexer);
 int							state_init(t_lexer *stack);
 int							state_string(t_lexer *stack);
 int							state_pipe(t_lexer *stack);
 int							state_redirection(t_lexer *stack);
 void						cmds_affichage(t_simple_cmds **cmds);
-void						init_redirection(t_lexer *redirection);
 char						**malloc_strs(int arg_count);
 char						*free_nodes(t_simple_cmds *cmds);
 void						ft_free(char **strs);

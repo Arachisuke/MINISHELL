@@ -3,36 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   fonction.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/21 17:14:32 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/22 18:01:51 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	**malloc_input(char *line)
+int	malloc_input(t_all *all)
 {
 	int		count;
-	char	**strs;
 	int		i;
 
 	i = 0;
-	strs = NULL;
-	count = count_word(line);
-	while (line[i])
+	all->strs = NULL;
+	count = count_word(all->line);
+	while (all->line[i])
 	{
-		if (is_token(line[i]))
+		if (is_token(all->line[i]))
 			count++;
 		i++;
 	}
-	strs = malloc(sizeof(char *) * (count + 1));
-	if (!strs)
-		return (NULL);
-	strs[count] = NULL;
+	all->strs = malloc(sizeof(char *) * (count + 1));
+	if (!all->strs)
+		return (0);
+	all->strs[count] = NULL;
 	i = 0;
-	return (strs);
+	return (1);
 }
 void	node_affichage(t_lexer *lexer)
 {

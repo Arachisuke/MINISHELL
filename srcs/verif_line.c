@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   verif_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/21 15:57:40 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/22 18:03:01 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*verif_quotes(char *line)
+int	verif_quotes(char *line)
 {
 	int		i;
 	char	quote;
@@ -35,32 +35,30 @@ char	*verif_quotes(char *line)
 			flag = 0;
 	}
 	if (flag == 1)
-		return(0);
-	return (NULL);
+		return (0);
+	return (1);
 }
-char *verif_space(char *line)
+int	verif_space(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
-		if (!line)
-		return (NULL);
+	if (!line)
+		return (0);
 	while (is_space(line[i]))
 		i++;
 	if ((size_t)i == ft_strlen(line))
-		return (NULL);
-	return(NULL);
+		return (0);
+	return (1);
 }
 
-int all_verifs(char *line)
+int	all_verifs(char *line)
 {
-	verif_space(line);
-	verif_quotes(line);
+	int	ret;
 
-	return(0);
+	ret = 0;
+	ret = verif_space(line);
+	if (ret == 1)
+		ret = verif_quotes(line);
+	return (ret);
 }
-
-
-
-
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/22 16:00:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/22 18:03:25 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,36 +30,31 @@ char	*get_current_dir(void)
 
 int	main(void)
 {
-	t_lexer			*lexer;
-	t_simple_cmds	*cmds;
-	char			**strs;
-	char			*line;
-
-	line = NULL;
-	lexer = NULL;
-	cmds = NULL;
-	strs = NULL;
+	t_all	all;
+	
 	while (1)
 	{
-		line = get_current_dir();
-		if (!*line || !line) // que faire quand ya rien ?
+		all.line = get_current_dir();
+		if (!*all.line || !all.line) // que faire quand ya rien ?
 			continue ;
-		if (ft_strncmp(line, "exit", 4) == 0)
+		if (ft_strncmp(all.line, "exit", 4) == 0)
 			break ;
-		all_verifs(line);
-		strs = malloc_input(line);
-		if (line)
-		add_history(line);
-		if (!strs)
+		if (!all_verifs(all.line))
+			return(printf("error syntax"), 1);
+		if (!malloc_input(&all))
 			return (errno);
-		strs = parse_line(line, strs);
-		if (!strs)
+		if (all.line)
+			add_history(all.line);
+		if (!all.strs)
 			return (errno);
-		lexer = create_node(&lexer, strs);
-		// node_affichage(lexer);
-		state_init(lexer);
-		cmds = sort_cmds(&lexer);
-		cmds_affichage(&cmds);
+		if (!parse_line(all.line, all.strs))
+			return (errno);
+		all.lexer = create_node(&all.lexer, all.strs);
+		// node_affichage(all.lexer);
+		state_init(all.lexer);
+		if (!sort_cmds(&all))
+			return (errno);
+		cmds_affichage(&all.cmds);
 	}
 	return (0);
 }
