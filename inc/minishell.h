@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/23 11:34:10 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:13:58 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ typedef struct s_lexer
 	struct s_lexer			*prev;
 }							t_lexer;
 
+typedef struct s_redir
+{
+	char					*file_name;
+	t_token					token;
+	struct s_redir			*next;
+}							t_redir;
+
 typedef struct s_simple_cmds
 {
 	int						name;
@@ -56,11 +63,7 @@ typedef struct s_simple_cmds
 	// int						(*builtin)(t_tools *, struct s_simple_cmds *);
 	bool					is_builtin;
 	int						num_redirections;
-	char					*infile;
-	char					*outfile;
-	int						redir_infile;
-	int						redir_outfile;
-	int						hd_file;
+	t_redir					*redir;
 	struct s_simple_cmds	*next;
 	struct s_simple_cmds	*prev;
 }							t_simple_cmds;
@@ -74,14 +77,6 @@ typedef struct s_all
 	char					*line;
 	char					**strs;
 }							t_all;
-
-typedef struct s_redir
-{
-	int						token;
-	char *filename; // limiteur en cas de D_lower dans token
-	struct s_redir			*next;
-
-}							t_redir;
 
 int							is_space(char c);
 int							malloc_input(t_all *all);
@@ -108,6 +103,8 @@ t_lexer						*ft_new(void *content, int i);
 void						ft_back(t_lexer **lst, t_lexer *new);
 t_lexer						*ft_last(t_lexer *lst);
 int							ft_size(t_lexer *lst);
+int							if_here_doc(t_all *all);
+
 char						*get_current_dir(void);
 void						node_affichage(t_lexer *lexer);
 int							verif_quotes(char *line);
@@ -117,9 +114,12 @@ int							state_init(t_lexer *stack);
 int							state_string(t_lexer *stack);
 int							state_pipe(t_lexer *stack);
 int							state_redirection(t_lexer *stack);
-void						cmds_affichage(t_simple_cmds **cmds);
+void						cmds_affichage(t_simple_cmds *cmds);
 char						**malloc_strs(int arg_count);
 char						*free_nodes(t_simple_cmds *cmds);
 void						ft_free(char **strs);
+void						ft_back_redir(t_redir **lst, t_redir *new);
+t_redir						*ft_new_redir(void);
+t_redir						*ft_last_redir(t_redir *lst);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_cmds_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:25:10 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/21 17:24:41 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/22 18:29:23 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*free_nodes(t_simple_cmds *cmds)
 	{
 		if (cmds->strs)
 			ft_free(cmds->strs);
+		if (cmds->redir)
+			free(cmds->redir);
 		curr = cmds->next;
 		free(cmds);
 		cmds = NULL;

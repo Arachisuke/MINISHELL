@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/22 18:03:25 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:14:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	main(void)
 		state_init(all.lexer);
 		if (!sort_cmds(&all))
 			return (errno);
-		cmds_affichage(&all.cmds);
+		cmds_affichage(all.cmds);
+		if_here_doc(&all);
 	}
 	return (0);
 }

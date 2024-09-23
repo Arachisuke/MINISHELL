@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fonction.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/22 18:01:51 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:29:30 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	malloc_input(t_all *all)
 {
-	int		count;
-	int		i;
+	int	count;
+	int	i;
 
 	i = 0;
 	all->strs = NULL;
@@ -23,7 +23,11 @@ int	malloc_input(t_all *all)
 	while (all->line[i])
 	{
 		if (is_token(all->line[i]))
+		{
+			if (is_token(all->line[i + 1]))
+				i++;
 			count++;
+		}
 		i++;
 	}
 	all->strs = malloc(sizeof(char *) * (count + 1));
@@ -49,17 +53,29 @@ void	node_affichage(t_lexer *lexer)
 		// tmp = tmp->next; */
 	}
 }
-void	cmds_affichage(t_simple_cmds **cmds)
+void	cmds_affichage(t_simple_cmds *cmds)
 {
 	t_simple_cmds	*tmp;
+	t_redir			*tmp_redir;
 	int				i;
 
 	i = 0;
-	tmp = *cmds;
+	tmp = cmds;
+	tmp_redir = cmds->redir;
 	while (tmp)
 	{
-		printf("node = %d\nis builtin = %d\nredir_infile = %d\nredir_outfile = %d\noutfile = %s\ninfile = %s\n",
-			tmp->name, tmp->is_builtin, tmp->redir_infile, tmp->redir_outfile, tmp->outfile, tmp->infile);
+		printf("node = %d\nis builtin = %d\n", tmp->name, tmp->is_builtin);
+		tmp_redir = tmp->redir;
+		if (tmp_redir)
+		{
+			while (tmp_redir)
+			{
+				printf("redir = %d\nfile_name = %s\n", tmp_redir->token,
+					tmp_redir->file_name);
+				tmp_redir = tmp_redir->next;
+			}
+		}
+		printf("\n");
 		while (tmp->strs[i])
 		{
 			printf("strs[%d] = %s\n", i, tmp->strs[i]);

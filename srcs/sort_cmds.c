@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/23 11:44:56 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/23 15:20:38 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	count_arg(t_lexer *curr)
 	}
 	return (count);
 }
+
 void	sort_cmds_args(t_lexer *curr, t_simple_cmds **tmp, int *i)
 {
 	if ((curr->token == STRING && curr->prev && curr->prev->token == STRING)
@@ -45,29 +46,33 @@ void	sort_cmds_args(t_lexer *curr, t_simple_cmds **tmp, int *i)
 		(*tmp)->is_builtin = 1;
 }
 
-void	sort_redir(t_lexer *curr, t_simple_cmds **tmp)
+void	sort_redir(t_lexer *tmp_lexer, t_simple_cmds **tmp_cmds)
 {
-	if (curr->token == GREATER || curr->token == D_GREATER)
-		(*tmp)->redir_outfile = curr->token;
-	else if (curr->token == LOWER || curr->token == D_LOWER)
-		(*tmp)->redir_infile = curr->token;
-	if (curr->next && curr->next->token == STRING)
+	t_redir	*last_redir;
+
+	if (!tmp_lexer || !tmp_cmds)
+		return ;
+	ft_back_redir(&(*tmp_cmds)->redir, ft_new_redir());
+	last_redir = ft_last_redir((*tmp_cmds)->redir);
+	if (tmp_lexer->token != STRING && tmp_lexer->token != PIPE)
+		last_redir->token = tmp_lexer->token;
+	if (tmp_lexer->next && tmp_lexer->next->token == STRING)
 	{
-		if (curr->token == GREATER || curr->token == D_GREATER)
-			(*tmp)->outfile = curr->next->string;
-		else if (curr->token == LOWER || curr->token == D_LOWER)
-			(*tmp)->infile = curr->next->string;
-		curr = curr->next;
+		if (tmp_lexer->token != STRING && tmp_lexer->token != PIPE)
+			last_redir->file_name = tmp_lexer->next->string;
+		tmp_lexer = tmp_lexer->next;
 	}
 }
 
-void	sort_redir_and_cmds_args(t_lexer **curr, t_simple_cmds **tmp, int *i)
+void	sort_redir_and_cmds_args(t_all **all, int *i)
 {
-	if ((*curr)->token == GREATER || (*curr)->token == D_GREATER
-		|| (*curr)->token == LOWER || (*curr)->token == D_LOWER)
-		sort_redir(*curr, tmp);
-	else if ((*curr)->token == STRING)
-		sort_cmds_args(*curr, tmp, i);
+	if (((*all)->tmp_lexer)->token == GREATER
+		|| ((*all)->tmp_lexer)->token == D_GREATER
+		|| ((*all)->tmp_lexer)->token == LOWER
+		|| ((*all)->tmp_lexer)->token == D_LOWER)
+		sort_redir((*all)->tmp_lexer, &((*all)->tmp_cmds));
+	else if (((*all)->tmp_lexer)->token == STRING)
+		sort_cmds_args((*all)->tmp_lexer, &((*all)->tmp_cmds), i);
 }
 
 int	passing_next_cmds(t_simple_cmds **tmp, t_lexer *curr, t_simple_cmds **cmds,
@@ -86,7 +91,7 @@ int	sort_cmds(t_all *all)
 	int	i;
 
 	i = 0;
-	all->tmp_lexer = &*all->lexer;
+	all->tmp_lexer = all->lexer;
 	all->cmds = malloc_cmds_struct(all->tmp_lexer);
 	if (!all->cmds)
 		return (0);
@@ -97,7 +102,7 @@ int	sort_cmds(t_all *all)
 	while (all->tmp_lexer)
 	{
 		if (all->tmp_lexer->token != PIPE)
-			sort_redir_and_cmds_args(&all->tmp_lexer, &all->tmp_cmds, &i);
+			sort_redir_and_cmds_args(&all, &i);
 		else if (!passing_next_cmds(&all->tmp_cmds, all->tmp_lexer, &all->cmds,
 				&i))
 			return (0);
@@ -105,44 +110,4 @@ int	sort_cmds(t_all *all)
 			all->tmp_lexer = all->tmp_lexer->next;
 	}
 	return (1);
-}
-
-int	if_here_doc(t_all *all, t_redir *redir)
-{
-	while (redir)
-	{
-		if (redir->token == D_LOWER)               // si heredoc
-			here_doc(all, redir, redir->filename); // jenvoie here_doc le lim
-		redir = redir->next;
-	}
-}
-int	here_doc(t_all *all, t_redir *redir, char *limiteur)
-{
-	char	*str;
-	char	*file_name;
-
-	file_name = limiteur;
-	file_name = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (file_name < 0)
-		return (1);
-	while (1)
-	{
-		write(1, "> ", 2); // proteger ouuuu
-		if (get_next_line(0, &str) == NULL) // si ya un controle D ou autre une ligne vide
-			return (1);
-		if (ft_strlen(str) == ft_strlen(limiteur) + 1)
-		{
-			if (!ft_strncmp(str, limiteur, ft_strlen(limiteur)))
-				break ;
-		}
-		write(file_name, str, ft_strlen(str));
-		free(str);
-	}
-	free(str);
-	close(file_name);
-	if (!redir->next)
-		file_name = open(file_name, O_RDONLY);
-	if (file_name < 0)
-		return (1);
-	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_tcmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:21:06 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/21 16:04:26 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:45:10 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,17 @@ t_simple_cmds	*ft_new_cmds(int i)
 
 	elem = malloc(sizeof(t_simple_cmds));
 	if (!elem)
-		return (NULL);
+		return (NULL);	
 	elem->is_builtin = 0;
 	elem->name = i;
 	elem->next = NULL;
+	elem->redir = NULL;
 	elem->prev = NULL;
-	elem->infile = NULL;
-	elem->outfile = NULL;
-	elem->redir_infile = 0;
-	elem->redir_outfile = 0;
 	elem->num_redirections = 0;
 	elem->strs = NULL;
 	return (elem);
 }
+
 void	ft_back_cmds(t_simple_cmds **lst, t_simple_cmds *new)
 {
 	t_simple_cmds	*last;
