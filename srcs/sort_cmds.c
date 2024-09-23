@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/22 17:46:21 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:11:45 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	count_arg(t_lexer *curr)
 	}
 	return (count);
 }
+
 void	sort_cmds_args(t_lexer *curr, t_simple_cmds **tmp, int *i)
 {
 	if ((curr->token == STRING && curr->prev && curr->prev->token == STRING)
@@ -45,29 +46,33 @@ void	sort_cmds_args(t_lexer *curr, t_simple_cmds **tmp, int *i)
 		(*tmp)->is_builtin = 1;
 }
 
-void	sort_redir(t_lexer *curr, t_simple_cmds **tmp)
+void	sort_redir(t_lexer *tmp_lexer, t_simple_cmds **tmp_cmds)
 {
-	if (curr->token == GREATER || curr->token == D_GREATER)
-		(*tmp)->redir_outfile = curr->token;
-	else if (curr->token == LOWER || curr->token == D_LOWER)
-		(*tmp)->redir_infile = curr->token;
-	if (curr->next && curr->next->token == STRING)
+	t_redir	*last_redir;
+
+	if (!tmp_lexer || !tmp_cmds)
+		return ;
+	ft_back_redir(&(*tmp_cmds)->redir, ft_new_redir());
+	last_redir = ft_last_redir((*tmp_cmds)->redir);
+	if (tmp_lexer->token != STRING && tmp_lexer->token != PIPE)
+		last_redir->token = tmp_lexer->token;
+	if (tmp_lexer->next && tmp_lexer->next->token == STRING)
 	{
-		if (curr->token == GREATER || curr->token == D_GREATER)
-			(*tmp)->outfile = curr->next->string;
-		else if (curr->token == LOWER || curr->token == D_LOWER)
-			(*tmp)->infile = curr->next->string;
-		curr = curr->next;
+		if (tmp_lexer->token != STRING && tmp_lexer->token != PIPE)
+			last_redir->file_name = tmp_lexer->next->string;
+		tmp_lexer = tmp_lexer->next;
 	}
 }
 
-void	sort_redir_and_cmds_args(t_lexer **curr, t_simple_cmds **tmp, int *i)
+void	sort_redir_and_cmds_args(t_all **all, int *i)
 {
-	if ((*curr)->token == GREATER || (*curr)->token == D_GREATER
-		|| (*curr)->token == LOWER || (*curr)->token == D_LOWER)
-		sort_redir(*curr, tmp);
-	else if ((*curr)->token == STRING)
-		sort_cmds_args(*curr, tmp, i);
+	if (((*all)->tmp_lexer)->token == GREATER
+		|| ((*all)->tmp_lexer)->token == D_GREATER
+		|| ((*all)->tmp_lexer)->token == LOWER
+		|| ((*all)->tmp_lexer)->token == D_LOWER)
+		sort_redir((*all)->tmp_lexer, &((*all)->tmp_cmds));
+	else if (((*all)->tmp_lexer)->token == STRING)
+		sort_cmds_args((*all)->tmp_lexer, &((*all)->tmp_cmds), i);
 }
 
 int	passing_next_cmds(t_simple_cmds **tmp, t_lexer *curr, t_simple_cmds **cmds,
@@ -86,7 +91,7 @@ int	sort_cmds(t_all *all)
 	int	i;
 
 	i = 0;
-	all->tmp_lexer = &*all->lexer;
+	all->tmp_lexer = all->lexer;
 	all->cmds = malloc_cmds_struct(all->tmp_lexer);
 	if (!all->cmds)
 		return (0);
@@ -97,7 +102,7 @@ int	sort_cmds(t_all *all)
 	while (all->tmp_lexer)
 	{
 		if (all->tmp_lexer->token != PIPE)
-			sort_redir_and_cmds_args(&all->tmp_lexer, &all->tmp_cmds, &i);
+			sort_redir_and_cmds_args(&all, &i);
 		else if (!passing_next_cmds(&all->tmp_cmds, all->tmp_lexer, &all->cmds,
 				&i))
 			return (0);

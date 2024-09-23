@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/22 17:59:18 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/23 14:59:51 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ typedef struct s_lexer
 	struct s_lexer			*prev;
 }							t_lexer;
 
+typedef struct s_redir
+{
+	char					*file_name;
+	t_token					token;
+	struct s_redir			*next;
+}							t_redir;
+
 typedef struct s_simple_cmds
 {
 	int						name;
@@ -56,10 +63,7 @@ typedef struct s_simple_cmds
 	// int						(*builtin)(t_tools *, struct s_simple_cmds *);
 	bool					is_builtin;
 	int						num_redirections;
-	char					*infile;
-	char					*outfile;
-	int						redir_infile;
-	int						redir_outfile;
+	t_redir					*redir;
 	struct s_simple_cmds	*next;
 	struct s_simple_cmds	*prev;
 }							t_simple_cmds;
@@ -112,5 +116,8 @@ void						cmds_affichage(t_simple_cmds **cmds);
 char						**malloc_strs(int arg_count);
 char						*free_nodes(t_simple_cmds *cmds);
 void						ft_free(char **strs);
+void						ft_back_redir(t_redir **lst, t_redir *new);
+t_redir						*ft_new_redir(void);
+t_redir						*ft_last_redir(t_redir *lst);
 
 #endif
