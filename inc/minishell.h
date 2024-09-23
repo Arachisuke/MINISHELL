@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/22 17:59:18 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:34:10 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_simple_cmds
 	char					*outfile;
 	int						redir_infile;
 	int						redir_outfile;
+	int						hd_file;
 	struct s_simple_cmds	*next;
 	struct s_simple_cmds	*prev;
 }							t_simple_cmds;
@@ -73,6 +74,14 @@ typedef struct s_all
 	char					*line;
 	char					**strs;
 }							t_all;
+
+typedef struct s_redir
+{
+	int						token;
+	char *filename; // limiteur en cas de D_lower dans token
+	struct s_redir			*next;
+
+}							t_redir;
 
 int							is_space(char c);
 int							malloc_input(t_all *all);

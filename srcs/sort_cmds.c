@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/22 17:46:21 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:44:56 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,44 @@ int	sort_cmds(t_all *all)
 			all->tmp_lexer = all->tmp_lexer->next;
 	}
 	return (1);
+}
+
+int	if_here_doc(t_all *all, t_redir *redir)
+{
+	while (redir)
+	{
+		if (redir->token == D_LOWER)               // si heredoc
+			here_doc(all, redir, redir->filename); // jenvoie here_doc le lim
+		redir = redir->next;
+	}
+}
+int	here_doc(t_all *all, t_redir *redir, char *limiteur)
+{
+	char	*str;
+	char	*file_name;
+
+	file_name = limiteur;
+	file_name = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (file_name < 0)
+		return (1);
+	while (1)
+	{
+		write(1, "> ", 2); // proteger ouuuu
+		if (get_next_line(0, &str) == NULL) // si ya un controle D ou autre une ligne vide
+			return (1);
+		if (ft_strlen(str) == ft_strlen(limiteur) + 1)
+		{
+			if (!ft_strncmp(str, limiteur, ft_strlen(limiteur)))
+				break ;
+		}
+		write(file_name, str, ft_strlen(str));
+		free(str);
+	}
+	free(str);
+	close(file_name);
+	if (!redir->next)
+		file_name = open(file_name, O_RDONLY);
+	if (file_name < 0)
+		return (1);
+	return (0);
 }
