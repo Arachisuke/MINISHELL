@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/23 16:06:21 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/23 18:20:17 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,3 +64,13 @@ void	other(char *str)
 
 //< in1 << in2 cat >out1 >out2 -e  >out3 >out4 -er | >  -l out4 cd -l  >out4 -l 
 // verifier le com qui est dans sort_cmds @@@@
+
+
+
+<< lim1 < <<lim 2 || << lim3 < infile1 << lim4
+
+// faire un malloc de fd comme ca... si ya plusieurs je les ouvre tous avec differnet int fd comme ca jai le cheminn de tous, dans l'exec je prendrais le dernier mais comme ca jai ouvert tout les fd jai ecris dedans jai juste a savoir via lexec si cest le dernier lui il va juste parcourir jusqua la fin la node redir...
+// je le return dans node... depuis la fonction comme ca le retour de la fonction sers quaux erreur.. parfait
+
+
+// expander regrouper les info sur les quotes, et commencer lexpand

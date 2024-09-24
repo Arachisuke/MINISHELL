@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/23 16:13:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/23 18:12:31 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_redir
 	char					*file_name;
 	t_token					token;
 	struct s_redir			*next;
+	int						HD;
 }							t_redir;
 
 typedef struct s_simple_cmds
