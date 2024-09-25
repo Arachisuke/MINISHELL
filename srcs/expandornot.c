@@ -6,19 +6,20 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 11:38:17 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:39:31 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*fonctionexpand(char *str, int i, int flag)
+char	*fonctionexpand(t_all *all, char *str, int i, int flag)
 {
 	char	*env;
-	int j;
-	int r;
+	int		j;
+	int		r;
 
 	i++;
+	all->expand->i = i;
 	r = 0;
 	j = i;
 	if (flag)
@@ -28,40 +29,38 @@ char	*fonctionexpand(char *str, int i, int flag)
 		while (str[i] && str[i] != ' ')
 			i++;
 	env = malloc(sizeof(char) * (i + 1));
-	while(j < i)
+	while (j < i)
 		env[r++] = str[j++];
 	env[r] = '\0';
-	if (strncmp(env, "HOME", 4) == 0)
-		env = "/home/wzeraig";
-	printf("env = %s", env);
-
-	return(env);
+	all->expand->strtoexpand = env;
+	all->expand->lenbefore = j - i;
+	return (env);
 }
 
-int	ft_expand(char *str, int i, char quotes, int flag)
+int	ft_expand(t_all *all, int i, char quotes, int flag)
 {
 	int	j;
 
 	j = i;
-	while (str[j])
+	while (all->line[j])
 	{
-		if ((str[j] == SQ || str[j] == DQ) && flag == 0)
-			// quotes du debut je le supp le quotes et preserve ce quil ya a linterieur
+		if ((all->line[j] == SQ || all->line[j] == DQ) && flag == 0)
+		// quotes du debut je le supp le quotes et preserve ce quil ya a linterieur
 		{
-			quotes = str[j];
+			quotes = all->line[j];
 			flag = 1;
-			str[j] = ' ';
+			all->line[j] = ' ';
 		}
-		else if (str[j] == '$')
+		else if (all->line[j] == '$')
 		{
 			if ((flag == 1 && quotes == DQ) || flag == 0)
 				// si je suis entrecote ca doit etre dq si pas entrecote bah ca expand
-				fonctionexpand(str, j, flag);
+				fonctionexpand(all, all->line, j, flag);
 		}
-		else if (str[j] == quotes && flag == 1)
-			// quotes de fin je le supp comme ca ca me garde ce quil ya a linterieur
+		else if (all->line[j] == quotes && flag == 1)
+		// quotes de fin je le supp comme ca ca me garde ce quil ya a linterieur
 		{
-			str[j] = ' ';
+			all->line[j] = ' ';
 			flag = 0;
 		}
 		j++;
@@ -84,7 +83,7 @@ int	expandornot(t_all *all)
 			quotes = all->line[i];
 			all->line[i] = ' ';
 			flag = 1;
-			ft_expand(all->line, i, quotes, flag);
+			ft_expand(all, i, quotes, flag);
 		}
 		i++;
 	}

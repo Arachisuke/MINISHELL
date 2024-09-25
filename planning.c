@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/24 12:26:32 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:22:49 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,3 +74,7 @@ void	other(char *str)
 
 
 // expander regrouper les info sur les quotes, et commencer lexpand
+
+// @ANDY fais la fonction malloc et copie des ENV et rend line tout beau tout propre.
+// faire le tour de toute les fonctions gerer les erreur si ya une erreur free, ect ect...entre chaque cmd ca free.
+
