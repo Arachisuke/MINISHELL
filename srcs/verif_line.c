@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/22 18:03:01 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/24 14:34:39 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	verif_quotes(char *line)
 			quote = line[i];
 			flag = 1;
 		}
-		else if (line[i] != quote && flag == 1)
-			line[i] *= -1;
+		// else if (line[i] != quote && flag == 1)
+		// line[i] *= -1;
 		else if (line[i] == quote && flag == 1)
 			flag = 0;
 	}

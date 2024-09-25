@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/23 18:12:31 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 11:48:00 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ typedef struct s_lexer
 	struct s_lexer			*next;
 	struct s_lexer			*prev;
 }							t_lexer;
+typedef struct s_expand
+{
+	int i; // lendroit ou ya le dollar
+	int						lenbefore;
+	int						lenafter;
+
+}							t_expand;
 
 typedef struct s_redir
 {
@@ -55,6 +62,7 @@ typedef struct s_redir
 	t_token					token;
 	struct s_redir			*next;
 	int						HD;
+
 }							t_redir;
 
 typedef struct s_simple_cmds
@@ -77,6 +85,7 @@ typedef struct s_all
 	t_simple_cmds			*tmp_cmds;
 	char					*line;
 	char					**strs;
+	t_expand				*expand;
 }							t_all;
 
 int							is_space(char c);
@@ -87,6 +96,8 @@ t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
 bool						is_builtin(char *str);
 t_simple_cmds				*create_node_cmds(t_simple_cmds **cmds,
 								int nb_pipe);
+int							expandornot(t_all *all);
+
 t_simple_cmds				*ft_new_cmds(int i);
 char						*strjoinfree(char const *s1, char const *s2);
 void						ft_free(char **strs);

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/23 16:14:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 11:04:33 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ int	main(void)
 			continue ;
 		if (ft_strncmp(all.line, "exit", 4) == 0)
 			break ;
+		if (all.line)
+			add_history(all.line);
 		if (!all_verifs(all.line))
 			return(printf("error syntax"), 1);
 		if (!malloc_input(&all))
 			return (errno);
-		if (all.line)
-			add_history(all.line);
 		if (!all.strs)
 			return (errno);
+		expandornot(&all);
 		if (!parse_line(all.line, all.strs))
 			return (errno);
 		all.lexer = create_node(&all.lexer, all.strs);
@@ -56,6 +57,7 @@ int	main(void)
 			return (errno);
 		cmds_affichage(all.cmds);
 		if_here_doc(&all);
+		expandornot(&all);
 	}
 	return (0);
 }
