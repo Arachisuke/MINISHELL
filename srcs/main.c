@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 12:35:54 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:43:31 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	
 	while (1)
 	{
+		get_env(envp, &all);
 		all.line = get_current_dir();
 		if (!*all.line || !all.line) // que faire quand ya rien ?
 			continue ;
