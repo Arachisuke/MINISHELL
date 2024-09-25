@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 11:48:00 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 11:50:10 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ typedef struct s_expand
 	int i; // lendroit ou ya le dollar
 	int						lenbefore;
 	int						lenafter;
-
+	char					**envp;
+	
 }							t_expand;
 
 typedef struct s_redir
