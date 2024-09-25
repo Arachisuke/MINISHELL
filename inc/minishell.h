@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 12:38:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 15:58:48 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ typedef struct s_expand
 	int						i;
 	int						lenbefore;
 	int						lenafter;
-	char					*strtoexpand; // la string a expand
-	char					strexpanded; // la string expanded.
-	char					**envp;
+	char *strtoexpand; // la string a expand
+	char *strexpanded; // la string expanded.
+	struct s_expand			*next;
 
 }							t_expand;
 
@@ -88,6 +88,7 @@ typedef struct s_all
 	t_simple_cmds			*tmp_cmds;
 	char					*line;
 	char					**strs;
+	char					**envp;
 	t_expand				*expand;
 }							t_all;
 
@@ -136,5 +137,6 @@ void						ft_free(char **strs);
 void						ft_back_redir(t_redir **lst, t_redir *new);
 t_redir						*ft_new_redir(void);
 t_redir						*ft_last_redir(t_redir *lst);
+int							get_final_line(t_all *all);
 
 #endif
