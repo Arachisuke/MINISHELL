@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 11:04:33 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:36:12 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ char	*get_current_dir(void)
 	return (line);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_all	all;
 	
 	while (1)
 	{
+		get_env(envp, &all);
 		all.line = get_current_dir();
 		if (!*all.line || !all.line) // que faire quand ya rien ?
 			continue ;
