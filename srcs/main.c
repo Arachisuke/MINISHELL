@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 12:43:31 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 17:27:46 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ char	*get_current_dir(void)
 int	main(int argc, char **argv, char **envp)
 {
 	t_all	all;
-	
+
+	(void)argc;
+	(void)argv;
 	while (1)
 	{
-		get_env(envp, &all);
 		all.line = get_current_dir();
 		if (!*all.line || !all.line) // que faire quand ya rien ?
 			continue ;
@@ -43,21 +44,23 @@ int	main(int argc, char **argv, char **envp)
 		if (all.line)
 			add_history(all.line);
 		if (!all_verifs(all.line))
-			return(printf("error syntax"), 1);
+			return (printf("error syntax"), 1);
 		if (!malloc_input(&all))
 			return (errno);
 		if (!all.strs)
 			return (errno);
+		get_env(envp, &all);
+		all.line = expandornot(&all);
+		expand_affichage(all.expand);
 		if (!parse_line(all.line, all.strs))
 			return (errno);
 		all.lexer = create_node(&all.lexer, all.strs);
-		// node_affichage(all.lexer);
+		//node_affichage(all.lexer);
 		state_init(all.lexer);
 		if (!sort_cmds(&all))
 			return (errno);
-		cmds_affichage(all.cmds);
+		//cmds_affichage(all.cmds);
 		if_here_doc(&all);
-		expandornot(&all);
 	}
 	return (0);
 }

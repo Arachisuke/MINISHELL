@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 12:22:49 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 17:43:18 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,3 +78,6 @@ void	other(char *str)
 // @ANDY fais la fonction malloc et copie des ENV et rend line tout beau tout propre.
 // faire le tour de toute les fonctions gerer les erreur si ya une erreur free, ect ect...entre chaque cmd ca free.
 
+
+
+// VERIFIER EXPAND EN L'AFFICHANT YA UN PB

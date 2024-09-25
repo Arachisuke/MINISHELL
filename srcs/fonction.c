@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/23 17:29:30 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 17:41:56 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,19 @@ void	node_affichage(t_lexer *lexer)
 			%d\n",
 		// 	tmp->string, tmp, tmp->prev, tmp->next, tmp->token);
 		// tmp = tmp->next; */
+	}
+}
+void	expand_affichage(t_expand *expand)
+{
+	t_expand	*tmp;
+
+	tmp = expand;
+	while (tmp)
+	{
+		printf("i = %d\nlenbefore = %d\nlenafter = %d\nstrtoexpand= %s\n", tmp->i, tmp->lenbefore,
+			tmp->lenafter, tmp->strtoexpand);
+		tmp = tmp->next;
+		printf("\n");
 	}
 }
 void	cmds_affichage(t_simple_cmds *cmds)

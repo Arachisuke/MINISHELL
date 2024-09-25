@@ -6,14 +6,15 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:37:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 12:37:59 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:57:15 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 
-int get_env(t_expand *expand)
+
+int get_expand(t_expand *expand)
 {
 	
 }

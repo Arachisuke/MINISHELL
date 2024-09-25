@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 12:38:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 16:18:54 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ typedef struct s_expand
 	int						i;
 	int						lenbefore;
 	int						lenafter;
-	char					*strtoexpand; // la string a expand
-	char					strexpanded; // la string expanded.
-	char					**envp;
+	char *strtoexpand; // la string a expand
+	char *strexpanded; // la string expanded.
+	struct s_expand			*next;
 
 }							t_expand;
 
@@ -89,6 +89,7 @@ typedef struct s_all
 	char					*line;
 	char					**strs;
 	t_expand				*expand;
+	char					**envp;
 }							t_all;
 
 int							is_space(char c);
@@ -97,14 +98,18 @@ int							is_token(char c);
 int							all_verifs(char *line);
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
 bool						is_builtin(char *str);
+int							get_env(char **env, t_all *all);
+
 t_simple_cmds				*create_node_cmds(t_simple_cmds **cmds,
 								int nb_pipe);
-int							expandornot(t_all *all);
+char						*expandornot(t_all *all);
 
 t_simple_cmds				*ft_new_cmds(int i);
 char						*strjoinfree(char const *s1, char const *s2);
 void						ft_free(char **strs);
 int							sort_cmds(t_all *all);
+void						ft_back_expand(t_expand **lst, t_expand *new);
+t_expand					*ft_new_expand(void);
 
 int							is_token_space(char c);
 int							count_word(const char *str);
@@ -136,5 +141,7 @@ void						ft_free(char **strs);
 void						ft_back_redir(t_redir **lst, t_redir *new);
 t_redir						*ft_new_redir(void);
 t_redir						*ft_last_redir(t_redir *lst);
+t_expand					*create_nodexpand(t_expand **expand, int nbrexpand);
+void						expand_affichage(t_expand *expand);
 
 #endif

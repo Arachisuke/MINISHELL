@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/19 16:25:40 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/25 17:27:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ char	*tokenisation(char **strs, char *line, int *index, int *j)
 
 char	**parse_line(char *line, char **strs)
 {
-	int end;
-	int start;
-	int j;
-	int i;
+	int	end;
+	int	start;
+	int	j;
+	int	i;
 
 	end = 0;
 	start = 0;
@@ -131,5 +131,6 @@ char	**parse_line(char *line, char **strs)
 		if (is_token(line[i]))
 			strs[j] = tokenisation(strs, line, &i, &j);
 	}
+	strs[j] = NULL;
 	return (strs);
 }

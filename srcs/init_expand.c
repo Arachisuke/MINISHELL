@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_t_redir.c                                     :+:      :+:    :+:   */
+/*   init_expand.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 12:09:41 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/25 12:57:06 by wzeraig          ###   ########.fr       */
+/*   Created: 2024/09/25 12:57:36 by wzeraig           #+#    #+#             */
+/*   Updated: 2024/09/25 15:47:22 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_redir	*ft_last_redir(t_redir *lst) // a modifier
+t_expand	*create_nodexpand(t_expand **expand, int nbrexpand)
 {
-	t_redir *actuel;
+	int	i;
+
+	i = 0;
+	while (i < nbrexpand)
+	{
+		ft_back_expand(expand, ft_new_expand());
+		i++;
+	}
+	return (*expand);
+}
+
+t_expand	*ft_last_expand(t_expand *lst) // a modifier
+{
+	t_expand *actuel;
 
 	if (!lst)
 		return (NULL);
@@ -24,22 +37,25 @@ t_redir	*ft_last_redir(t_redir *lst) // a modifier
 	return (actuel);
 }
 
-t_redir	*ft_new_redir(void)
+t_expand	*ft_new_expand(void)
 {
-	t_redir	*elem;
+	t_expand	*elem;
 
-	elem = malloc(sizeof(t_redir));
+	elem = malloc(sizeof(t_expand));
 	if (!elem)
 		return (NULL);
-	elem->file_name = NULL;
-	elem->token = 6;
+	elem->i = 0;
+	elem->lenafter = 0;
+	elem->lenbefore = 0;
 	elem->next = NULL;
+	elem->strexpanded = NULL;
+	elem->strtoexpand = NULL;
 	return (elem);
 }
 
-void	ft_back_redir(t_redir **lst, t_redir *new)
+void	ft_back_expand(t_expand **lst, t_expand *new)
 {
-	t_redir	*last;
+	t_expand	*last;
 
 	if (!new)
 		return ;
@@ -47,7 +63,7 @@ void	ft_back_redir(t_redir **lst, t_redir *new)
 		*lst = new;
 	else
 	{
-		last = ft_last_redir(*lst);
+		last = ft_last_expand(*lst);
 		last->next = new;
 	}
 }
