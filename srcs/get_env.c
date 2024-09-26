@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:52:42 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/26 11:40:20 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 11:45:00 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 char	**get_env(char **envp, t_all *all)
 {
 	if (!envp)
-		return (1);
+		return (NULL);
 	all->envp = envp;
 	if (!all->envp)
-		return (1);
+		return (NULL);
 	return (0);
 }

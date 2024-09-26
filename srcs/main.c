@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 11:32:59 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 11:57:57 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ int	main(int argc, char **argv, char **envp)
 			add_history(all.line);
 		if (!all_verifs(all.line))
 			return (errno);
-		if (get_final_line(&all))
-			return (errno);
+		get_env(envp, &all);
+		all.line = expandornot(&all);
+		expand_affichage(all.expand);
+		// if (get_final_line(&all))
+		// 	return (errno);
 		if (!malloc_input(&all))
 			return (errno);
 		if (!all.strs)
 			return (errno);
-		get_env(envp, &all);
-		all.line = expandornot(&all);
-		expand_affichage(all.expand);
 		if (!parse_line(all.line, all.strs))
 			return (errno);
 		all.lexer = create_node(&all.lexer, all.strs);
