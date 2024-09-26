@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 17:43:18 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 13:38:29 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,3 +81,4 @@ void	other(char *str)
 
 
 // VERIFIER EXPAND EN L'AFFICHANT YA UN PB
+<$HOME $'HOME' '$HOME' '$'HOME "$HOME" "$""HOME" $$HOME

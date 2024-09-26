@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 14:57:36 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:05:57 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_simple_cmds				*ft_new_cmds(int i);
 char						*strjoinfree(char const *s1, char const *s2);
 void						ft_free(char **strs);
 int							sort_cmds(t_all *all);
-void						ft_back_expand(t_expand **lst, t_expand *new);
+t_expand					*ft_back_expand(t_expand **lst, t_expand *new);
 t_expand					*ft_new_expand(void);
 int							is_token_space(char c);
 int							count_word(const char *str);
@@ -148,5 +148,6 @@ t_redir						*ft_last_redir(t_redir *lst);
 int							get_final_line(t_all *all);
 t_expand					*create_nodexpand(t_expand **expand, int nbrexpand);
 void						expand_affichage(t_expand *expand);
+int							find_var(t_all *all, char **envp);
 
 #endif

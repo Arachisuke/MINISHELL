@@ -1,5 +1,5 @@
 NAME = minishell
-SRC	= srcs/fonction.c srcs/main.c srcs/init_node.c srcs/tokenisation.c srcs/verif_line.c srcs/automate.c srcs/here_doc.c \
+SRC	= srcs/fonction.c srcs/main.c srcs/init_node.c srcs/tokenisation.c srcs/verif_line.c srcs/automate.c srcs/here_doc.c srcs/find_var.c \
 		 srcs/sort_cmds.c srcs/init_tcmds.c srcs/sort_cmds_utils.c srcs/free.c srcs/init_t_redir.c srcs/expandornot.c \
 		 srcs/init_expand.c srcs/get_env.c srcs/get_final_line.c srcs/mallocs.c \
 		 
