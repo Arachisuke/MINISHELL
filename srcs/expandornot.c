@@ -6,28 +6,49 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 14:59:21 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 17:19:49 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int	condition(char *str, int i)
+{
+	if (str[i] == '$' && str[i + 1] && str[i + 1] == '$')
+		return (1);
+	if (str[i] == '$' && str[i + 1] && ft_isdigit(str[i + 1]))
+	{
+		str[i] = ' ';
+		str[i + 1] = ' ';
+		return (1);
+	}
+	if (str[i] == '$' && str[i + 1] && str[i + 1] == SQ)
+	{
+		str[i] = ' ';
+		return (1);
+	}
+	if (str[i] == '$' && str[i + 1] && str[i + 1] == DQ)
+		return (1);
+	if (str[i] == '$' && str[i])
+		return (0);
+	return (1);
+}
 void	fonctionexpand(t_all *all, t_expand **tmp, int i, int flag)
 {
 	char	*env;
 	int		j;
 	int		r;
 
+	j = i;
 	(*tmp)->i = i;
 	i++;
 	r = 0;
 	j = i;
-	if (flag)
+	if (flag && all->line[i])
 		while (all->line[i] != DQ && all->line[i] != SQ && all->line[i] != '$')
 			i++;
-	else
-		while (all->line[i] && ft_isalnum(all->line[i]))
-			i++;
+	while (all->line[i] && ft_isalnum(all->line[i]))
+		i++;
 	env = malloc(sizeof(char) * (i + 1));
 	(*tmp)->lenbefore = i - j + 1;
 	while (j < i)
@@ -64,7 +85,7 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 			flag = 1;
 			all->line[j] = ' ';
 		}
-		else if (all->line[j] == '$')
+		else if (!condition(all->line, j))
 		{
 			if ((flag == 1 && quotes == DQ) || flag == 0)
 			{
@@ -81,11 +102,6 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 	return (2);
 }
 
-
-// int condition(int flag, char *str, char *quotes, int i)
-// {
-// 	if (str[i] == '$' && str[i + 1] != '$')
-// }
 char	*expandornot(t_all *all)
 {
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 13:30:36 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 15:30:18 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	expand_affichage(t_expand *expand)
 	tmp = expand;
 	while (tmp)
 	{
-		printf("i = %d\nlenbefore = %d\nlenafter = %d\nstrtoexpand= %s\nstrexpanded= %s\nlenafter= %d\n", tmp->i, tmp->lenbefore,
-			tmp->lenafter, tmp->strtoexpand, tmp->strexpanded, tmp->lenafter);
+		printf("i = %d\nlenbefore = %d\nlenafter= %d\nstrtoexpand= %s\nstrexpanded= %s\n", tmp->i, tmp->lenbefore,
+			tmp->lenafter, tmp->strtoexpand, tmp->strexpanded);
 		tmp = tmp->next;
 		printf("\n");
 	}
