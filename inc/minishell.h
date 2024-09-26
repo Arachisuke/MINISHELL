@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 11:44:42 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 13:35:24 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,39 +92,37 @@ typedef struct s_all
 	char					**envp;
 }							t_all;
 
-int							is_space(char c);
+t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
 int							malloc_input(t_all *all);
+int							malloc_final_line(char **line, int len_total,
+								char **line_tmp);
+int							is_space(char c);
 int							is_token(char c);
 int							all_verifs(char *line);
-t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
 bool						is_builtin(char *str);
 char						**get_env(char **envp, t_all *all);
-
 t_simple_cmds				*create_node_cmds(t_simple_cmds **cmds,
 								int nb_pipe);
 char						*expandornot(t_all *all);
-
 t_simple_cmds				*ft_new_cmds(int i);
 char						*strjoinfree(char const *s1, char const *s2);
 void						ft_free(char **strs);
 int							sort_cmds(t_all *all);
 void						ft_back_expand(t_expand **lst, t_expand *new);
 t_expand					*ft_new_expand(void);
-
 int							is_token_space(char c);
 int							count_word(const char *str);
 char						*remplir(char **strs, char *line, int start,
 								int end);
 char						*tokenisation(char **strs, char *line, int *index,
 								int *j);
-char	**parse_line(char *line, char **strs); // a tester
+char						**parse_line(char *line, char **strs);
 t_lexer						*create_node(t_lexer **lexer, char **strs);
 t_lexer						*ft_new(void *content, int i);
 void						ft_back(t_lexer **lst, t_lexer *new);
 t_lexer						*ft_last(t_lexer *lst);
 int							ft_size(t_lexer *lst);
 int							if_here_doc(t_all *all);
-
 char						*get_current_dir(void);
 void						node_affichage(t_lexer *lexer);
 int							verif_quotes(char *line);
@@ -143,7 +141,6 @@ t_redir						*ft_new_redir(void);
 t_redir						*ft_last_redir(t_redir *lst);
 int							get_final_line(t_all *all);
 t_expand					*create_nodexpand(t_expand **expand, int nbrexpand);
-
 void						expand_affichage(t_expand *expand);
 
 #endif

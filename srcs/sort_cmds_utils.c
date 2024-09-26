@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:25:10 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/22 18:29:23 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:30:03 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,6 @@ char	*free_nodes(t_simple_cmds *cmds)
 	return (NULL);
 }
 
-t_simple_cmds	*malloc_cmds_struct(t_lexer *current)
-{
-	int				nb_pipe;
-	t_simple_cmds	*cmds;
-
-	nb_pipe = 0;
-	cmds = NULL;
-	while (current)
-	{
-		if (current->token == PIPE)
-			nb_pipe++;
-		current = current->next;
-	}
-	create_node_cmds(&cmds, nb_pipe);
-	if (!cmds)
-		return (free_nodes(cmds), NULL);
-	return (cmds);
-}
 char	*strjoinfree(char const *s1, char const *s2)
 {
 	char	*s;
@@ -98,13 +80,3 @@ char	*strjoinfree(char const *s1, char const *s2)
 	return (s);
 }
 
-char	**malloc_strs(int arg_count)
-{
-	char	**strs;
-
-	strs = malloc(sizeof(char *) * (arg_count + 1));
-	if (!strs)
-		return (NULL);
-	strs[arg_count] = NULL;
-	return (strs);
-}

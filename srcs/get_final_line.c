@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:44:55 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/25 18:04:42 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:31:03 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	get_len_expand_line(t_expand *expand)
 	{
 		if (tmp_expand->strtoexpand)
 		{
-			len_after_total += expand->lenafter;
-			len_before_total += expand->lenbefore;
+			len_after_total += tmp_expand->lenafter;
+			len_before_total += tmp_expand->lenbefore;
 		}
 		tmp_expand = tmp_expand->next;
 	}
@@ -49,23 +49,24 @@ int	get_len_expand_line(t_expand *expand)
 	return (len_total);
 }
 
-int	malloc_final_line(char **line, int len_total, char **line_tmp)
+
+
+void	str_to_expand_exist(int *i, int *j, char *final_line, t_expand *expand)
 {
-	*line_tmp = ft_strdup(*line);
-	if (!*line_tmp)
-		return (free(*line), 1);
-	free(*line);
-	*line = malloc(sizeof(char) * (len_total + 1));
-	if (!*line)
-		return (free(*line_tmp), 1);
-	(*line)[len_total] = '\0';
-	return (0);
+	int	k;
+
+	if (!expand || !final_line)
+		return ;
+	k = 0;
+	while (expand && expand->strexpanded[k])
+		final_line[(*j)++] = expand->strexpanded[k++];
+	*i += expand->lenbefore;
 }
-int	fill_final_line(t_expand *expand, char *final_line, char *line_tmp) // a reduire
+
+int	fill_final_line(t_expand *expand, char *final_line, char *line_tmp)
 {
 	int	i;
 	int	j;
-	int	k;
 
 	i = 0;
 	j = 0;
@@ -73,18 +74,14 @@ int	fill_final_line(t_expand *expand, char *final_line, char *line_tmp) // a red
 		return (1);
 	while (line_tmp[i])
 	{
-		if (i == expand->i)
+		if (expand && i == expand->i)
 		{
-			k = 0;
 			if (!expand->strtoexpand)
 				i += expand->lenbefore;
-			if (expand->strtoexpand)
-			{
-				while (expand && expand->strexpanded[k])
-					final_line[j++] = expand->strexpanded[k++];
-				i += expand->lenbefore;
-			}
-			expand = expand->next;
+			else if (expand->strtoexpand)
+				str_to_expand_exist(&i, &j, final_line, expand);
+			if (expand->next)
+				expand = expand->next;
 		}
 		else
 			final_line[j++] = line_tmp[i++];
