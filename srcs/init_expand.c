@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:57:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 15:47:22 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 12:43:03 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ t_expand	*ft_new_expand(void)
 	return (elem);
 }
 
-void	ft_back_expand(t_expand **lst, t_expand *new)
+t_expand	*ft_back_expand(t_expand **lst, t_expand *new)
 {
 	t_expand	*last;
 
 	if (!new)
-		return ;
+		return (NULL);
 	if (!*lst)
 		*lst = new;
 	else
@@ -66,4 +66,5 @@ void	ft_back_expand(t_expand **lst, t_expand *new)
 		last = ft_last_expand(*lst);
 		last->next = new;
 	}
+	return(new);
 }

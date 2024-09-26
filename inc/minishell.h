@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 11:44:42 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 13:23:59 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_simple_cmds				*ft_new_cmds(int i);
 char						*strjoinfree(char const *s1, char const *s2);
 void						ft_free(char **strs);
 int							sort_cmds(t_all *all);
-void						ft_back_expand(t_expand **lst, t_expand *new);
+t_expand					*ft_back_expand(t_expand **lst, t_expand *new);
 t_expand					*ft_new_expand(void);
 
 int							is_token_space(char c);
@@ -145,5 +145,6 @@ int							get_final_line(t_all *all);
 t_expand					*create_nodexpand(t_expand **expand, int nbrexpand);
 
 void						expand_affichage(t_expand *expand);
+int							find_var(t_all *all, char **envp);
 
 #endif
