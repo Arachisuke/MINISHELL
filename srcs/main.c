@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 13:24:25 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 17:30:13 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 		all.line = expandornot(&all);
 		find_var(&all, all.envp);
 		expand_affichage(all.expand);
-		// if (get_final_line(&all))
+	 if (get_final_line(&all))
 		// 	return (errno);
 		if (!malloc_input(&all))
 			return (errno);
