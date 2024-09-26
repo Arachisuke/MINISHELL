@@ -6,13 +6,11 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:28:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/26 14:39:55 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:36:52 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../inc/minishell.h"
-
 
 char	**malloc_strs(int arg_count)
 {
@@ -49,6 +47,8 @@ int	malloc_input(t_all *all)
 	int	count;
 	int	i;
 
+	if (!all->line || !*all->line)
+		return (ERR_INVALID_INPUT);
 	i = 0;
 	all->strs = NULL;
 	count = count_word(all->line);
@@ -64,10 +64,10 @@ int	malloc_input(t_all *all)
 	}
 	all->strs = malloc(sizeof(char *) * (count + 1));
 	if (!all->strs)
-		return (0);
+		return (ERR_MALLOC);
 	all->strs[count] = NULL;
 	i = 0;
-	return (1);
+	return (SUCCESS);
 }
 
 int	malloc_final_line(char **line, int len_total, char **line_tmp)
@@ -76,9 +76,16 @@ int	malloc_final_line(char **line, int len_total, char **line_tmp)
 	if (!*line_tmp)
 		return (free(*line), ERR_MALLOC);
 	free(*line);
+	*line = NULL;
 	if (len_total <= 0)
-		return (free(*line_tmp), ERR_EMPTY_EXPANSION);
-	*line = malloc(sizeof(char) * (len_total + 1));
+	{
+		free(*line_tmp);
+		*line_tmp = NULL;
+		*line = malloc(sizeof(char));
+		len_total = 0;
+	}
+	else
+		*line = malloc(sizeof(char) * (len_total + 1));
 	if (!*line)
 		return (free(*line_tmp), ERR_MALLOC);
 	(*line)[len_total] = '\0';

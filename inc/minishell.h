@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 15:05:57 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:39:18 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # define ERR_INVALID_INPUT 2
 # define ERR_EMPTY_EXPANSION 3
 # define ERR_FILL_LINE 4
-# define ERR_MALL_O_EMPTY_EXPANSION 5
 
 typedef enum e_token
 {

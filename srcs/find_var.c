@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 13:29:09 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 15:28:02 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	find_var(t_all *all, char **envp)
 			}
 			i++;
 		}
+		if (tmp->strexpanded)
+			tmp->lenafter = ft_strlen(tmp->strexpanded);
 		tmp = tmp->next;
 		i = 0;
 	}
