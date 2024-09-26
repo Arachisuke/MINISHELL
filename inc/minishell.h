@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/25 16:18:54 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 11:40:38 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_all
 	t_simple_cmds			*tmp_cmds;
 	char					*line;
 	char					**strs;
+	char					**envp;
 	t_expand				*expand;
 	char					**envp;
 }							t_all;
@@ -141,7 +142,6 @@ void						ft_free(char **strs);
 void						ft_back_redir(t_redir **lst, t_redir *new);
 t_redir						*ft_new_redir(void);
 t_redir						*ft_last_redir(t_redir *lst);
-t_expand					*create_nodexpand(t_expand **expand, int nbrexpand);
-void						expand_affichage(t_expand *expand);
+
 
 #endif
