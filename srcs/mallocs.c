@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:28:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/26 13:31:07 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:39:55 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ int	malloc_final_line(char **line, int len_total, char **line_tmp)
 {
 	*line_tmp = ft_strdup(*line);
 	if (!*line_tmp)
-		return (free(*line), 1);
+		return (free(*line), ERR_MALLOC);
 	free(*line);
 	if (len_total <= 0)
-		return (free(*line_tmp), 1);
+		return (free(*line_tmp), ERR_EMPTY_EXPANSION);
 	*line = malloc(sizeof(char) * (len_total + 1));
 	if (!*line)
-		return (free(*line_tmp), 1);
+		return (free(*line_tmp), ERR_MALLOC);
 	(*line)[len_total] = '\0';
-	return (0);
+	return (SUCCESS);
 }

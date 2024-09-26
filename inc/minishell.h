@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 13:35:24 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:57:36 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 # include <unistd.h>
 # define SQ '\''
 # define DQ '\"'
+# define SUCCESS 0
+# define ERR_MALLOC 1
+# define ERR_INVALID_INPUT 2
+# define ERR_EMPTY_EXPANSION 3
+# define ERR_FILL_LINE 4
+# define ERR_MALL_O_EMPTY_EXPANSION 5
 
 typedef enum e_token
 {
