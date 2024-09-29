@@ -6,37 +6,13 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 15:30:18 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/26 17:56:40 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	malloc_input(t_all *all)
-{
-	int	count;
-	int	i;
 
-	i = 0;
-	all->strs = NULL;
-	count = count_word(all->line);
-	while (all->line[i])
-	{
-		if (is_token(all->line[i]))
-		{
-			if (is_token(all->line[i + 1]))
-				i++;
-			count++;
-		}
-		i++;
-	}
-	all->strs = malloc(sizeof(char *) * (count + 1));
-	if (!all->strs)
-		return (0);
-	all->strs[count] = NULL;
-	i = 0;
-	return (1);
-}
 void	node_affichage(t_lexer *lexer)
 {
 	t_lexer	*tmp;
@@ -61,6 +37,8 @@ void	expand_affichage(t_expand *expand)
 	while (tmp)
 	{
 		printf("i = %d\nlenbefore = %d\nlenafter= %d\nstrtoexpand= %s\nstrexpanded= %s\n", tmp->i, tmp->lenbefore,
+			tmp->lenafter, tmp->strtoexpand, tmp->strexpanded);
+		printf("i = %d\nlenbefore = %d\nlenafter = %d\nstrtoexpand= %s\nstrexpanded= %s\n", tmp->i, tmp->lenbefore,
 			tmp->lenafter, tmp->strtoexpand, tmp->strexpanded);
 		tmp = tmp->next;
 		printf("\n");

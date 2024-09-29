@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 17:19:49 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:35:17 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ int	condition(char *str, int i)
 		return (1);
 	}
 	if (str[i] == '$' && str[i + 1] && str[i + 1] == SQ)
-	{
-		str[i] = ' ';
 		return (1);
-	}
 	if (str[i] == '$' && str[i + 1] && str[i + 1] == DQ)
 		return (1);
 	if (str[i] == '$' && str[i])
@@ -83,7 +80,7 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 		{
 			quotes = all->line[j];
 			flag = 1;
-			all->line[j] = ' ';
+			all->line[j] = all->line[j] * -1;
 		}
 		else if (!condition(all->line, j))
 		{
@@ -95,7 +92,7 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 		}
 		else if (all->line[j] == quotes && flag == 1)
 		{
-			all->line[j] = ' ';
+			all->line[j] = all->line[j] * -1;
 			flag = 0;
 		}
 	}
@@ -119,7 +116,7 @@ char	*expandornot(t_all *all)
 			quotes = all->line[i];
 			if (all->line[i] != '$')
 			{
-				all->line[i] = ' ';
+				all->line[i] = all->line[i] * -1;
 				flag = 1;
 			}
 			flag = ft_expand(all, i - 1, quotes, flag);

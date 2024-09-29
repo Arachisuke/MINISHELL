@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 17:30:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:38:39 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	init_all(&all);
 	while (1)
 	{
 		all.line = get_current_dir();
@@ -50,10 +51,11 @@ int	main(int argc, char **argv, char **envp)
 		get_env(envp, &all);
 		all.line = expandornot(&all);
 		find_var(&all, all.envp);
-		expand_affichage(all.expand);
-	 if (get_final_line(&all))
-		// 	return (errno);
-		if (!malloc_input(&all))
+		// expand_affichage(all.expand);
+		if (get_final_line(&all))
+			return (errno);
+		all.line = negative_hollow(all.line);
+		if (malloc_input(&all))
 			return (errno);
 		if (!all.strs)
 			return (errno);
@@ -64,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 		state_init(all.lexer);
 		if (!sort_cmds(&all))
 			return (errno);
-		//cmds_affichage(all.cmds);
+		cmds_affichage(all.cmds);
 		if_here_doc(&all);
 	}
 	return (0);

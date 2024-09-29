@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 15:27:38 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/28 14:58:59 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ int	find_var(t_all *all, char **envp)
 	t_expand *tmp;
 
 	i = 0;
+
+	if (!all->expand)
+		return (0);
 	tmp = all->expand;
 	while (tmp)
 	{

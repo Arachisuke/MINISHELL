@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   negative.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 12:02:23 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/28 17:55:10 by wzeraig          ###   ########.fr       */
+/*   Created: 2024/09/28 15:50:54 by wzeraig           #+#    #+#             */
+/*   Updated: 2024/09/28 18:19:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "../inc/minishell.h"
 
-char	*ft_strdup(const char *s)
+char	*negative_hollow(char *s)
 {
 	int		i;
+	int		j;
 	char	*str;
 
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	str = malloc(sizeof(char) * (i + 1));
+	i = -1;
+	j = 0;
+	while (s[++i])
+		if (s[i] < 0)
+			j++;
+	str = malloc(sizeof(char) * (i + 1 - j));
 	if (str == NULL)
 		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
+	i = -1;
+	j = 0;
+	while (s[++i])
+		if (s[i] > 0)
+			str[j++] = s[i];
+	free(s);
+	str[j] = '\0';
 	return (str);
 }
