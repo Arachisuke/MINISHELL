@@ -6,25 +6,42 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/28 14:58:59 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/29 17:55:35 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int	checkredir(char *line, int i)
+{
+	int	j;
+	int	flag;
+
+	j = -1;
+	flag = 0;
+	while (i > ++j)
+	{
+		if (flag == 1 && ((line[j] == '|' || line[j] == ' ') && (line[j
+					- 1] != '<' && line[j - 1] != '>')))
+			flag = 0;
+		else if (flag == 0 && (line[j] == '<' || line[j] == '>'))
+			flag = 1;
+	}
+	return (flag);
+}
+
 int	find_var(t_all *all, char **envp)
 {
-	int i;
-	t_expand *tmp;
+	int			i;
+	t_expand	*tmp;
 
-	i = 0;
-
+	i = -1;
 	if (!all->expand)
 		return (0);
 	tmp = all->expand;
 	while (tmp)
 	{
-		while (envp[i])
+		while (envp[++i])
 		{
 			if ((!ft_strncmp(envp[i], tmp->strtoexpand, tmp->lenbefore - 1))
 				&& (envp[i][tmp->lenbefore - 1] == '='))
@@ -32,13 +49,13 @@ int	find_var(t_all *all, char **envp)
 				tmp->strexpanded = envp[i] + tmp->lenbefore;
 				break ;
 			}
-			i++;
 		}
-		if (tmp->strexpanded)
-			tmp->lenafter = ft_strlen(tmp->strexpanded);
 		tmp = tmp->next;
 		i = 0;
 	}
 	return (0);
-	// chercher dans all.envp la strtoexpand.
 }
+
+// iterer while(i)
+// flag a 1 les redir
+// flag a 0 if flag == 1 et que ya un caractere quelconque

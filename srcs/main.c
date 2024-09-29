@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/28 18:38:39 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/29 17:50:11 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,14 @@ int	main(int argc, char **argv, char **envp)
 			return (errno);
 		get_env(envp, &all);
 		all.line = expandornot(&all);
+		printf("line = %s\n", all.line);
 		find_var(&all, all.envp);
 		// expand_affichage(all.expand);
 		if (get_final_line(&all))
 			return (errno);
+		printf("line = %s\n", all.line);
 		all.line = negative_hollow(all.line);
+		printf("line = %s\n", all.line);
 		if (malloc_input(&all))
 			return (errno);
 		if (!all.strs)
@@ -62,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!parse_line(all.line, all.strs))
 			return (errno);
 		all.lexer = create_node(&all.lexer, all.strs);
-		//node_affichage(all.lexer);
+		// node_affichage(all.lexer);
 		state_init(all.lexer);
 		if (!sort_cmds(&all))
 			return (errno);

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/28 18:35:17 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/29 17:56:47 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	condition(char *str, int i)
 {
+	if (checkredir(str, i))
+		// si cest un file return1 donc je cree meme pas dexpand
+		return (1);
 	if (str[i] == '$' && str[i + 1] && str[i + 1] == '$')
 		return (1);
 	if (str[i] == '$' && str[i + 1] && ft_isdigit(str[i + 1]))
@@ -26,7 +29,7 @@ int	condition(char *str, int i)
 		return (1);
 	if (str[i] == '$' && str[i + 1] && str[i + 1] == DQ)
 		return (1);
-	if (str[i] == '$' && str[i])
+	if (str[i] == '$' && str[i + 1])
 		return (0);
 	return (1);
 }
@@ -53,23 +56,6 @@ void	fonctionexpand(t_all *all, t_expand **tmp, int i, int flag)
 	env[r] = '\0';
 	(*tmp)->strtoexpand = env;
 }
-int	count_expand(t_all *all)
-// compter les $ pour voir le nombre de variable et si ya une fausse variable ne pas l'afficher.
-{
-	int i;
-	int count;
-
-	i = 0;
-	count = 0;
-	while (all->line[i])
-	{
-		if (all->line[i] == '$')
-			count++;
-		i++;
-	}
-	return (count);
-}
-
 int	ft_expand(t_all *all, int j, char quotes, int flag)
 {
 	t_expand	*tmp;

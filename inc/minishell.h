@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/28 18:02:23 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/29 17:33:27 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_expand
 	int						i;
 	int						lenbefore;
 	int						lenafter;
+	int						is_file;
 	char *strtoexpand; // la string a expand
 	char *strexpanded; // la string expanded.
 	struct s_expand			*next;
@@ -150,5 +151,6 @@ void						expand_affichage(t_expand *expand);
 int							find_var(t_all *all, char **envp);
 void						init_all(t_all *all);
 char						*negative_hollow(char *s);
+int							checkredir(char *line, int i);
 
 #endif

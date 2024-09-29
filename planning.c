@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/28 18:38:22 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/29 17:45:30 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,8 @@ void	other(char *str)
 
 
 
-// faire le tour de toute les fonctions gerer les erreur si ya une erreur free, ect ect...entre chaque cmd ca free.
+// faire le tour de toute les fonctions gerer les erreur si ya une erreur free, ect ect...entre chaque cmd ca free.\
+
+
+
+// ERROR_REDIR a verifi gdb @@@@
