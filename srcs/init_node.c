@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:36:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/17 13:46:26 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 14:01:48 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ t_lexer	*create_node(t_lexer **lexer, char **strs)
 			ft_back(lexer, ft_new(strs[i], i));
 		i++;
 	}
+	i = -1;
+	while (strs[++i])
+		strs[i] = NULL;
+	strs = NULL;
 	return (*lexer);
 }
 t_lexer	*ft_new(void *content, int i)

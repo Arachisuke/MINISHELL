@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:18:46 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/30 12:14:09 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 13:44:45 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_free(char **strs)
 
 char	*free_cmds(t_simple_cmds *cmds) // 2
 {
-	t_simple_cmds	*curr;
+	t_simple_cmds *curr;
 
 	if (!cmds)
 		return (NULL);
@@ -50,7 +50,7 @@ char	*free_cmds(t_simple_cmds *cmds) // 2
 }
 char	*free_redir(t_redir *redir) // 1
 {
-	t_redir	*curr;
+	t_redir *curr;
 
 	if (!redir)
 		return (NULL);
@@ -65,9 +65,9 @@ char	*free_redir(t_redir *redir) // 1
 	return (NULL);
 }
 
-char	*free_lexer(t_lexer *lexer) //3 ou 1
+char	*free_lexer(t_lexer *lexer) // 3 ou 1
 {
-	t_lexer	*curr;
+	t_lexer *curr;
 
 	if (!lexer)
 		return (NULL);
@@ -75,7 +75,10 @@ char	*free_lexer(t_lexer *lexer) //3 ou 1
 	while (lexer)
 	{
 		if (lexer->string)
+		{
 			free(lexer->string);
+			lexer->string = NULL;
+		}
 		curr = lexer->next;
 		free(lexer);
 		lexer = NULL;
@@ -84,7 +87,7 @@ char	*free_lexer(t_lexer *lexer) //3 ou 1
 	return (NULL);
 }
 
-char	*free_expand(t_expand *expand) //4
+char	*free_expand(t_expand *expand) // 4
 {
 	t_expand *curr;
 
@@ -93,8 +96,8 @@ char	*free_expand(t_expand *expand) //4
 	curr = expand;
 	while (expand)
 	{
-		if (expand->strexpanded)
-			free(expand->strexpanded); // dois-je le free ? vu que cest env
+		// if (expand->strexpanded)
+		// free(expand->strexpanded); // dois-je le free ? vu que cest env
 		if (expand->strtoexpand)
 			free(expand->strtoexpand);
 		curr = expand->next;

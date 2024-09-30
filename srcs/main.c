@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 12:57:40 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:11:07 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ int	main(int argc, char **argv, char **envp)
 	t_all	all;
 
 	if (argc != 1 || init_all(&all, envp) || argv[1]) // si ya un arg on stop!
-		return (0);  // ya que lui comme structure a init, si ya pas d'envp je return!
+		return (0);                                  
+			// ya que lui comme structure a init, si ya pas d'envp je return!
 	while (1)
 	{
+		init_all(&all, envp);
 		all.line = get_current_dir();
 		if (!all.line || !*all.line) // si ya pas de malloc, si le malloc est vide
 			continue ;
@@ -48,22 +50,24 @@ int	main(int argc, char **argv, char **envp)
 		if (all_verifs(all.line)) // verif line ?
 			return (errno);
 		if (find_var(&all, all.envp))
-			return(0); // erreur dans le expandornot!
+			return (0); // erreur dans le expandornot!
 		// expand_affichage(all.expand);
 		if (get_final_line(&all))
 			return (errno);
+		printf("line = %s\n", all.line);
 		if (malloc_input(&all))
 			continue ;
-		// if (!parse_line(all.line, all.strs)) // renvoie NULL
-		// 	return (errno); 
-		// all.lexer = create_node(&all.lexer, all.strs);
-		// // node_affichage(all.lexer);
-		// if (state_init(all.lexer))
-		// 	return(ERR_INVALID_INPUT);
-		// if (!sort_cmds(&all))
-		// 	return (errno);
-		// cmds_affichage(all.cmds);
-		// if_here_doc(&all);
+		if (!parse_line(all.line, all.strs)) // renvoie NULL
+			return (errno);
+		all.lexer = create_node(&all.lexer, all.strs);
+		// node_affichage(all.lexer);
+		if (state_init(all.lexer))
+			return (ERR_INVALID_INPUT);
+		if (!sort_cmds(&all))
+			return (errno);
+		cmds_affichage(all.cmds);
+		if_here_doc(&all);
+		ft_final(&all, NULL, 0);
 	}
 	return (0);
 }
