@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_cmds_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:25:10 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/26 13:30:03 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:06:18 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,6 @@ bool	is_builtin(char *str)
 	else if (!ft_strncmp(str, "unset", 5) && ft_strlen(str) == 5)
 		return (1);
 	return (0);
-}
-
-char	*free_nodes(t_simple_cmds *cmds)
-{
-	t_simple_cmds	*curr;
-
-	if (!cmds)
-		return (NULL);
-	curr = cmds;
-	while (cmds)
-	{
-		if (cmds->strs)
-			ft_free(cmds->strs);
-		if (cmds->redir)
-			free(cmds->redir);
-		curr = cmds->next;
-		free(cmds);
-		cmds = NULL;
-		cmds = curr;
-	}
-	return (NULL);
 }
 
 char	*strjoinfree(char const *s1, char const *s2)

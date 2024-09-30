@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/29 17:45:30 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 10:50:00 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,3 +86,17 @@ void	other(char *str)
 
 
 // ERROR_REDIR a verifi gdb @@@@
+
+
+
+
+
+// changer les returns, par l'erreur qui correspond ainsi que la fonction qui correspond.
+// la fonction qui free tout, et gerer le parsing relire chaque moment et faire la bonne redirection false -> free, true ->continue
+// tester le here_doc en profondeur et le expander.
+// younes ou autre.
+// builtin
+// exec
+// signaux
+// lire les fonctionnalite a apoorte sur medium
+// corriger les fautes!

@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 11:41:46 by wzeraig          ###   ########.fr       */
+/*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
+/*   Updated: 2024/09/30 12:27:49 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	init_all(t_all *all, char **envp)
+void	free_all(t_all *all)
 {
-	all->cmds = NULL;
-	all->envp = get_env(envp);
-	if (!all->envp)
-		return (1);
-	all->expand = NULL;
-	all->lexer = NULL;
-	all->line = NULL;
-	all->strs = NULL;
-	all->tmp_cmds = NULL;
-	all->tmp_lexer = NULL;
-	return (0);
+	if (all->cmds && all->cmds->redir)
+		free_redir(all->cmds->redir);
+	if (all->cmds)
+		free_cmds(all->cmds);
+	if (all->lexer)
+		free_lexer(all->lexer);
+	if (all->expand)
+		free_expand(all->expand);
+	if (all->strs)
+		ft_free(all->strs);
+	if (all->line)
+		free(all->line);
+}
+void	ft_final(t_all *all, char *str, int fd)
+{
+	free_all(all);
+	ft_putstr_fd(str, fd); // afficher la str et la valeur de retour ?
 }
