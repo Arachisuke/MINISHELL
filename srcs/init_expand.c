@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:57:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 12:43:03 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/29 16:58:52 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_expand	*ft_new_expand(void)
 	elem->i = 0;
 	elem->lenafter = 0;
 	elem->lenbefore = 0;
+	elem->is_file = 0;
 	elem->next = NULL;
 	elem->strexpanded = NULL;
 	elem->strtoexpand = NULL;

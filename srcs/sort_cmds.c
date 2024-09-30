@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/23 15:20:38 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 11:34:25 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	passing_next_cmds(t_simple_cmds **tmp, t_lexer *curr, t_simple_cmds **cmds,
 	(*tmp) = (*tmp)->next;
 	(*tmp)->strs = malloc_strs(count_arg(curr));
 	if (!(*tmp)->strs)
-		return (free_nodes(*cmds), 0);
+		return (free_cmds(*cmds), 0);
 	*i = 0;
 	return (1);
 }
@@ -97,7 +97,7 @@ int	sort_cmds(t_all *all)
 		return (0);
 	all->cmds->strs = malloc_strs(count_arg(all->tmp_lexer));
 	if (!all->cmds->strs)
-		return (free_nodes(all->cmds), 0);
+		return (free_cmds(all->cmds), 0);
 	all->tmp_cmds = all->cmds;
 	while (all->tmp_lexer)
 	{

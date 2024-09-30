@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/26 13:38:29 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 10:50:00 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,30 @@ void	other(char *str)
 // je le return dans node... depuis la fonction comme ca le retour de la fonction sers quaux erreur.. parfait
 
 
+
 // expander regrouper les info sur les quotes, et commencer lexpand
-
 // @ANDY fais la fonction malloc et copie des ENV et rend line tout beau tout propre.
-// faire le tour de toute les fonctions gerer les erreur si ya une erreur free, ect ect...entre chaque cmd ca free.
-
-
-
 // VERIFIER EXPAND EN L'AFFICHANT YA UN PB
-<$HOME $'HOME' '$HOME' '$'HOME "$HOME" "$""HOME" $$HOME
+//<$HOME $'HOME' '$HOME' '$'HOME "$HOME" "$""HOME" $$HOME
+
+
+
+// faire le tour de toute les fonctions gerer les erreur si ya une erreur free, ect ect...entre chaque cmd ca free.\
+
+
+
+// ERROR_REDIR a verifi gdb @@@@
+
+
+
+
+
+// changer les returns, par l'erreur qui correspond ainsi que la fonction qui correspond.
+// la fonction qui free tout, et gerer le parsing relire chaque moment et faire la bonne redirection false -> free, true ->continue
+// tester le here_doc en profondeur et le expander.
+// younes ou autre.
+// builtin
+// exec
+// signaux
+// lire les fonctionnalite a apoorte sur medium
+// corriger les fautes!
