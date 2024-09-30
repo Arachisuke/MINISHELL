@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:18:46 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/30 12:14:09 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 14:53:50 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,82 +25,87 @@ void	ft_free(char **strs)
 		i++;
 	}
 	free(strs);
+	strs = NULL;
 	return ;
 }
 
-char	*free_cmds(t_simple_cmds *cmds) // 2
+char	*free_cmds(t_simple_cmds **cmds) // 2
 {
-	t_simple_cmds	*curr;
+	t_simple_cmds *curr;
 
-	if (!cmds)
+	if (!*cmds || !cmds)
 		return (NULL);
-	curr = cmds;
-	while (cmds)
+	curr = *cmds;
+	while (*cmds)
 	{
-		if (cmds->strs)
-			ft_free(cmds->strs);
-		if (cmds->redir) // free la node redir avant donc free_redir
-			free(cmds->redir);
-		curr = cmds->next;
-		free(cmds);
-		cmds = NULL;
-		cmds = curr;
+		if ((*cmds)->strs)
+			ft_free((*cmds)->strs);
+		if ((*cmds)->redir) // free la node redir avant donc free_redir
+			(*cmds)->redir = NULL;
+		curr = (*cmds)->next;
+		free(*cmds);
+		*cmds = NULL;
+		*cmds = curr;
 	}
 	return (NULL);
 }
-char	*free_redir(t_redir *redir) // 1
+char	*free_redir(t_redir **redir) // 1
 {
-	t_redir	*curr;
+	t_redir *curr;
 
-	if (!redir)
+	if (!*redir || !redir)
 		return (NULL);
-	curr = redir;
-	while (redir) // filename a le meme pointeur que lexer.string
+	curr = *redir;
+	while (*redir) // filename a le meme pointeur que lexer.string
 	{
-		curr = redir->next;
-		free(redir);
-		redir = NULL;
-		redir = curr;
-	}
-	return (NULL);
-}
-
-char	*free_lexer(t_lexer *lexer) //3 ou 1
-{
-	t_lexer	*curr;
-
-	if (!lexer)
-		return (NULL);
-	curr = lexer;
-	while (lexer)
-	{
-		if (lexer->string)
-			free(lexer->string);
-		curr = lexer->next;
-		free(lexer);
-		lexer = NULL;
-		lexer = curr;
+		(*redir)->file_name = NULL;
+		curr = (*redir)->next;
+		free(*redir);
+		*redir = NULL;
+		*redir = curr;
 	}
 	return (NULL);
 }
 
-char	*free_expand(t_expand *expand) //4
+char	*free_lexer(t_lexer **lexer) // 3 ou 1
+{
+	t_lexer *curr;
+
+	if (!*lexer || !lexer)
+		return (NULL);
+	curr = *lexer;
+	while (*lexer)
+	{
+		if ((*lexer)->string)
+		{
+			free((*lexer)->string);
+			(*lexer)->string = NULL;
+		}
+		curr = (*lexer)->next;
+		free(*lexer);
+		*lexer = NULL;
+		*lexer = curr;
+	}
+	return (NULL);
+}
+
+char	*free_expand(t_expand **expand) // 4
 {
 	t_expand *curr;
 
-	if (!expand)
+	if (!*expand || !expand)
 		return (NULL);
-	curr = expand;
-	while (expand)
+	curr = *expand;
+	while (*expand)
 	{
-		if (expand->strexpanded)
-			free(expand->strexpanded); // dois-je le free ? vu que cest env
-		if (expand->strtoexpand)
-			free(expand->strtoexpand);
-		curr = expand->next;
-		free(expand);
-		expand = NULL;
-		expand = curr;
+		// if ((*expand)->strexpanded)
+		// free((*expand)->strexpanded); // dois-je le free ? vu que cest env
+		if ((*expand)->strtoexpand)
+			free((*expand)->strtoexpand);
+		curr = (*expand)->next;
+		free(*expand);
+		*expand = NULL;
+		*expand = curr;
 	}
 	return (NULL);
 }

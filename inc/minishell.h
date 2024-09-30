@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 12:26:57 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 17:22:49 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define SUCCESS 0
 # define ERR_MALLOC 1
 # define ERR_INVALID_INPUT 2
-# define ERR_EMPTY_EXPANSION 3
-# define ERR_FILL_LINE 4
+# define ERR_FILL_LINE 3
+# define ERR_QUOTES 4
 
 typedef enum e_token
 {
@@ -104,12 +104,11 @@ int							malloc_final_line(char **line, int len_total,
 								char **line_tmp);
 int							is_space(char c);
 int							is_token(char c);
-int							all_verifs(char *line);
 bool						is_builtin(char *str);
 char						**get_env(char **envp);
 t_simple_cmds				*create_node_cmds(t_simple_cmds **cmds,
 								int nb_pipe);
-char						*expandornot(t_all *all);
+int							expandornot(t_all *all);
 t_simple_cmds				*ft_new_cmds(int i);
 char						*strjoinfree(char const *s1, char const *s2);
 void						ft_free(char **strs);
@@ -123,7 +122,7 @@ char						*remplir(char **strs, char *line, int start,
 char						*tokenisation(char **strs, char *line, int *index,
 								int *j);
 char						**parse_line(char *line, char **strs);
-t_lexer						*create_node(t_lexer **lexer, char **strs);
+t_lexer						*create_node(t_lexer **lexer, char ***strs);
 t_lexer						*ft_new(void *content, int i);
 void						ft_back(t_lexer **lst, t_lexer *new);
 t_lexer						*ft_last(t_lexer *lst);
@@ -131,7 +130,7 @@ int							ft_size(t_lexer *lst);
 int							if_here_doc(t_all *all);
 char						*get_current_dir(void);
 void						node_affichage(t_lexer *lexer);
-int							verif_quotes(char *line);
+int							verif_quotes(t_all *all, char *line);
 int							verif_space(char *line);
 void						init_token(t_lexer *lexer);
 int							state_init(t_lexer *stack);
@@ -140,7 +139,7 @@ int							state_pipe(t_lexer *stack);
 int							state_redirection(t_lexer *stack);
 void						cmds_affichage(t_simple_cmds *cmds);
 char						**malloc_strs(int arg_count);
-char						*free_cmds(t_simple_cmds *cmds);
+char						*free_cmds(t_simple_cmds **cmds);
 void						ft_free(char **strs);
 void						ft_back_redir(t_redir **lst, t_redir *new);
 t_redir						*ft_new_redir(void);
@@ -152,9 +151,9 @@ int							find_var(t_all *all, char **envp);
 int							init_all(t_all *all, char **envp);
 char						*negative_hollow(char *s);
 int							checkredir(char *line, int i);
-char	*free_redir(t_redir *redir);    // 1
-char	*free_lexer(t_lexer *lexer);    // 3 ou 1
-char	*free_expand(t_expand *expand); // 4
-void						ft_final(t_all *all, char *str, int fd);
+char	*free_redir(t_redir **redir);    // 1
+char	*free_lexer(t_lexer **lexer);    // 3 ou 1
+char	*free_expand(t_expand **expand); // 4
+int							ft_final(t_all *all, int sortie);
 
 #endif

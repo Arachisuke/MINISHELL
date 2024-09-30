@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 14:15:41 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 17:28:50 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,32 @@
 void	free_all(t_all *all)
 {
 	if (all->cmds && all->cmds->redir)
-		free_redir(all->cmds->redir);
+		free_redir(&all->cmds->redir);
 	if (all->cmds)
-		free_cmds(all->cmds);
+		free_cmds(&all->cmds);
 	if (all->lexer) // a tester avant redir
-		free_lexer(all->lexer);
+		free_lexer(&all->lexer);
 	if (all->expand)
-		free_expand(all->expand);
-	if (all->strs)
-		ft_free(all->strs);
+		free_expand(&all->expand);
 	if (all->line)
 		free(all->line);
+	all->line = NULL;
+	all->tmp_cmds = NULL;
+	all->tmp_lexer = NULL;
 }
-void	ft_final(t_all *all, char *str, int fd)
+int	ft_final(t_all *all, int sortie)
 {
+	char *str;
+
 	free_all(all);
-	ft_putstr_fd(str, fd); // afficher la str et la valeur de retour ?
+	if (sortie == ERR_MALLOC)
+		str = "Allocation failed";
+	else if (sortie == ERR_QUOTES)
+		str = "syntax error : unclosed quotes";
+	else if (sortie == 0)
+		return (0);
+	else if (sortie == ERR_INVALID_INPUT) // a supp 
+		str = "syntax error : line";
+	ft_putstr_fd(str, 1);
+	return (sortie);
 }

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/29 17:56:47 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 17:22:19 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	condition(char *str, int i)
 		return (0);
 	return (1);
 }
-void	fonctionexpand(t_all *all, t_expand **tmp, int i, int flag)
+int	fonctionexpand(t_all *all, t_expand **tmp, int i, int flag)
 {
 	char	*env;
 	int		j;
@@ -50,11 +50,14 @@ void	fonctionexpand(t_all *all, t_expand **tmp, int i, int flag)
 	while (all->line[i] && ft_isalnum(all->line[i]))
 		i++;
 	env = malloc(sizeof(char) * (i + 1));
+	if (!env)
+		return (ft_final(all, ERR_MALLOC));
 	(*tmp)->lenbefore = i - j + 1;
 	while (j < i)
 		env[r++] = all->line[j++];
 	env[r] = '\0';
 	(*tmp)->strtoexpand = env;
+	return (0);
 }
 int	ft_expand(t_all *all, int j, char quotes, int flag)
 {
@@ -68,13 +71,11 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 			flag = 1;
 			all->line[j] = all->line[j] * -1;
 		}
-		else if (!condition(all->line, j))
+		else if (!condition(all->line, j) && ((flag && quotes == DQ) || !flag))
 		{
-			if ((flag == 1 && quotes == DQ) || flag == 0)
-			{
-				tmp = ft_back_expand(&all->expand, ft_new_expand());
-				fonctionexpand(all, &tmp, j, flag);
-			}
+			tmp = ft_back_expand(&all->expand, ft_new_expand());
+			if (fonctionexpand(all, &tmp, j, flag))
+				return (1);
 		}
 		else if (all->line[j] == quotes && flag == 1)
 		{
@@ -85,7 +86,7 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 	return (2);
 }
 
-char	*expandornot(t_all *all)
+int	expandornot(t_all *all)
 {
 	int		i;
 	char	quotes;
@@ -109,5 +110,5 @@ char	*expandornot(t_all *all)
 		}
 		i++;
 	}
-	return (all->line);
+	return (flag);
 }

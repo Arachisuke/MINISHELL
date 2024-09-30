@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 10:50:00 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 17:36:26 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,16 @@ void	other(char *str)
 
 // ERROR_REDIR a verifi gdb @@@@
 
+
+
+
+
+
+// AUJOURDHUI 1 octobre
+// de changer les returns et surtout dans state init.
+// revoir la fonction ligne par ligne si tout se rejoins que ce soit au niveau des erreurs etc
+//tester par quelquun
+// builtin
 
 
 

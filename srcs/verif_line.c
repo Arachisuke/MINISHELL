@@ -6,13 +6,13 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 10:40:27 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 17:08:59 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	verif_quotes(char *line)
+int	verif_quotes(t_all *all, char *line)
 {
 	int		i;
 	char	quote;
@@ -32,7 +32,7 @@ int	verif_quotes(char *line)
 			flag = 0;
 	}
 	if (flag == 1)
-		return (1);
+		return (ft_final(all, ERR_QUOTES));
 	return (0);
 }
 
@@ -48,15 +48,4 @@ int	verif_space(char *line) // elle sers a quoi ?
 	if ((size_t)i == ft_strlen(line))
 		return (1);
 	return (0);
-}
-
-int	all_verifs(char *line)
-{
-	int	ret;
-
-	ret = 0;
-	ret = verif_space(line);
-	if (ret == 0)
-		ret = verif_quotes(line);
-	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:44:55 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/30 10:52:46 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 17:21:34 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	get_len_expand_line(t_expand *expand)
 	while (expand)
 	{
 		if (expand->strexpanded)
+		{
+			expand->lenafter = ft_strlen(expand->strexpanded);
 			len_total += expand->lenafter - expand->lenbefore;
+		}
 		else
 			len_total -= expand->lenbefore;
 		expand = expand->next;
@@ -72,23 +75,21 @@ int	get_final_line(t_all *all)
 {
 	char	*line_tmp;
 	int		len_total;
-	
+
 	len_total = 0;
 	if (!all->expand)
 		return (SUCCESS);
 	len_total = get_len_expand_line(all->expand) + ft_strlen(all->line);
 	if (malloc_final_line(&all->line, len_total, &line_tmp))
-		return (ERR_MALLOC);
+		return (ft_final(all, ERR_MALLOC));
 	if (fill_final_line(all->expand, all->line, line_tmp))
 	{
-		if (all->line)
-			free(all->line);
 		if (line_tmp)
 			free(line_tmp);
-		return (ERR_INVALID_INPUT);
+		return (ft_final(all, ERR_INVALID_INPUT));
 	}
 	if (line_tmp)
 		free(line_tmp);
-	all->line = negative_hollow(all->line); // 1
+	all->line = negative_hollow(all->line);
 	return (SUCCESS);
 }
