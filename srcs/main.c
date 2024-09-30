@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 12:49:03 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 13:54:29 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ int	main(int argc, char **argv, char **envp)
 			return (errno);
 		if (malloc_input(&all))
 			continue ;
-		// if (!parse_line(all.line, all.strs)) // renvoie NULL
-		// 	return (errno); 
-		// all.lexer = create_node(&all.lexer, all.strs);
-		// // node_affichage(all.lexer);
-		// if (state_init(all.lexer))
-		// 	return(ERR_INVALID_INPUT);
-		// if (!sort_cmds(&all))
-		// 	return (errno);
-		// cmds_affichage(all.cmds);
-		// if_here_doc(&all);
+		if (!parse_line(all.line, all.strs)) // renvoie NULL
+			return (errno); 
+		all.lexer = create_node(&all.lexer, all.strs);
+		// node_affichage(all.lexer);
+		if (state_init(all.lexer))
+			return(ERR_INVALID_INPUT);
+		if (!sort_cmds(&all))
+			return (errno);
+		cmds_affichage(all.cmds);
+		if_here_doc(&all);
 	}
 	return (0);
 }

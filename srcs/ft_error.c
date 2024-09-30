@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 12:27:49 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 14:15:41 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_all(t_all *all)
 		free_redir(all->cmds->redir);
 	if (all->cmds)
 		free_cmds(all->cmds);
-	if (all->lexer)
+	if (all->lexer) // a tester avant redir
 		free_lexer(all->lexer);
 	if (all->expand)
 		free_expand(all->expand);
