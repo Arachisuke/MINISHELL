@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 13:59:24 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 17:51:50 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,13 @@ int	is_token_space(char c)
 int	count_word_quotes(const char *str, int i, int *compteur)
 {
 	int	quote;
-	int	j;
 
 	quote = str[i];
 	i++;
-	j = i;
 	while (str[i] != quote)
 	{
 		i++;
 	}
-	if (j == i)
-		return (i);
 	if (compteur)
 		(*compteur)++;
 	return (i);
@@ -66,17 +62,18 @@ int	count_word(const char *str)
 	{
 		if (str[i] < 0)
 		{
-			if (!is_token_space(str[i]) && is_token_space(str[i + 1]))
+			if (str[i - 1] && !is_token_space(str[i - 1]))
+				compteur++;
 			i = count_word_quotes(str, i, &compteur);
 		}
-		if ((!is_token_space(str[i]) && is_token_space(str[i + 1]))
+		else if ((!is_token_space(str[i]) && is_token_space(str[i + 1]))
 			|| (!is_token_space(str[i]) && str[i + 1] == '\0'))
 			compteur++;
 		i++;
 	}
 	return (compteur);
 }
-char	*remplir(char **strs, char *line, int start, int end)
+char	*remplir(t_all *all, int start, int end)
 {
 	char	*str;
 	int		i;
@@ -84,21 +81,25 @@ char	*remplir(char **strs, char *line, int start, int end)
 
 	i = 0;
 	j = start;
-	if (ft_strlen(line) == (size_t)end + 1)
-		end = ft_strlen(line);
-	str = malloc(sizeof(char) * (end - start + 1));
-	if (!str)
-		ft_free(strs); // sortie d'erreur free puis exit! utiliser erno
-	while (end - start > i && line[j] > -33)
+	if (ft_strlen(all->line) == (size_t)end + 1)
+		end = ft_strlen(all->line);
+	if (end - start == 0)
 	{
-		if (line[j] < 0)
-			line[j] = line[j] * -1;
-		str[i] = line[j];
-		i++;
-		j++;
+		str = malloc(sizeof(char) * (2));
+		str[0] = ' ';
+	}
+	else
+		str = malloc(sizeof(char) * (end - start + 1));
+	if (!str)
+		return (ft_final(all, NULL, ERR_INVALID_INPUT), NULL);
+	// sortie d'erreur free puis exit! utiliser erno
+	while (end - start > i && all->line[j] > -33)
+	{
+		if (all->line[j] < 0)
+			all->line[j] = all->line[j] * -1;
+		str[i++] = all->line[j++];
 	}
 	str[i] = '\0';
-	printf("str = %s\n", str);
 	return (str);
 }
 char	*tokenisation(char **strs, char *line, int *index, int *j)
@@ -126,11 +127,10 @@ char	*tokenisation(char **strs, char *line, int *index, int *j)
 		str[1] = '\0';
 	}
 	(*j)++;
-	printf("str = %s\n", str);
 	return (str);
 }
 
-char	**parse_line(char *line, char **strs)
+char	**parse_line(t_all *all, char **strs)
 {
 	int	end;
 	int	start;
@@ -143,25 +143,27 @@ char	**parse_line(char *line, char **strs)
 	start = 0;
 	j = 0;
 	i = -1;
-	while (line[++i])
+	while (all->line[++i])
 	{
-		if (line[i] < 0 && !flag)
+		if (all->line[i] < 0 && !flag)
 			flag = 1;
-		else if ((!is_token_space(line[i]) && line[i]) || flag)
+		else if ((!is_token_space(all->line[i]) && all->line[i]) || flag)
 		{
 			start = i;
 			end = i;
-			while ((!is_token_space(line[i]) && line[i + 1] && !flag)
-				|| (flag == 1 && line[i] > -33))
+			while ((!is_token_space(all->line[i]) && all->line[i] && !flag
+					&& all->line[i] > -33) || (flag && all->line[i] > -33))
 			{
 				end++;
 				i++;
 			}
 			flag = 0;
-			strs[j++] = remplir(strs, line, start, end);
+			strs[j++] = remplir(all, start, end);
+			if (!strs[j - 1][0])
+				return(NULL);
 		}
-		if (is_token(line[i]))
-			strs[j] = tokenisation(strs, line, &i, &j);
+		else if (is_token(all->line[i]))
+			strs[j] = tokenisation(strs, all->line, &i, &j);
 	}
 	strs[j] = NULL;
 	return (strs);

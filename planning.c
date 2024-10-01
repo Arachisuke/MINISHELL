@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 10:23:37 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:13:04 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	other(char *str)
 // verifier le quotes
 // et un quotes fermer cest une chaine! un arguments
 // de changer les returns et surtout dans state init.
-// revoir la fonction ligne par ligne si tout se rejoins que ce soit au niveau des erreurs etc
 //tester par quelquun
 // builtin
 
@@ -115,4 +114,12 @@ void	other(char *str)
 
 
 
-// test cho "ah euh ah euh" -n , -n n'est pas pris en compte comme option
+// test echo  "ah euh ah euh" -n , -n n'est pas pris en compte comme option
+
+
+// 2 octobre
+// changer tout les return(0) par success// return(1) par le define correspondant
+// changer apres le final enlever le retour car final return deja
+// revoir la fonction ligne par ligne si tout se rejoins que ce soit au niveau des erreurs etc
+// split le terminator
+//tester par quelqun

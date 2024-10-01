@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 11:04:02 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:03:35 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 # define ERR_MALLOC 1
 # define ERR_INVALID_INPUT 2
 # define ERR_FILL_LINE 3
-# define ERR_QUOTES 4
+# define ERR_SYNTAX 4
+#define ERR_FD 5
 
 typedef enum e_token
 {
@@ -117,11 +118,11 @@ t_expand					*ft_back_expand(t_expand **lst, t_expand *new);
 t_expand					*ft_new_expand(void);
 int							is_token_space(char c);
 int							count_word(const char *str);
-char						*remplir(char **strs, char *line, int start,
-								int end);
+char						*remplir(t_all *all, int start, int end);
+
 char						*tokenisation(char **strs, char *line, int *index,
 								int *j);
-char						**parse_line(char *line, char **strs);
+char						**parse_line(t_all *all, char **strs);
 t_lexer						*create_node(t_lexer **lexer, char ***strs);
 t_lexer						*ft_new(void *content, int i);
 void						ft_back(t_lexer **lst, t_lexer *new);
@@ -133,10 +134,10 @@ void						node_affichage(t_lexer *lexer);
 int							verif_quotes(t_all *all, char *line);
 int							verif_space(char *line);
 void						init_token(t_lexer *lexer);
-int							state_init(t_lexer *stack);
-int							state_string(t_lexer *stack);
-int							state_pipe(t_lexer *stack);
-int							state_redirection(t_lexer *stack);
+int							state_init(t_lexer *stack, t_all *all);
+int							state_string(t_lexer *stack, t_all *all);
+int							state_pipe(t_lexer *stack, t_all *all);
+int							state_redirection(t_lexer *stack, t_all *all);
 void						cmds_affichage(t_simple_cmds *cmds);
 char						**malloc_strs(int arg_count);
 char						*free_cmds(t_simple_cmds **cmds);
@@ -154,7 +155,8 @@ int							checkredir(char *line, int i);
 char	*free_redir(t_redir **redir);    // 1
 char	*free_lexer(t_lexer **lexer);    // 3 ou 1
 char	*free_expand(t_expand **expand); // 4
-int							ft_final(t_all *all, int sortie);
-int							count_word_quotes(const char *str, int i, int *compteur);
+int							ft_final(t_all *all, char *error, int sortie);
+int							count_word_quotes(const char *str, int i,
+								int *compteur);
 
 #endif

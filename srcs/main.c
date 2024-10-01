@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 12:58:33 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:10:46 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		all.line = get_current_dir();
 		if (!all.line || !*all.line || verif_space(all.line))
-			// si ya pas de malloc, si le malloc est vide
 			continue ;
 		if (ft_strncmp(all.line, "exit", 4) == 0)
 			break ; // a supprimer apres!
@@ -56,18 +55,19 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (malloc_input(&all))
 			continue ;
-		if (!parse_line(all.line, all.strs)) // renvoie NULL
+		if (!parse_line(&all, all.strs))
 			continue ;
 		all.line = negative_hollow(all.line);
 		all.lexer = create_node(&all.lexer, &all.strs);
 		// node_affichage(all.lexer);
-		if (state_init(all.lexer))
-			return (ERR_INVALID_INPUT);
-		if (!sort_cmds(&all))
-			return (errno);
-		// cmds_affichage(all.cmds);
-		if_here_doc(&all);
-		ft_final(&all, 0);
+		if (state_init(all.lexer, &all))
+			continue ;
+		if (sort_cmds(&all))
+			continue ;
+		cmds_affichage(all.cmds);
+		if (if_here_doc(&all))
+			continue ;
+		ft_final(&all, NULL, 0);
 	}
 	return (0);
 }

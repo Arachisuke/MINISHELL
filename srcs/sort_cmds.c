@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 14:55:36 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:09:42 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	sort_redir(t_lexer *tmp_lexer, t_simple_cmds **tmp_cmds)
 {
 	t_redir	*last_redir;
 
-	if (!tmp_lexer || !tmp_cmds)
-		return ;
 	ft_back_redir(&(*tmp_cmds)->redir, ft_new_redir());
 	last_redir = ft_last_redir((*tmp_cmds)->redir);
 	if (tmp_lexer->token != STRING && tmp_lexer->token != PIPE)
@@ -75,15 +73,14 @@ void	sort_redir_and_cmds_args(t_all **all, int *i)
 		sort_cmds_args((*all)->tmp_lexer, &((*all)->tmp_cmds), i);
 }
 
-int	passing_next_cmds(t_simple_cmds **tmp, t_lexer *curr, t_simple_cmds **cmds,
-		int *i)
+int	passing_next_cmds(t_simple_cmds **tmp, t_all *all, int *i)
 {
 	(*tmp) = (*tmp)->next;
-	(*tmp)->strs = malloc_strs(count_arg(curr));
+	(*tmp)->strs = malloc_strs(count_arg(all->tmp_lexer));
 	if (!(*tmp)->strs)
-		return (free_cmds(cmds), 0);
+		return (ft_final(all, NULL, ERR_MALLOC));
 	*i = 0;
-	return (1);
+	return (0);
 }
 
 int	sort_cmds(t_all *all)
@@ -93,21 +90,18 @@ int	sort_cmds(t_all *all)
 	i = 0;
 	all->tmp_lexer = all->lexer;
 	all->cmds = malloc_cmds_struct(all->tmp_lexer);
-	if (!all->cmds)
-		return (0);
 	all->cmds->strs = malloc_strs(count_arg(all->tmp_lexer));
-	if (!all->cmds->strs)
-		return (free_cmds(&all->cmds), 0);
+	if (!all->cmds->strs || !all->cmds)
+		return (ft_final(all, NULL, ERR_MALLOC), 0);
 	all->tmp_cmds = all->cmds;
 	while (all->tmp_lexer)
 	{
 		if (all->tmp_lexer->token != PIPE)
 			sort_redir_and_cmds_args(&all, &i);
-		else if (!passing_next_cmds(&all->tmp_cmds, all->tmp_lexer, &all->cmds,
-				&i))
-			return (0);
+		else if (!passing_next_cmds(&all->tmp_cmds, all, &i))
+			return (1);
 		if (all->tmp_lexer)
 			all->tmp_lexer = all->tmp_lexer->next;
 	}
-	return (1);
+	return (0);
 }

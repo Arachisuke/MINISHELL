@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:28:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/01 11:22:19 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 17:49:18 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	malloc_input(t_all *all)
 	int	flag;
 
 	if (!all->line || !*all->line)
-		return (ft_final(all, ERR_INVALID_INPUT));
+		return (ft_final(all, NULL, ERR_INVALID_INPUT));
 	i = 0;
 	flag = 0;
 	count = count_word(all->line);
@@ -61,10 +61,9 @@ int	malloc_input(t_all *all)
 			count++;
 		i++;
 	}
-	printf("COUNT = %d\n", count);
 	all->strs = malloc(sizeof(char *) * (count + 1));
 	if (!all->strs)
-		return (ft_final(all, ERR_MALLOC));
+		return (ft_final(all, NULL, ERR_MALLOC));
 	return (SUCCESS);
 }
 

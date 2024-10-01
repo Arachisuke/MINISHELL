@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 11:20:03 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 17:47:27 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int i, int flag)
 		i++;
 	env = malloc(sizeof(char) * (i + 1));
 	if (!env)
-		return (ft_final(all, ERR_MALLOC));
+		return (ft_final(all, NULL, ERR_MALLOC));
 	(*tmp)->lenbefore = i - j + 1;
 	while (j < i)
 		env[r++] = all->line[j++];

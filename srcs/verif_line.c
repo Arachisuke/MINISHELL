@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 12:35:57 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 17:52:35 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	verif_quotes(t_all *all, char *line)
 			flag = 0;
 	}
 	if (flag == 1)
-		return (ft_final(all, ERR_QUOTES));
+		return (ft_final(all, "unclosed quotes" , ERR_SYNTAX));
 	return (0);
 }
 
