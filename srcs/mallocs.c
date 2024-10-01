@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:28:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/30 17:25:04 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 11:22:19 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,25 @@ int	malloc_input(t_all *all)
 {
 	int	count;
 	int	i;
+	int	flag;
 
 	if (!all->line || !*all->line)
 		return (ft_final(all, ERR_INVALID_INPUT));
 	i = 0;
-	all->strs = NULL;
+	flag = 0;
 	count = count_word(all->line);
 	while (all->line[i])
 	{
-		if (is_token(all->line[i]))
-		{
-			if (is_token(all->line[i + 1]))
-				i++;
+		if (all->line[i] < 0)
+			i = count_word_quotes(all->line, i, NULL);
+		else if (is_token(all->line[i]) && !flag && !is_token(all->line[i + 1]))
 			count++;
-		}
 		i++;
 	}
+	printf("COUNT = %d\n", count);
 	all->strs = malloc(sizeof(char *) * (count + 1));
 	if (!all->strs)
 		return (ft_final(all, ERR_MALLOC));
-	all->strs[count] = NULL;
-	i = 0;
 	return (SUCCESS);
 }
 

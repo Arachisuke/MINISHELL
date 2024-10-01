@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:50:54 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/28 18:19:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 13:02:01 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ char	*negative_hollow(char *s)
 	i = -1;
 	j = 0;
 	while (s[++i])
-		if (s[i] > 0)
-			str[j++] = s[i];
+		if (s[i] > 0) // a changer
+			str[j++] = s[i]; 
 	free(s);
 	str[j] = '\0';
 	return (str);

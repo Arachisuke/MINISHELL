@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 17:20:05 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 11:23:53 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	checkredir(char *line, int i)
 	flag = 0;
 	while (i > ++j)
 	{
-		if (flag == 1 && ((line[j] == '|' || line[j] == ' ') && (line[j
-					- 1] != '<' && line[j - 1] != '>')))
-			flag = 0;
+		if (flag && ((line[j] == '|' || line[j] == ' ') && (line[j - 1] != '<'
+					&& line[j - 1] != '>')))
+				flag = 0;
 		else if (flag == 0 && (line[j] == '<' || line[j] == '>'))
 			flag = 1;
 	}
@@ -37,7 +37,7 @@ int	find_var(t_all *all, char **envp)
 
 	i = -1;
 	if (expandornot(all) == 1)
-		return(1);
+		return (1);
 	if (!all->expand)
 		return (0);
 	tmp = all->expand;

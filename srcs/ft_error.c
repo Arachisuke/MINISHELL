@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 17:28:50 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 11:28:24 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int	ft_final(t_all *all, int sortie)
 	else if (sortie == ERR_INVALID_INPUT) // a supp 
 		str = "syntax error : line";
 	ft_putstr_fd(str, 1);
+	ft_putchar_fd('\n', 1);
 	return (sortie);
 }

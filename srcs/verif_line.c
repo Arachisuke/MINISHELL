@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 17:08:59 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 12:35:57 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ int	verif_quotes(t_all *all, char *line)
 	i = -1;
 	while (line[++i])
 	{
-		if ((line[i] == SQ || line[i] == DQ) && flag == 0)
+		if ((line[i] == SQ || line[i] == DQ) && flag == 0) // debut quotes
 		{
 			quote = line[i];
 			flag = 1;
 		}
-		else if (line[i] == quote && flag == 1)
+		else if (flag == 1 && line[i] == ' ')
+			line[i] = line[i] * -1;
+		else if (line[i] == quote && flag == 1) /// fin quotes
 			flag = 0;
 	}
 	if (flag == 1)
@@ -38,7 +40,7 @@ int	verif_quotes(t_all *all, char *line)
 
 int	verif_space(char *line) // elle sers a quoi ?
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (!line)

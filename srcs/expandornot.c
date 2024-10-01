@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 17:22:19 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 11:20:03 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	expandornot(t_all *all)
 	{
 		if ((all->line[i] == SQ || all->line[i] == DQ || all->line[i] == '$')
 			&& flag == 0)
-		// cest un double ou single cest bon pas oblige que ce soit un word meme un fichier est impacter. meme une redir
 		{
 			quotes = all->line[i];
 			if (all->line[i] != '$')

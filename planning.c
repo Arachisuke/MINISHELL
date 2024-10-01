@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 17:36:26 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/01 10:23:37 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	other(char *str)
 
 
 // AUJOURDHUI 1 octobre
+// verifier le quotes
+// et un quotes fermer cest une chaine! un arguments
 // de changer les returns et surtout dans state init.
 // revoir la fonction ligne par ligne si tout se rejoins que ce soit au niveau des erreurs etc
 //tester par quelquun
@@ -110,3 +112,7 @@ void	other(char *str)
 // signaux
 // lire les fonctionnalite a apoorte sur medium
 // corriger les fautes!
+
+
+
+// test cho "ah euh ah euh" -n , -n n'est pas pris en compte comme option

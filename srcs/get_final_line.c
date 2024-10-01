@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:44:55 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/30 17:21:34 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/09/30 17:50:24 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,5 @@ int	get_final_line(t_all *all)
 	}
 	if (line_tmp)
 		free(line_tmp);
-	all->line = negative_hollow(all->line);
 	return (SUCCESS);
 }
