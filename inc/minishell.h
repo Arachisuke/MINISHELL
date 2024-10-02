@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 13:05:29 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 16:59:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <unistd.h>
 # define SQ '\''
 # define DQ '\"'
+# define IS_BUILTIN 1
 # define SUCCESS 0
 # define ERR_MALLOC 1
 # define ERR_INVALID_INPUT 2
@@ -37,7 +38,7 @@
 # define ERR_FD 5
 # define ERR_READ 6
 # define ERR_ENV 7
-# define IS_BUILTIN 1
+# define ERR_LINE 8
 
 typedef enum e_token
 {
