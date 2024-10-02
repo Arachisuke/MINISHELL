@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 10:30:48 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 15:09:51 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	sort_cmds(t_all *all)
 	{
 		if (all->tmp_lexer->token != PIPE)
 			sort_redir_and_cmds_args(&all, &i);
-		else if (!passing_next_cmds(&all->tmp_cmds, all, &i))
+		else if (passing_next_cmds(&all->tmp_cmds, all, &i))
 			return (ERR_MALLOC);
 		if (all->tmp_lexer)
 			all->tmp_lexer = all->tmp_lexer->next;

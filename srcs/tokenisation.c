@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 13:06:22 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 16:01:04 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,12 @@ char	*remplir(t_all *all, int start, int end)
 
 	i = 0;
 	j = start;
-	if (ft_strlen(all->line) == (size_t)end + 1)
-		end = ft_strlen(all->line);
 	if (end - start == 0)
-	{
-		str = malloc(sizeof(char) * (2));
-		str[0] = ' ';
-	}
+		str = malloc(sizeof(char) * (1));
 	else
 		str = malloc(sizeof(char) * (end - start + 1));
 	if (!str)
 		return (ft_final(all, NULL, ERR_INVALID_INPUT), NULL);
-	// sortie d'erreur free puis exit! utiliser erno
 	while (end - start > i && all->line[j] > -33)
 	{
 		if (all->line[j] < 0)
@@ -129,7 +123,7 @@ char	*tokenisation(char **strs, char *line, int *index, int *j)
 	(*j)++;
 	return (str);
 }
-void fill_tab(int indice, int *tab, int *i)
+void	fill_tab(int indice, int *tab, int *i)
 {
 	tab[*i] = indice;
 	// printf("tab[%d] = %d\n", *i, tab[*i]);
@@ -138,12 +132,12 @@ void fill_tab(int indice, int *tab, int *i)
 
 char	**parse_line(t_all *all, char **strs)
 {
-	int	end;
-	int	start;
-	int	j;
-	int	i;
-	int	flag;
-	static int k;
+	int			end;
+	int			start;
+	int			j;
+	int			i;
+	int			flag;
+	static int	k;
 
 	end = 0;
 	flag = 0;
@@ -168,8 +162,10 @@ char	**parse_line(t_all *all, char **strs)
 			strs[j++] = remplir(all, start, end);
 			if (flag)
 				fill_tab(j, all->tab, &k);
+			if (!all->line[i])
+				break ;
 			flag = 0;
-			if (!strs[j - 1][0])
+			if (!strs[j -1])
 				return (NULL);
 		}
 		else if (is_token(all->line[i]))
@@ -178,5 +174,3 @@ char	**parse_line(t_all *all, char **strs)
 	strs[j] = NULL;
 	return (strs);
 }
-
-
