@@ -6,13 +6,13 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:36:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/30 15:12:56 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 13:05:47 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_lexer	*create_node(t_lexer **lexer, char ***strs)
+t_lexer	*create_node(t_all *all, t_lexer **lexer, char ***strs)
 {
 	int	i;
 
@@ -20,9 +20,9 @@ t_lexer	*create_node(t_lexer **lexer, char ***strs)
 	while ((*strs)[i])
 	{
 		if (i == 0)
-			*lexer = ft_new((*strs)[i], i);
+			*lexer = ft_new(all, (*strs)[i], i);
 		else
-			ft_back(lexer, ft_new((*strs)[i], i));
+			ft_back(lexer, ft_new(all, (*strs)[i], i));
 		i++;
 	}
 	i = -1;
@@ -31,7 +31,21 @@ t_lexer	*create_node(t_lexer **lexer, char ***strs)
 	*strs = NULL;
 	return (*lexer);
 }
-t_lexer	*ft_new(void *content, int i)
+
+int	checktab(int *tab, int j)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i] >= 0)
+	{
+		if (tab[i] == j)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+t_lexer	*ft_new(t_all *all, void *content, int i)
 {
 	t_lexer	*elem;
 
@@ -42,7 +56,10 @@ t_lexer	*ft_new(void *content, int i)
 	elem->next = NULL;
 	elem->prev = NULL;
 	elem->i = i;
-	init_token(elem);
+	if (checktab(all->tab, i))
+		elem->token = STRING;
+	else
+		init_token(elem);
 	return (elem);
 }
 void	ft_back(t_lexer **lst, t_lexer *new)

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:42:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 17:45:07 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 10:30:22 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	state_init(t_lexer *stack, t_all *all)
 	t_lexer	*tmp;
 
 	if (!all->line || !stack)
-		return (ft_final(all, NULL, ERR_MALLOC), 1);
+		return (ft_final(all, NULL, ERR_MALLOC));
 	tmp = stack;
 	if (stack->token == STRING)
 		state_string(tmp, all);
@@ -26,14 +26,14 @@ int	state_init(t_lexer *stack, t_all *all)
 		state_redirection(tmp, all);
 	else
 		return (ft_final(all, stack->string, ERR_SYNTAX));
-	return (0);
+	return(SUCCESS);
 }
 int	state_string(t_lexer *stack, t_all *all)
 {
 	if (stack->next)
 		stack = stack->next;
 	else
-		return (0);
+		return(SUCCESS);
 	if (stack->token == STRING)
 		state_string(stack, all);
 	else if (stack->token == D_GREATER || stack->token == D_LOWER
@@ -43,7 +43,7 @@ int	state_string(t_lexer *stack, t_all *all)
 		state_pipe(stack, all);
 	else
 		return (ft_final(all, stack->string, ERR_SYNTAX));
-	return (0);
+	return(SUCCESS);
 }
 
 int	state_pipe(t_lexer *stack, t_all *all)
@@ -59,7 +59,7 @@ int	state_pipe(t_lexer *stack, t_all *all)
 		state_redirection(stack, all);
 	else
 		return (ft_final(all, stack->string, ERR_SYNTAX));
-	return (0);
+	return(SUCCESS);
 }
 int	state_redirection(t_lexer *stack, t_all *all)
 {
@@ -71,5 +71,5 @@ int	state_redirection(t_lexer *stack, t_all *all)
 		state_string(stack, all);
 	else
 		return (ft_final(all, stack->string, ERR_SYNTAX));
-	return (0);
+	return(SUCCESS);
 }

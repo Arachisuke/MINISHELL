@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 18:03:35 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 13:05:29 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@
 # define ERR_INVALID_INPUT 2
 # define ERR_FILL_LINE 3
 # define ERR_SYNTAX 4
-#define ERR_FD 5
+# define ERR_FD 5
+# define ERR_READ 6
+# define ERR_ENV 7
+# define IS_BUILTIN 1
 
 typedef enum e_token
 {
@@ -97,6 +100,7 @@ typedef struct s_all
 	char					**strs;
 	t_expand				*expand;
 	char					**envp;
+	int						tab[100];
 }							t_all;
 
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
@@ -123,8 +127,9 @@ char						*remplir(t_all *all, int start, int end);
 char						*tokenisation(char **strs, char *line, int *index,
 								int *j);
 char						**parse_line(t_all *all, char **strs);
-t_lexer						*create_node(t_lexer **lexer, char ***strs);
-t_lexer						*ft_new(void *content, int i);
+t_lexer						*create_node(t_all *all, t_lexer **lexer,
+								char ***strs);
+t_lexer						*ft_new(t_all *all, void *content, int i);
 void						ft_back(t_lexer **lst, t_lexer *new);
 t_lexer						*ft_last(t_lexer *lst);
 int							ft_size(t_lexer *lst);

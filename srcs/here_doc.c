@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:20:53 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 18:06:17 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 10:24:11 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	heredoc(t_all *all, t_redir *redir, char *limiteur)
 	{
 		str = readline("> ");
 		if (str == NULL)
-			return (1);
+			return (ERR_READ);
 		if (ft_strlen(str) == ft_strlen(limiteur))
 		{
 			if (!ft_strncmp(str, limiteur, ft_strlen(limiteur)))
@@ -63,5 +63,5 @@ int	if_here_doc(t_all *all)
 		}
 		cmds = cmds->next;
 	}
-	return (0);
+	return (SUCCESS);
 }

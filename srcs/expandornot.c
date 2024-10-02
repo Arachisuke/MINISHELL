@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 17:47:27 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 10:33:06 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	condition(char *str, int i)
 	if (str[i] == '$' && str[i + 1] && str[i + 1] == DQ)
 		return (1);
 	if (str[i] == '$' && str[i + 1])
-		return (0);
+		return (SUCCESS);
 	return (1);
 }
 int	fonctionexpand(t_all *all, t_expand **tmp, int i, int flag)
@@ -57,7 +57,7 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int i, int flag)
 		env[r++] = all->line[j++];
 	env[r] = '\0';
 	(*tmp)->strtoexpand = env;
-	return (0);
+	return (SUCCESS);
 }
 int	ft_expand(t_all *all, int j, char quotes, int flag)
 {
@@ -75,7 +75,7 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 		{
 			tmp = ft_back_expand(&all->expand, ft_new_expand());
 			if (fonctionexpand(all, &tmp, j, flag))
-				return (1);
+				return (ERR_MALLOC);
 		}
 		else if (all->line[j] == quotes && flag == 1)
 		{

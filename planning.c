@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 18:13:04 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 13:12:40 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,3 +123,36 @@ void	other(char *str)
 // revoir la fonction ligne par ligne si tout se rejoins que ce soit au niveau des erreurs etc
 // split le terminator
 //tester par quelqun
+//NEWNEW $? ou $variableinexistante marche pas
+
+
+
+//TEST a gerer
+// "" juste ca faut le parse, donc pas de verif dans parse_line le parser et lenvoyer a l'exec
+// $variable inexistante il peut ne pas y avoir de line donc est ce que la protection serait pas utile finalement
+// $?
+// echo "" que mettre a l'interieur des guillemets ? si cest espace cest deja fait
+
+
+// verifier chaque etape et sil faut verifier line en debut de fonction car ya des fonctions qui la change tel que get_final
+
+
+// $HME
+// \0 -> mallocinput ->strs ft_final free, continue
+// $?
+// ""
+// plus besoin de faire *-1
+
+
+//  < "Makefile" "<<oui'" echo "'"$HOME"'" a gerer @@@@
+// < "Makefile" "<<oui'" echo "'"$HOME"'" @@@@
+//<<oui'@@@
+//"ok ok" "123ok" "132ok" "<<ook" "|" @@@@  
+
+
+
+// THEME A GERER
+// EXPANDEER
+// QUOTES
+// SAVOIR PARSER LES COMMANDE
+// LES TOKENS

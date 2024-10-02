@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 18:10:46 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 13:11:33 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	t_all	all;
 
 	if (argc != 1 || argv[1])
-		return (0);
+		return (SUCCESS);
 	while (1)
 	{
 		if (init_all(&all, envp))
@@ -51,16 +51,21 @@ int	main(int argc, char **argv, char **envp)
 		if (find_var(&all, all.envp))
 			continue ;
 		// expand_affichage(all.expand);
+		// printf("line = %s\n", all.line);
 		if (get_final_line(&all))
+			// a partir d'ici line n'as jamais change donc pas besoin de faire de verif de line par contre line change apres cette fonction
 			continue ;
 		if (malloc_input(&all))
 			continue ;
 		if (!parse_line(&all, all.strs))
+			// ici cest strs qui recupere les donne de line
 			continue ;
-		all.line = negative_hollow(all.line);
-		all.lexer = create_node(&all.lexer, &all.strs);
-		// node_affichage(all.lexer);
+		//printf("line = %s\n", all.line);
+		// all.line = negative_hollow(all.line);
+		all.lexer = create_node(&all, &all.lexer, &all.strs);
+		//node_affichage(all.lexer); /// strs et line..et all
 		if (state_init(all.lexer, &all))
+			// token dans une chaine de caractere mais sans guillemet comment le gerer!
 			continue ;
 		if (sort_cmds(&all))
 			continue ;
@@ -69,5 +74,5 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		ft_final(&all, NULL, 0);
 	}
-	return (0);
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/01 17:51:50 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 13:06:22 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_token(char c)
 			return (1);
 		i++;
 	}
-	return (0);
+	return (SUCCESS);
 }
 int	is_space(char c)
 {
@@ -129,6 +129,12 @@ char	*tokenisation(char **strs, char *line, int *index, int *j)
 	(*j)++;
 	return (str);
 }
+void fill_tab(int indice, int *tab, int *i)
+{
+	tab[*i] = indice;
+	// printf("tab[%d] = %d\n", *i, tab[*i]);
+	(*i)++;
+}
 
 char	**parse_line(t_all *all, char **strs)
 {
@@ -137,9 +143,11 @@ char	**parse_line(t_all *all, char **strs)
 	int	j;
 	int	i;
 	int	flag;
+	static int k;
 
 	end = 0;
 	flag = 0;
+	k = 0;
 	start = 0;
 	j = 0;
 	i = -1;
@@ -157,10 +165,12 @@ char	**parse_line(t_all *all, char **strs)
 				end++;
 				i++;
 			}
-			flag = 0;
 			strs[j++] = remplir(all, start, end);
+			if (flag)
+				fill_tab(j, all->tab, &k);
+			flag = 0;
 			if (!strs[j - 1][0])
-				return(NULL);
+				return (NULL);
 		}
 		else if (is_token(all->line[i]))
 			strs[j] = tokenisation(strs, all->line, &i, &j);
@@ -168,3 +178,5 @@ char	**parse_line(t_all *all, char **strs)
 	strs[j] = NULL;
 	return (strs);
 }
+
+
