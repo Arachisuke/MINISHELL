@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 11:40:06 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 17:18:17 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,17 @@ int	is_token_space(char c)
 int	count_word_quotes(const char *str, int i, int *compteur)
 {
 	int	quote;
+	int j;
 
 	quote = str[i];
 	i++;
+	j = i;
 	while (str[i] != quote)
 	{
 		i++;
 	}
+	if (j == i)
+		return(i);
 	if (compteur)
 		(*compteur)++;
 	return (i);
@@ -56,13 +60,13 @@ int	count_word(const char *str)
 
 	if (!str)
 		return (-1);
-	i = 0;
+	i = firstquotecheck((char *)str) + 1;
 	compteur = 0;
 	while (str[i])
 	{
 		if (str[i] < 0)
 		{
-			if (str[i - 1] && !is_token_space(str[i - 1]))
+			if (str[i - 1] && !is_token_space(str[i - 1]) && str[i - 1] > 0)
 				compteur++;
 			i = count_word_quotes(str, i, &compteur);
 		}
@@ -144,12 +148,12 @@ char	**parse_line(t_all *all, char **strs)
 	k = 0;
 	start = 0;
 	j = 0;
-	i = -1;
+	i = firstquotecheck(all->line);
 	while (all->line[++i])
 	{
 		if (all->line[i] < 0 && !flag)
 			flag = 1;
-		else if ((!is_token_space(all->line[i]) && all->line[i]) || flag )
+		else if ((!is_token_space(all->line[i]) && all->line[i]) && (flag && all->line[i] > -33))
 		{
 			start = i;
 			end = i;

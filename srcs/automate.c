@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:42:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 18:07:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 12:31:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	state_redirection(t_lexer *stack, t_all *all)
 	if (stack->next)
 		stack = stack->next;
 	else
-		return (ft_final(all, stack->string, ERR_SYNTAX));
+		return (ft_final(all, "newline", ERR_SYNTAX));
 	if (stack->token == STRING)
 	{
 		if (state_string(stack, all))

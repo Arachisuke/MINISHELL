@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:28:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/03 11:46:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 16:50:06 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	malloc_input(t_all *all)
 			i = count_word_quotes(all->line, i, NULL);
 		else if (((all->line[i] == '>' && all->line[i + 1] == '>') || (all->line[i] == '<' && all->line[i + 1] == '<'))  && token == 0)
 			token = 1;
-		else if ((is_token(all->line[i]) && token == 1 )|| (is_token(all->line[i]) && token == 0))
+		else if ((is_token(all->line[i]) && token == 1)|| (is_token(all->line[i]) && token == 0))
 		{
 			token = 0;
 			count++;

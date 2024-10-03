@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 11:00:17 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:05:02 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,6 @@ char	*free_expand(t_expand **expand); // 4
 int							ft_final(t_all *all, char *error, int sortie);
 int							count_word_quotes(const char *str, int i,
 								int *compteur);
+int							firstquotecheck(char *line);
 
 #endif

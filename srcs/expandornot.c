@@ -6,13 +6,13 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 15:54:09 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 17:24:10 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	condition(char *str, int i)
+int	condition(char *str, int i, int flag)
 {
 	if (checkredir(str, i))
 		// si cest un file return1 donc je cree meme pas dexpand
@@ -26,9 +26,16 @@ int	condition(char *str, int i)
 		return (1);
 	}
 	if (str[i] == '$' && str[i + 1] && str[i + 1] == SQ)
+	{
+		str[i] = ' ';
 		return (1);
+	}
 	if (str[i] == '$' && str[i + 1] && str[i + 1] == DQ)
+	{
+		if (!flag)
+			str[i] = ' ';
 		return (1);
+	}
 	if (str[i] == '$' && str[i + 1])
 		return (SUCCESS);
 	return (1);
@@ -45,7 +52,7 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int i, int flag)
 	r = 0;
 	j = i;
 	if (flag && all->line[i])
-		while (all->line[i] != DQ && all->line[i] != SQ && all->line[i] != '$' && all->line[i] > 0)
+		while (all->line[i] && ft_isalnum(all->line[i]))
 			i++;
 	while (all->line[i] && ft_isalnum(all->line[i]))
 		i++;
@@ -71,7 +78,7 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 			flag = 1;
 			all->line[j] = all->line[j] * -1;
 		}
-		else if (!condition(all->line, j) && ((flag && quotes == DQ) || !flag))
+		else if (!condition(all->line, j, flag) && ((flag && quotes == DQ) || !flag))
 		{
 			tmp = ft_back_expand(&all->expand, ft_new_expand());
 			if (fonctionexpand(all, &tmp, j, flag))

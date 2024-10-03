@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 10:31:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:39:39 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,34 @@ int	verif_quotes(t_all *all, char *line)
 	return (SUCCESS);
 }
 
-int	verif_space(char *line) // elle sers a quoi ?
+int	firstquotecheck(char *line)
+{
+	if (line[0] < 0 && line[1] && line[1] < 0 && line[2] && ft_isalpha(line[2]))
+		return (1);
+	if (line[0] < 0 && line[1] && line[1] < 0 && line[2] && ft_isalpha(line[2]))
+		return (1);
+	return (-1);
+}
+int	skip_spaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (is_space(str[i]))
+		i++;
+	return (i);
+}
+
+int	verif_space(char *str)
 {
 	int i;
 
 	i = 0;
-	if (!line)
-		return (1);
-	while (is_space(line[i]))
+	while (str[i])
+	{
+		if (!is_space(str[i]))
+			return (1);
 		i++;
-	if ((size_t)i == ft_strlen(line))
-		return (1);
-	return (SUCCESS);
+	}
+	return (0);
 }
