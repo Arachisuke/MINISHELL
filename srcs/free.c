@@ -6,22 +6,23 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:18:46 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/30 14:53:50 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 11:00:40 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_free(char **strs)
+void	free_strs(char **strs)
 {
 	int	i;
 
 	i = 0;
-	if (!strs)
+	if (!strs || !*strs)
 		return ;
-	while (strs[i]) // ca seg ou pas
+	while (strs[i])
 	{
 		free(strs[i]);
+		strs[i] = NULL;
 		i++;
 	}
 	free(strs);
@@ -39,7 +40,7 @@ char	*free_cmds(t_simple_cmds **cmds) // 2
 	while (*cmds)
 	{
 		if ((*cmds)->strs)
-			ft_free((*cmds)->strs);
+			free_strs((*cmds)->strs);
 		if ((*cmds)->redir) // free la node redir avant donc free_redir
 			(*cmds)->redir = NULL;
 		curr = (*cmds)->next;
@@ -77,10 +78,7 @@ char	*free_lexer(t_lexer **lexer) // 3 ou 1
 	while (*lexer)
 	{
 		if ((*lexer)->string)
-		{
-			free((*lexer)->string);
 			(*lexer)->string = NULL;
-		}
 		curr = (*lexer)->next;
 		free(*lexer);
 		*lexer = NULL;

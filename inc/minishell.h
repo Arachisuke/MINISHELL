@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 16:59:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 11:00:17 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ t_simple_cmds				*create_node_cmds(t_simple_cmds **cmds,
 int							expandornot(t_all *all);
 t_simple_cmds				*ft_new_cmds(int i);
 char						*strjoinfree(char const *s1, char const *s2);
-void						ft_free(char **strs);
 int							sort_cmds(t_all *all);
 t_expand					*ft_back_expand(t_expand **lst, t_expand *new);
 t_expand					*ft_new_expand(void);
@@ -139,7 +138,8 @@ char						*get_current_dir(void);
 void						node_affichage(t_lexer *lexer);
 int							verif_quotes(t_all *all, char *line);
 int							verif_space(char *line);
-void						init_token(t_lexer *lexer);
+
+int							init_token(t_lexer *lexer, t_all *all);
 int							state_init(t_lexer *stack, t_all *all);
 int							state_string(t_lexer *stack, t_all *all);
 int							state_pipe(t_lexer *stack, t_all *all);
@@ -147,7 +147,7 @@ int							state_redirection(t_lexer *stack, t_all *all);
 void						cmds_affichage(t_simple_cmds *cmds);
 char						**malloc_strs(int arg_count);
 char						*free_cmds(t_simple_cmds **cmds);
-void						ft_free(char **strs);
+void						free_strs(char **strs);
 void						ft_back_redir(t_redir **lst, t_redir *new);
 t_redir						*ft_new_redir(void);
 t_redir						*ft_last_redir(t_redir *lst);

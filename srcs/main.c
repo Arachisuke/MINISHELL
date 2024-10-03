@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 13:11:33 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 10:43:32 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,12 @@ int	main(int argc, char **argv, char **envp)
 		//printf("line = %s\n", all.line);
 		// all.line = negative_hollow(all.line);
 		all.lexer = create_node(&all, &all.lexer, &all.strs);
-		//node_affichage(all.lexer); /// strs et line..et all
-		if (state_init(all.lexer, &all))
-			// token dans une chaine de caractere mais sans guillemet comment le gerer!
+		node_affichage(all.lexer); /// strs et line..et all
+		if (state_init(all.lexer, &all)) // token dans une chaine de caractere mais sans guillemet comment le gerer!
 			continue ;
 		if (sort_cmds(&all))
 			continue ;
-		cmds_affichage(all.cmds);
+		//cmds_affichage(all.cmds);
 		if (if_here_doc(&all))
 			continue ;
 		ft_final(&all, NULL, 0);

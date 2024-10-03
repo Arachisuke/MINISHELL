@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 16:01:04 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 11:40:06 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ char	*tokenisation(char **strs, char *line, int *index, int *j)
 {
 	char	*str;
 
-	if ((line[*index] == '<' || line[*index] == '>') && (line[*index + 1] == '<'
-			|| line[*index + 1] == '>'))
+	if ((line[*index] == '<' && line[*index + 1] == '<') || (line[*index] == '>'
+			&& line[*index + 1] == '>'))
 	{
 		str = malloc(sizeof(char) * 3);
 		if (!str)
-			ft_free(strs); // sortie d'erreur free puis exit! utiliser erno
+			free_strs(strs); // sortie d'erreur free puis exit! utiliser erno
 		str[0] = line[*index];
 		str[1] = line[*index + 1];
 		str[2] = '\0';
@@ -116,7 +116,7 @@ char	*tokenisation(char **strs, char *line, int *index, int *j)
 	{
 		str = malloc(sizeof(char) * 2);
 		if (!str)
-			ft_free(strs); // sortie d'erreur free puis exit! utiliser erno
+			free_strs(strs); // sortie d'erreur free puis exit! utiliser erno
 		str[0] = line[*index];
 		str[1] = '\0';
 	}
@@ -149,7 +149,7 @@ char	**parse_line(t_all *all, char **strs)
 	{
 		if (all->line[i] < 0 && !flag)
 			flag = 1;
-		else if ((!is_token_space(all->line[i]) && all->line[i]) || flag)
+		else if ((!is_token_space(all->line[i]) && all->line[i]) || flag )
 		{
 			start = i;
 			end = i;
@@ -159,13 +159,13 @@ char	**parse_line(t_all *all, char **strs)
 				end++;
 				i++;
 			}
-			strs[j++] = remplir(all, start, end);
 			if (flag)
 				fill_tab(j, all->tab, &k);
+			strs[j++] = remplir(all, start, end);
 			if (!all->line[i])
 				break ;
 			flag = 0;
-			if (!strs[j -1])
+			if (!strs[j - 1])
 				return (NULL);
 		}
 		else if (is_token(all->line[i]))

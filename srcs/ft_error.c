@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 16:56:59 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 11:49:50 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	free_all(t_all *all)
 		free_cmds(&all->cmds);
 	if (all->lexer) // a tester avant redir
 		free_lexer(&all->lexer);
+	if (all->strs)
+		free_strs(all->strs);
 	if (all->expand)
 		free_expand(&all->expand);
 	if (all->line)
@@ -32,11 +34,10 @@ int	ft_final(t_all *all, char *error, int sortie)
 {
 	char *str;
 
-	free_all(all);
 	if (sortie == ERR_MALLOC)
 		str = "Allocation failed";
 	else if (sortie == ERR_SYNTAX)
-		str = "syntax error : ";
+		str = "minishell : syntax error near unexpected token: `";
 	else if (sortie == 0)
 		return (SUCCESS);
 	else if (sortie == ERR_INVALID_INPUT) // a supp
@@ -45,6 +46,9 @@ int	ft_final(t_all *all, char *error, int sortie)
 		return (sortie);
 	ft_putstr_fd(str, 1);
 	ft_putstr_fd(error, 1);
+	if (ERR_SYNTAX)
+		ft_putchar_fd('\'', 1);
 	ft_putchar_fd('\n', 1);
+	free_all(all);
 	return (sortie);
 }

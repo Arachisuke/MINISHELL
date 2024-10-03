@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 13:04:42 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 11:16:20 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	cmds_affichage(t_simple_cmds *cmds)
 	}
 }
 
-void	init_token(t_lexer *lexer)
+int	init_token(t_lexer *lexer, t_all *all)
 {
 	if (ft_strlen(lexer->string) == 2 && is_token(lexer->string[0])) // 1
 	{
@@ -91,9 +91,9 @@ void	init_token(t_lexer *lexer)
 		else if (lexer->string[0] == '>' && lexer->string[1] == '>')
 			lexer->token = D_GREATER;
 		else if (lexer->string[0] == '<' && lexer->string[1] == '>')
-			printf("ERROR '<' '>'\n");
+			return(ft_final(all, ">", ERR_SYNTAX));
 		else if (lexer->string[0] == '>' && lexer->string[1] == '<')
-			printf("ERROR '>' '<'\n");
+			return(ft_final(all, "newline", ERR_SYNTAX));		
 	}
 	else if (lexer->string[0] == '|')
 		lexer->token = PIPE;
@@ -103,4 +103,5 @@ void	init_token(t_lexer *lexer)
 		lexer->token = LOWER;
 	else
 		lexer->token = STRING;
+	return(0);
 }

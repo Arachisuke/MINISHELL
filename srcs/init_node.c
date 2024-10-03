@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:36:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 13:05:47 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 11:42:40 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ t_lexer	*create_node(t_all *all, t_lexer **lexer, char ***strs)
 		else
 			ft_back(lexer, ft_new(all, (*strs)[i], i));
 		i++;
+		if (!*lexer)
+			return (NULL);
 	}
 	i = -1;
-	while ((*strs)[++i])
-		(*strs)[i] = NULL;
-	*strs = NULL;
 	return (*lexer);
 }
 
@@ -58,8 +57,8 @@ t_lexer	*ft_new(t_all *all, void *content, int i)
 	elem->i = i;
 	if (checktab(all->tab, i))
 		elem->token = STRING;
-	else
-		init_token(elem);
+	else if (init_token(elem, all))
+		return (NULL);
 	return (elem);
 }
 void	ft_back(t_lexer **lst, t_lexer *new)

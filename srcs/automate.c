@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:42:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 10:30:22 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/02 18:07:58 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,45 @@ int	state_init(t_lexer *stack, t_all *all)
 		return (ft_final(all, NULL, ERR_MALLOC));
 	tmp = stack;
 	if (stack->token == STRING)
-		state_string(tmp, all);
+	{
+		if (state_string(tmp, all))
+			return (1);
+	}
 	else if (stack->token == D_GREATER || stack->token == D_LOWER
 		|| stack->token == LOWER || stack->token == GREATER)
-		state_redirection(tmp, all);
+	{
+		if (state_redirection(tmp, all))
+			return (1);
+	}
 	else
 		return (ft_final(all, stack->string, ERR_SYNTAX));
-	return(SUCCESS);
+	return (SUCCESS);
 }
 int	state_string(t_lexer *stack, t_all *all)
 {
 	if (stack->next)
 		stack = stack->next;
 	else
-		return(SUCCESS);
+		return (SUCCESS);
 	if (stack->token == STRING)
-		state_string(stack, all);
+	{
+		if (state_string(stack, all))
+			return (1);
+	}
 	else if (stack->token == D_GREATER || stack->token == D_LOWER
 		|| stack->token == LOWER || stack->token == GREATER)
-		state_redirection(stack, all);
+	{
+		if (state_redirection(stack, all))
+			return (1);
+	}
 	else if (stack->token == PIPE)
-		state_pipe(stack, all);
+	{
+		if (state_pipe(stack, all))
+			return (1);
+	}
 	else
 		return (ft_final(all, stack->string, ERR_SYNTAX));
-	return(SUCCESS);
+	return (SUCCESS);
 }
 
 int	state_pipe(t_lexer *stack, t_all *all)
@@ -53,13 +68,19 @@ int	state_pipe(t_lexer *stack, t_all *all)
 	else
 		return (ft_final(all, stack->string, ERR_SYNTAX));
 	if (stack->token == STRING)
-		state_string(stack, all);
+	{
+		if (state_string(stack, all))
+			return (1);
+	}
 	else if (stack->token == D_GREATER || stack->token == D_LOWER
 		|| stack->token == LOWER || stack->token == GREATER)
-		state_redirection(stack, all);
+	{
+		if (state_redirection(stack, all))
+			return (1);
+	}
 	else
 		return (ft_final(all, stack->string, ERR_SYNTAX));
-	return(SUCCESS);
+	return (SUCCESS);
 }
 int	state_redirection(t_lexer *stack, t_all *all)
 {
@@ -68,8 +89,11 @@ int	state_redirection(t_lexer *stack, t_all *all)
 	else
 		return (ft_final(all, stack->string, ERR_SYNTAX));
 	if (stack->token == STRING)
-		state_string(stack, all);
+	{
+		if (state_string(stack, all))
+			return (1);
+	}
 	else
 		return (ft_final(all, stack->string, ERR_SYNTAX));
-	return(SUCCESS);
+	return (SUCCESS);
 }
