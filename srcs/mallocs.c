@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mallocs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:28:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/03 11:46:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 14:53:41 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	malloc_input(t_all *all)
 
 	if (!all->line || !*all->line)
 		return (ft_final(all, NULL, ERR_LINE));
-	i = 0;
+	i = skip_spaces(all->line);
 	token = 0;
 	count = count_word(all->line);
 	while (all->line[i])

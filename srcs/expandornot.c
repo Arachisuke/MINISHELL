@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expandornot.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 15:54:09 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 17:22:56 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int i, int flag)
 	r = 0;
 	j = i;
 	if (flag && all->line[i])
-		while (all->line[i] != DQ && all->line[i] != SQ && all->line[i] != '$' && all->line[i] > 0)
+		while (all->line[i] && ft_isalnum(all->line[i]))
 			i++;
 	while (all->line[i] && ft_isalnum(all->line[i]))
 		i++;

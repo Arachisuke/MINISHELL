@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 11:40:06 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:20:41 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ char	**parse_line(t_all *all, char **strs)
 	k = 0;
 	start = 0;
 	j = 0;
-	i = -1;
+	i = skip_spaces(all->line) -1;
 	while (all->line[++i])
 	{
 		if (all->line[i] < 0 && !flag)

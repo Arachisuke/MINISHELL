@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   verif_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 10:31:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:46:27 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int skip_spaces(char *str)
+{
+	int i;
+
+	i = 0;
+	while (is_space(str[i]))
+		i++;
+	return (i);
+}
+
+int verif_space(char *str, t_all *all)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!is_space(str[i]))
+			return(SUCCESS);
+		i++;
+	}
+	return (ft_final(all, NULL, ERR_INVALID_INPUT));
+}
 
 int	verif_quotes(t_all *all, char *line)
 {
@@ -34,20 +58,7 @@ int	verif_quotes(t_all *all, char *line)
 			flag = 0;
 	}
 	if (flag == 1)
-		return (ft_final(all, "unclosed quotes", ERR_SYNTAX));
+		return (ft_final(all, "unclosed quotes", INVALID_SYNTAX));
 	return (SUCCESS);
 }
 
-int	verif_space(char *line) // elle sers a quoi ?
-{
-	int i;
-
-	i = 0;
-	if (!line)
-		return (1);
-	while (is_space(line[i]))
-		i++;
-	if ((size_t)i == ft_strlen(line))
-		return (1);
-	return (SUCCESS);
-}
