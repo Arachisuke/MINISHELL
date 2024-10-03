@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 17:18:17 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 18:24:56 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,12 +148,12 @@ char	**parse_line(t_all *all, char **strs)
 	k = 0;
 	start = 0;
 	j = 0;
-	i = firstquotecheck(all->line);
+	i = (skip_spaces(all->line) + firstquotecheck(all->line));
 	while (all->line[++i])
 	{
 		if (all->line[i] < 0 && !flag)
 			flag = 1;
-		else if ((!is_token_space(all->line[i]) && all->line[i]) && (flag && all->line[i] > -33))
+		else if ((!is_token_space(all->line[i]) && all->line[i]) || (flag && all->line[i] > -33))
 		{
 			start = i;
 			end = i;

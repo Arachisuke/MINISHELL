@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 11:49:50 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 18:29:55 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,34 @@ void	free_all(t_all *all)
 	all->tmp_cmds = NULL;
 	all->tmp_lexer = NULL;
 }
+int	is_triple_redir(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (line[i] == '<')
+		while (line[i])
+		{
+			if (line[i] == '<' && line[i + 1] == '<')
+				i++;
+			else
+				i++;
+		}
+	if (i == 0)
+		i++;
+	return (i);
+}
+
 int	ft_final(t_all *all, char *error, int sortie)
 {
-	char *str;
+	char	*str;
 
+	if (is_triple_redir(all->line) % 3 == 0)
+		error = "newline";
 	if (sortie == ERR_MALLOC)
 		str = "Allocation failed";
+	else if (sortie == INVALID_SYNTAX)
+		str = "minishell: Invalid syntax: ";
 	else if (sortie == ERR_SYNTAX)
 		str = "minishell : syntax error near unexpected token: `";
 	else if (sortie == 0)
@@ -46,7 +68,7 @@ int	ft_final(t_all *all, char *error, int sortie)
 		return (sortie);
 	ft_putstr_fd(str, 1);
 	ft_putstr_fd(error, 1);
-	if (ERR_SYNTAX)
+	if (sortie == ERR_SYNTAX)
 		ft_putchar_fd('\'', 1);
 	ft_putchar_fd('\n', 1);
 	free_all(all);

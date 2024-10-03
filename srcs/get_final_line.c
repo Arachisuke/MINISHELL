@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_final_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:44:55 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/01 17:49:12 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 16:49:45 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,16 @@ int	fill_final_line(t_expand *expand, char *final_line, char *line_tmp)
 	{
 		if (expand && i == expand->i)
 		{
-			if (!expand->strexpanded)
+			if (!expand->strexpanded && (line_tmp[i] == '$'
+					&& ft_isalnum(line_tmp[i + 1])))
 				i += expand->lenbefore;
 			else if (expand->strexpanded)
+			{
 				if (str_to_expand_exist(&i, &j, final_line, expand))
 					return (ERR_INVALID_INPUT);
+			}
+			else
+				final_line[j++] = line_tmp[i++];
 			if (expand->next)
 				expand = expand->next;
 		}

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 15:29:34 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/03 18:30:59 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,3 +190,14 @@ strs[2] = HOME  */
 // REGLE GENERAL cmd colle a une guillemet sa saute ! cmdnotfound
 // REGLE GENERAL "" au debut espacer de cmd on le garde pour execve il dit cmdnotfound sinon on le prend plus en compte on le supp
 // echo "" hola > affiche le hola en decalle avec un espace echo ""hola > sans espace
+
+// echo $"" >> echo $ >> rien
+/*
+
+strs[0] = echo
+strs[1] = 
+strs[2] = HOME  */
+
+
+// dernier pb que je connais a regler
+// valgrind
