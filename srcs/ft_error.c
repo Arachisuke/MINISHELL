@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 14:04:16 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:02:15 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ void	free_all(t_all *all)
 	all->tmp_cmds = NULL;
 	all->tmp_lexer = NULL;
 }
+
 int	is_triple_redir(char *line)
 {
 	int	i;
 
 	i = 0;
 	if (line[i] == '<')
+	{
 		while (line[i])
 		{
 			if (line[i] == '<' && line[i + 1] == '<')
@@ -43,14 +45,7 @@ int	is_triple_redir(char *line)
 			else
 				i++;
 		}
-	else if (line[i] == '>')
-		while (line[i])
-		{
-			if (line[i] == '>' && line[i + 1] == '>')
-				i++;
-			else
-				i++;
-		}
+	}
 	if (i == 0)
 		i++;
 	return (i);
@@ -60,7 +55,7 @@ int	ft_final(t_all *all, char *error, int sortie)
 {
 	char	*str;
 
-	if (is_triple_redir(all->line) % 3 == 0)
+	if (is_triple_redir(all->line) == 3)
 		error = "newline";
 	if (sortie == ERR_MALLOC)
 		str = "Allocation failed";

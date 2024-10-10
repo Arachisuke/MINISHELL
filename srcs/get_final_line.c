@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:44:55 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/03 16:49:45 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:15:46 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	get_len_expand_line(t_expand *expand)
 	}
 	return (len_total);
 }
-int	str_to_expand_exist(int *i, int *j, char *final_line, t_expand *expand)
+
+int	str_to_expand_exist(int *i, int **j, char *final_line, t_expand *expand)
 {
 	int	k;
 
@@ -38,40 +39,47 @@ int	str_to_expand_exist(int *i, int *j, char *final_line, t_expand *expand)
 		return (ERR_INVALID_INPUT);
 	k = 0;
 	while (expand && expand->strexpanded[k])
-		final_line[(*j)++] = expand->strexpanded[k++];
+		final_line[(**j)++] = expand->strexpanded[k++];
 	*i += expand->lenbefore;
+	return (SUCCESS);
+}
+
+int	manage_str_to_expand(int *j, t_expand *exp, char *tmp, char *line)
+{
+	int	i;
+
+	i = 0;
+	while (tmp && tmp[i])
+	{
+		if (exp && i == exp->i)
+		{
+			if (!exp->strexpanded && (tmp[i] == '$' && ft_isalnum(tmp[i + 1])))
+				i += exp->lenbefore;
+			else if (exp->strexpanded)
+			{
+				if (str_to_expand_exist(&i, &j, line, exp))
+					return (ERR_INVALID_INPUT);
+			}
+			else
+				line[(*j)++] = tmp[i++];
+			if (exp->next)
+				exp = exp->next;
+		}
+		else
+			line[(*j)++] = tmp[i++];
+	}
 	return (SUCCESS);
 }
 
 int	fill_final_line(t_expand *expand, char *final_line, char *line_tmp)
 {
-	int	i;
 	int	j;
 
-	i = 0;
 	j = 0;
 	if (!expand || !final_line)
 		return (ERR_INVALID_INPUT);
-	while (line_tmp && line_tmp[i])
-	{
-		if (expand && i == expand->i)
-		{
-			if (!expand->strexpanded && (line_tmp[i] == '$'
-					&& ft_isalnum(line_tmp[i + 1])))
-				i += expand->lenbefore;
-			else if (expand->strexpanded)
-			{
-				if (str_to_expand_exist(&i, &j, final_line, expand))
-					return (ERR_INVALID_INPUT);
-			}
-			else
-				final_line[j++] = line_tmp[i++];
-			if (expand->next)
-				expand = expand->next;
-		}
-		else
-			final_line[j++] = line_tmp[i++];
-	}
+	if (manage_str_to_expand(&j, expand, line_tmp, final_line))
+		return (ERR_INVALID_INPUT);
 	final_line[j] = '\0';
 	return (SUCCESS);
 }

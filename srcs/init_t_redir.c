@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init_t_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:09:41 by ankammer          #+#    #+#             */
-/*   Updated: 2024/09/25 12:57:06 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/05 17:24:18 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_redir	*ft_last_redir(t_redir *lst) // a modifier
+t_redir	*ft_last_redir(t_redir *lst)
 {
-	t_redir *actuel;
+	t_redir	*actuel;
 
 	if (!lst)
 		return (NULL);

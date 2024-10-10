@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   planning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 09:41:29 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:42:09 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,3 +163,7 @@ void	other(char *str)
 // cas envoyez juste : ou ! ca ne renvoie rien car ni un token(> ou |) ni un string donc rien par contre envoyez deux fois lun de ses caractere command not found 
 // yann a pas gerer il a dis direct command not found car cest une string! if pas redir donc cest une commande donc erreur!
 // > gerer car le msg parle de ce quil ya apres donc si cest juste > alors dire newline sinon > | ou >>> ca va parler de pipe ou de redir
+
+
+// TESTER
+// $USER_

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 10:46:26 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/05 17:18:35 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	find_var(t_all *all, char **envp)
 	if (!all->expand)
 		return (SUCCESS);
 	tmp = all->expand;
-	// gerer le cas ou ya $?
 	while (tmp)
 	{
 		while (envp[++i])

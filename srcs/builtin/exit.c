@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env.c                                          :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 14:52:42 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/10 18:48:15 by ankammer         ###   ########.fr       */
+/*   Created: 2024/10/10 15:22:26 by ankammer          #+#    #+#             */
+/*   Updated: 2024/10/10 18:22:36 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
 
-char	**get_env(char **envp) // a refaire avec structure env
-{
-	if (!envp)
-		return (NULL);
-	return (envp);
-}
+#include "../../inc/minishell.h"
+
+void ft_exit()
+{}

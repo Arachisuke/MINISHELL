@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_expand.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:57:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/29 16:58:52 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/08 15:00:06 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_expand	*create_nodexpand(t_expand **expand, int nbrexpand)
 
 t_expand	*ft_last_expand(t_expand *lst) // a modifier
 {
-	t_expand *actuel;
+	t_expand	*actuel;
 
 	if (!lst)
 		return (NULL);
@@ -67,5 +67,5 @@ t_expand	*ft_back_expand(t_expand **lst, t_expand *new)
 		last = ft_last_expand(*lst);
 		last->next = new;
 	}
-	return(new);
+	return (new);
 }

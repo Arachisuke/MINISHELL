@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:21:06 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/09/23 14:45:10 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:25:55 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_size_cmds(t_simple_cmds *lst)
 	}
 	return (i);
 }
+
 t_simple_cmds	*ft_last_cmds(t_simple_cmds *lst)
 {
 	t_simple_cmds	*actuel;
@@ -41,13 +42,14 @@ t_simple_cmds	*ft_last_cmds(t_simple_cmds *lst)
 			actuel = actuel->next;
 	return (actuel);
 }
+
 t_simple_cmds	*ft_new_cmds(int i)
 {
 	t_simple_cmds	*elem;
 
 	elem = malloc(sizeof(t_simple_cmds));
 	if (!elem)
-		return (NULL);	
+		return (NULL);
 	elem->is_builtin = 0;
 	elem->name = i;
 	elem->next = NULL;
@@ -83,6 +85,7 @@ void	ft_back_cmds(t_simple_cmds **lst, t_simple_cmds *new)
 		}
 	}
 }
+
 t_simple_cmds	*create_node_cmds(t_simple_cmds **cmds, int nb_pipe)
 {
 	int	i;

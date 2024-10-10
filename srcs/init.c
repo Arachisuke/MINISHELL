@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 12:10:10 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/05 18:28:50 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,13 @@ int	init_all(t_all *all, char **envp)
 	all->tmp_cmds = NULL;
 	all->tmp_lexer = NULL;
 	return (SUCCESS);
+}
+
+void init_parse(t_parse *parse, char *line)
+{
+	parse->end = 0;
+	parse->flag = 0;
+	parse->i = skip_spaces(line) - 1;
+	parse->j= 0;
+	parse->start = 0;
 }

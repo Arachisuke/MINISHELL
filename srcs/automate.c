@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:42:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 12:46:47 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:24:43 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	state_init(t_lexer *stack, t_all *all)
 		return (ft_final(all, stack->string, ERR_SYNTAX));
 	return (SUCCESS);
 }
+
 int	state_string(t_lexer *stack, t_all *all)
 {
 	if (stack->next)
@@ -82,6 +83,7 @@ int	state_pipe(t_lexer *stack, t_all *all)
 		return (ft_final(all, stack->string, ERR_SYNTAX));
 	return (SUCCESS);
 }
+
 int	state_redirection(t_lexer *stack, t_all *all)
 {
 	if (stack->next)

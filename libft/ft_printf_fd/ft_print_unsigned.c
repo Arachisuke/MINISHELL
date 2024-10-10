@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env.c                                          :+:      :+:    :+:   */
+/*   ft_print_unsigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 14:52:42 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/10 18:48:15 by ankammer         ###   ########.fr       */
+/*   Created: 2023/11/28 11:19:23 by ankammer          #+#    #+#             */
+/*   Updated: 2024/10/10 15:12:31 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../libft.h"
 
-char	**get_env(char **envp) // a refaire avec structure env
+int	ft_print_unsigned(unsigned int nbr, int fd)
 {
-	if (!envp)
-		return (NULL);
-	return (envp);
+	int	count;
+
+	count = 0;
+	if (nbr >= 10)
+	{
+		count += ft_print_unsigned(nbr / 10, fd);
+		count += ft_print_unsigned(nbr % 10, fd);
+	}
+	else
+	{
+		count += ft_printchar(nbr + 48, fd);
+	}
+	return (count);
 }

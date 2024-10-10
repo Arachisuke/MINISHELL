@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 15:42:31 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:46:27 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@
 # define ERR_ENV 7
 # define ERR_LINE 8
 # define INVALID_SYNTAX 9
+
+typedef struct s_parse
+{
+	int						i;
+	int						j;
+	int						flag;
+	int						start;
+	int						end;
+}							t_parse;
 
 typedef enum e_token
 {
@@ -84,7 +93,6 @@ typedef struct s_simple_cmds
 {
 	int						name;
 	char					**strs;
-	// int						(*builtin)(t_tools *, struct s_simple_cmds *);
 	bool					is_builtin;
 	int						num_redirections;
 	t_redir					*redir;
@@ -124,10 +132,11 @@ t_expand					*ft_new_expand(void);
 int							is_token_space(char c);
 int							count_word(const char *str);
 char						*remplir(t_all *all, int start, int end);
-
+int							checktab(int *tab, int j);
 char						*tokenisation(char **strs, char *line, int *index,
 								int *j);
-char						**parse_line(t_all *all, char **strs);
+char						**parse_line(t_all *all, char **strs,
+								t_parse *parse);
 t_lexer						*create_node(t_all *all, t_lexer **lexer,
 								char ***strs);
 t_lexer						*ft_new(t_all *all, void *content, int i);
@@ -159,11 +168,17 @@ int							find_var(t_all *all, char **envp);
 int							init_all(t_all *all, char **envp);
 char						*negative_hollow(char *s);
 int							checkredir(char *line, int i);
-char	*free_redir(t_redir **redir);    // 1
-char	*free_lexer(t_lexer **lexer);    // 3 ou 1
-char	*free_expand(t_expand **expand); // 4
+char						*free_redir(t_redir **redir);
+char						*free_lexer(t_lexer **lexer);
+char						*free_expand(t_expand **expand);
 int							ft_final(t_all *all, char *error, int sortie);
 int							count_word_quotes(const char *str, int i,
 								int *compteur);
 int							skip_spaces(char *str);
+int							check_quote_and_redir(char *line, int i, int count);
+int							is_double_redir(char *line, int token);
+void						fill_tab(int indice, int *tab, int **k);
+void							init_parse(t_parse *parse, char *line);
+int							count_arg(t_lexer *curr);
+
 #endif

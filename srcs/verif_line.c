@@ -6,15 +6,15 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 15:46:27 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:39:15 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int skip_spaces(char *str)
+int	skip_spaces(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (is_space(str[i]))
@@ -22,15 +22,15 @@ int skip_spaces(char *str)
 	return (i);
 }
 
-int verif_space(char *str, t_all *all)
+int	verif_space(char *str, t_all *all)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
 		if (!is_space(str[i]))
-			return(SUCCESS);
+			return (SUCCESS);
 		i++;
 	}
 	return (ft_final(all, NULL, ERR_INVALID_INPUT));
@@ -62,3 +62,34 @@ int	verif_quotes(t_all *all, char *line)
 	return (SUCCESS);
 }
 
+int	is_double_redir(char *line, int token)
+{
+	int	i;
+
+	i = 0;
+	if (((line[i] == '>' && line[i + 1] == '>') || (line[i] == '<' && line[i
+					+ 1] == '<')) && token == 0)
+		return (1);
+	return (0);
+}
+
+int	check_quote_and_redir(char *line, int i, int count)
+{
+	int	token;
+
+	token = 0;
+	while (line[i])
+	{
+		if (line[i] == -39 || line[i] == -34)
+			i = count_word_quotes(line, i, NULL);
+		else if (is_double_redir(line, token))
+			token = 1;
+		else if (is_token(line[i]))
+		{
+			token = 0;
+			count++;
+		}
+		i++;
+	}
+	return (count);
+}

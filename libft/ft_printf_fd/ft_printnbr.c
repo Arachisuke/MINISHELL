@@ -1,20 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env.c                                          :+:      :+:    :+:   */
+/*   ft_printnbr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 14:52:42 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/10 18:48:15 by ankammer         ###   ########.fr       */
+/*   Created: 2023/11/28 11:20:06 by ankammer          #+#    #+#             */
+/*   Updated: 2024/10/10 15:12:43 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../libft.h"
 
-char	**get_env(char **envp) // a refaire avec structure env
+int	ft_printnbr(int nb, int fd)
 {
-	if (!envp)
-		return (NULL);
-	return (envp);
+	int		count;
+	long	nbr;
+
+	nbr = nb;
+	count = 0;
+	if (nbr < 0)
+	{
+		nbr *= -1;
+		count += write(fd, "-", 1);
+	}
+	if (nbr >= 10)
+	{
+		count += ft_printnbr(nbr / 10, fd);
+		count += ft_printnbr(nbr % 10, fd);
+	}
+	else
+	{
+		count += ft_printchar(nbr + 48, fd);
+	}
+	return (count);
 }

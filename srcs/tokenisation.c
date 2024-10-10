@@ -6,35 +6,12 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 15:20:41 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:46:35 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	is_token(char c)
-{
-	int		i;
-	char	*token;
-
-	token = "|><";
-	i = 0;
-	while (token[i])
-	{
-		if (token[i] == c)
-			return (1);
-		i++;
-	}
-	return (SUCCESS);
-}
-int	is_space(char c)
-{
-	return (c == 32 || (c >= 9 && c <= 13));
-}
-int	is_token_space(char c)
-{
-	return (is_token(c) || is_space(c));
-}
 int	count_word_quotes(const char *str, int i, int *compteur)
 {
 	int	quote;
@@ -42,13 +19,12 @@ int	count_word_quotes(const char *str, int i, int *compteur)
 	quote = str[i];
 	i++;
 	while (str[i] != quote)
-	{
 		i++;
-	}
 	if (compteur)
 		(*compteur)++;
 	return (i);
 }
+
 int	count_word(const char *str)
 {
 	int	i;
@@ -60,7 +36,7 @@ int	count_word(const char *str)
 	compteur = 0;
 	while (str[i])
 	{
-		if (str[i] < 0)
+		if (str[i] == -39 || str[i] == -34)
 		{
 			if (str[i - 1] && !is_token_space(str[i - 1]))
 				compteur++;
@@ -73,6 +49,7 @@ int	count_word(const char *str)
 	}
 	return (compteur);
 }
+
 char	*remplir(t_all *all, int start, int end)
 {
 	char	*str;
@@ -87,15 +64,16 @@ char	*remplir(t_all *all, int start, int end)
 		str = malloc(sizeof(char) * (end - start + 1));
 	if (!str)
 		return (ft_final(all, NULL, ERR_INVALID_INPUT), NULL);
-	while (end - start > i && all->line[j] > -33)
+	while (end - start > i && (all->line[j] != -34 || all->line[j] != -39))
 	{
-		if (all->line[j] < 0)
+		if (all->line[j] == -32)
 			all->line[j] = all->line[j] * -1;
 		str[i++] = all->line[j++];
 	}
 	str[i] = '\0';
 	return (str);
 }
+
 char	*tokenisation(char **strs, char *line, int *index, int *j)
 {
 	char	*str;
@@ -123,54 +101,49 @@ char	*tokenisation(char **strs, char *line, int *index, int *j)
 	(*j)++;
 	return (str);
 }
-void	fill_tab(int indice, int *tab, int *i)
-{
-	tab[*i] = indice;
-	// printf("tab[%d] = %d\n", *i, tab[*i]);
-	(*i)++;
-}
 
-char	**parse_line(t_all *all, char **strs)
+void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 {
-	int			end;
-	int			start;
-	int			j;
-	int			i;
-	int			flag;
-	static int	k;
-
-	end = 0;
-	flag = 0;
-	k = 0;
-	start = 0;
-	j = 0;
-	i = skip_spaces(all->line) -1;
-	while (all->line[++i])
 	{
-		if (all->line[i] < 0 && !flag)
-			flag = 1;
-		else if ((!is_token_space(all->line[i]) && all->line[i]) || flag )
+		(*parse)->start = (*parse)->i;
+		(*parse)->end = (*parse)->i;
+		while ((!is_token_space(all->line[(*parse)->i])
+				&& all->line[(*parse)->i] && !(*parse)->flag
+				&& all->line[(*parse)->i] > -33) || ((*parse)->flag
+				&& all->line[(*parse)->i] > -33))
 		{
-			start = i;
-			end = i;
-			while ((!is_token_space(all->line[i]) && all->line[i] && !flag
-					&& all->line[i] > -33) || (flag && all->line[i] > -33))
-			{
-				end++;
-				i++;
-			}
-			if (flag)
-				fill_tab(j, all->tab, &k);
-			strs[j++] = remplir(all, start, end);
-			if (!all->line[i])
+			(*parse)->end++;
+			(*parse)->i++;
+		}
+		if ((*parse)->flag)
+			fill_tab((*parse)->j, all->tab, &k);
+		strs[(*parse)->j++] = remplir(all, (*parse)->start, (*parse)->end);
+	}
+}
+char	**parse_line(t_all *all, char **strs, t_parse *parse)
+{
+	static int k;
+
+	while (all->line[++parse->i])
+	{
+		if ((all->line[parse->i] == -34 || all->line[parse->i] == -39) && !parse->flag)
+		{
+			parse->flag = 1;
+		}
+		else if ((!is_token_space(all->line[(parse)->i])
+				&& all->line[(parse)->i]) || (parse)->flag)
+		{
+			parsing(&parse, &k, all, strs);
+			if (!all->line[(parse)->i])
 				break ;
-			flag = 0;
-			if (!strs[j - 1])
+			(parse)->flag = 0;
+			if (!strs[(parse)->j - 1])
 				return (NULL);
 		}
-		else if (is_token(all->line[i]))
-			strs[j] = tokenisation(strs, all->line, &i, &j);
+		else if (is_token(all->line[parse->i]))
+			strs[parse->j] = tokenisation(strs, all->line, &parse->i,
+					&parse->j);
 	}
-	strs[j] = NULL;
+	strs[parse->j] = NULL;
 	return (strs);
 }

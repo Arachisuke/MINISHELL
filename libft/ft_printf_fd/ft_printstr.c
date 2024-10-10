@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env.c                                          :+:      :+:    :+:   */
+/*   ft_printstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 14:52:42 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/10 18:48:15 by ankammer         ###   ########.fr       */
+/*   Created: 2023/11/28 00:16:09 by ankammer          #+#    #+#             */
+/*   Updated: 2024/10/10 15:13:13 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../libft.h"
 
-char	**get_env(char **envp) // a refaire avec structure env
+int	ft_printstr(char *str, int fd)
 {
-	if (!envp)
-		return (NULL);
-	return (envp);
+	if (!str)
+		return (write(fd, "(null)", 6));
+	else
+		return (write(fd, str, ft_strlen(str)));
 }

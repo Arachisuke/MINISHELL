@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 16:00:15 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:07:17 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*get_current_dir(void)
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_parse	parse;
 	t_all	all;
 
 	if (argc != 1 || argv[1])
@@ -56,10 +57,11 @@ int	main(int argc, char **argv, char **envp)
 			// a partir d'ici line n'as jamais change donc pas besoin de faire de verif de line par contre line change apres cette fonction
 			continue ;
 		if (verif_space(all.line, &all))
-			continue;
+			continue ;
 		if (malloc_input(&all))
 			continue ;
-		if (!parse_line(&all, all.strs))
+		init_parse(&parse, all.line);
+		if (!parse_line(&all, all.strs, &parse))
 			// ici cest strs qui recupere les donne de line
 			continue ;
 		// printf("line = %s\n", all.line);

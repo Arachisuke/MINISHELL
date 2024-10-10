@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fonction.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 11:16:20 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/05 17:23:28 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,28 +80,4 @@ void	cmds_affichage(t_simple_cmds *cmds)
 		// 	tmp->string, tmp, tmp->prev, tmp->next, tmp->token);
 		// tmp = tmp->next; */
 	}
-}
-
-int	init_token(t_lexer *lexer, t_all *all)
-{
-	if (ft_strlen(lexer->string) == 2 && is_token(lexer->string[0])) // 1
-	{
-		if (lexer->string[0] == '<' && lexer->string[1] == '<')
-			lexer->token = D_LOWER;
-		else if (lexer->string[0] == '>' && lexer->string[1] == '>')
-			lexer->token = D_GREATER;
-		else if (lexer->string[0] == '<' && lexer->string[1] == '>')
-			return(ft_final(all, ">", ERR_SYNTAX));
-		else if (lexer->string[0] == '>' && lexer->string[1] == '<')
-			return(ft_final(all, "newline", ERR_SYNTAX));		
-	}
-	else if (lexer->string[0] == '|')
-		lexer->token = PIPE;
-	else if (lexer->string[0] == '>')
-		lexer->token = GREATER;
-	else if (lexer->string[0] == '<')
-		lexer->token = LOWER;
-	else
-		lexer->token = STRING;
-	return(0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:36:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 11:42:40 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/05 15:18:29 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,6 @@ t_lexer	*create_node(t_all *all, t_lexer **lexer, char ***strs)
 	return (*lexer);
 }
 
-int	checktab(int *tab, int j)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i] >= 0)
-	{
-		if (tab[i] == j)
-			return (1);
-		i++;
-	}
-	return (0);
-}
 t_lexer	*ft_new(t_all *all, void *content, int i)
 {
 	t_lexer	*elem;
@@ -61,6 +48,7 @@ t_lexer	*ft_new(t_all *all, void *content, int i)
 		return (NULL);
 	return (elem);
 }
+
 void	ft_back(t_lexer **lst, t_lexer *new)
 {
 	t_lexer	*last;
@@ -105,8 +93,8 @@ t_lexer	*ft_last(t_lexer *lst)
 
 int	ft_size(t_lexer *lst)
 {
-	int i;
-	t_lexer *actuel;
+	int		i;
+	t_lexer	*actuel;
 
 	actuel = lst;
 	i = 0;
