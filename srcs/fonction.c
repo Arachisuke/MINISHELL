@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fonction.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 11:16:20 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/04 10:58:32 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	expand_affichage(t_expand *expand)
 	while (tmp)
 	{
 		printf("i = %d\nlenbefore = %d\nlenafter= %d\nstrtoexpand= %s\nstrexpanded= %s\n", tmp->i, tmp->lenbefore,
-			tmp->lenafter, tmp->strtoexpand, tmp->strexpanded);
-		printf("i = %d\nlenbefore = %d\nlenafter = %d\nstrtoexpand= %s\nstrexpanded= %s\n", tmp->i, tmp->lenbefore,
 			tmp->lenafter, tmp->strtoexpand, tmp->strexpanded);
 		tmp = tmp->next;
 		printf("\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 18:24:56 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/04 10:28:46 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ char	*tokenisation(char **strs, char *line, int *index, int *j)
 {
 	char	*str;
 
+
+	(void)j;
 	if ((line[*index] == '<' && line[*index + 1] == '<') || (line[*index] == '>'
 			&& line[*index + 1] == '>'))
 	{
@@ -124,7 +126,6 @@ char	*tokenisation(char **strs, char *line, int *index, int *j)
 		str[0] = line[*index];
 		str[1] = '\0';
 	}
-	(*j)++;
 	return (str);
 }
 void	fill_tab(int indice, int *tab, int *i)
@@ -173,7 +174,7 @@ char	**parse_line(t_all *all, char **strs)
 				return (NULL);
 		}
 		else if (is_token(all->line[i]))
-			strs[j] = tokenisation(strs, all->line, &i, &j);
+			strs[j++] = tokenisation(strs, all->line, &i, &j);
 	}
 	strs[j] = NULL;
 	return (strs);

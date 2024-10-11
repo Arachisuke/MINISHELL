@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 18:09:19 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/04 11:02:45 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (verif_quotes(&all, all.line))
 			continue ;
-		printf("line = %s\n", all.line);
 		if (find_var(&all, all.envp))
 			continue ;
-		// expand_affichage(all.expand);
-		printf("line = %s\n", all.line);
+		//printf("linefindvar = %s\n", all.line);
+		//expand_affichage(all.expand);
 		if (get_final_line(&all))
 			// a partir d'ici line n'as jamais change donc pas besoin de faire de verif de line par contre line change apres cette fonction
 			continue ;
+		//printf("linefinal = %s\n", all.line);
 		if (verif_space(all.line, &all))
 			continue ;
 		if (malloc_input(&all))
@@ -68,7 +68,7 @@ int	main(int argc, char **argv, char **envp)
 		// printf("line = %s\n", all.line);
 		// all.line = negative_hollow(all.line);
 		all.lexer = create_node(&all, &all.lexer, &all.strs);
-		node_affichage(all.lexer);       /// strs et line..et all
+		//node_affichage(all.lexer);       /// strs et line..et all
 		if (state_init(all.lexer, &all))
 			// token dans une chaine de caractere mais sans guillemet comment le gerer!
 			continue ;
