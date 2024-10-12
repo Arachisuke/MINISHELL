@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/05 18:28:50 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:23:14 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void init_parse(t_parse *parse, char *line)
 {
 	parse->end = 0;
 	parse->flag = 0;
-	parse->i = skip_spaces(line) - 1;
+	parse->i = skip_spaces(line) - 1 + ;
 	parse->j= 0;
 	parse->start = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expandornot.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/09 15:35:50 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:44:07 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	is_double_dollar(char *str, int *i)
 		}
 	}
 }
+
 
 int	condition(char *str, int i)
 {

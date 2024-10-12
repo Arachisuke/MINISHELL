@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/08 16:39:15 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:34:45 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,10 @@ int	check_quote_and_redir(char *line, int i, int count)
 		i++;
 	}
 	return (count);
+}
+int	firstquotecheck(char *line)
+{
+	if (line[0] < 0 && line[1] && line[1] < 0 && line[2] && ft_isalpha(line[2]))
+		return (1);
+	return (0);
 }

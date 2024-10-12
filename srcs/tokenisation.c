@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/08 17:46:35 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:59:53 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*remplir(t_all *all, int start, int end)
 		str = malloc(sizeof(char) * (end - start + 1));
 	if (!str)
 		return (ft_final(all, NULL, ERR_INVALID_INPUT), NULL);
-	while (end - start > i && (all->line[j] != -34 || all->line[j] != -39))
+	while (end - start > i && (all->line[j] != -34 && all->line[j] != -39)) // jai change le || par &&
 	{
 		if (all->line[j] == -32)
 			all->line[j] = all->line[j] * -1;
@@ -74,7 +74,7 @@ char	*remplir(t_all *all, int start, int end)
 	return (str);
 }
 
-char	*tokenisation(char **strs, char *line, int *index, int *j)
+char	*tokenisation(char **strs, char *line, int *index)
 {
 	char	*str;
 
@@ -98,7 +98,6 @@ char	*tokenisation(char **strs, char *line, int *index, int *j)
 		str[0] = line[*index];
 		str[1] = '\0';
 	}
-	(*j)++;
 	return (str);
 }
 
@@ -141,8 +140,7 @@ char	**parse_line(t_all *all, char **strs, t_parse *parse)
 				return (NULL);
 		}
 		else if (is_token(all->line[parse->i]))
-			strs[parse->j] = tokenisation(strs, all->line, &parse->i,
-					&parse->j);
+			strs[parse->j++] = tokenisation(strs, all->line, &parse->i);
 	}
 	strs[parse->j] = NULL;
 	return (strs);

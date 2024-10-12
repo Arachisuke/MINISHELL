@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   planning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/08 18:42:09 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:32:48 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,3 +167,7 @@ void	other(char *str)
 
 // TESTER
 // $USER_
+// double dollar ??
+// sil ya un pipe ca ne marchait pas ...le probleme de l'incrementation de J....
+// reregler ""ls (marche) a "" ls (cmd not found)
+// le *-1 des quotes ne sers a rien!

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/10 12:46:27 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:59:45 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <linux/limits.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -133,8 +133,7 @@ int							is_token_space(char c);
 int							count_word(const char *str);
 char						*remplir(t_all *all, int start, int end);
 int							checktab(int *tab, int j);
-char						*tokenisation(char **strs, char *line, int *index,
-								int *j);
+char						*tokenisation(char **strs, char *line, int *index);
 char						**parse_line(t_all *all, char **strs,
 								t_parse *parse);
 t_lexer						*create_node(t_all *all, t_lexer **lexer,
