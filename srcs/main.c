@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/11 18:19:12 by macos            ###   ########.fr       */
+/*   Updated: 2024/10/12 16:57:50 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*get_current_dir(void)
+void	get_current_dir(char **line)
 {
 	int		i;
-	char	*line;
 	char	current_directory[PATH_MAX];
 
 	i = 0;
@@ -24,18 +23,13 @@ char	*get_current_dir(void)
 	current_directory[i] = '>';
 	current_directory[i + 1] = ' ';
 	current_directory[i + 2] = '\0';
-	line = readline(current_directory);
-	if (!line)
-		return (NULL);
-	return (line);
+	*line = readline(current_directory);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_parse	parse;
 	t_all	all;
-	//int i;
-
 
 	if (argc != 1 || argv[1])
 		return (SUCCESS);
@@ -43,7 +37,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (init_all(&all, envp))
 			continue ;
-		all.line = get_current_dir();
+		get_current_dir(&all.line);
 		if (!all.line || !*all.line)
 			continue ;
 		add_history(all.line);
@@ -51,11 +45,11 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (verif_quotes(&all, all.line))
 			continue ;
-		printf("lineafterverif = %s\n", all.line);
+	//	printf("lineafterverif = %s\n", all.line);
 		if (find_var(&all, all.envp))
 			continue ;
-		// expand_affichage(all.expand);
-		printf("lineafterfind_var = %s\n", all.line);
+		 expand_affichage(all.expand);
+	//	printf("lineafterfind_var = %s\n", all.line);
 		if (get_final_line(&all))
 			// a partir d'ici line n'as jamais change donc pas besoin de faire de verif de line par contre line change apres cette fonction
 			continue ;
@@ -70,10 +64,10 @@ int	main(int argc, char **argv, char **envp)
 		// i = -1;
 		// while(all.strs[++i])
 		// 	printf("strs[%d] = %s\n",i,  all.strs[i]);
-		printf("lineafterparseline = %s\n", all.line);
+		//printf("lineafterparseline = %s\n", all.line);
 		// all.line = negative_hollow(all.line);
 		all.lexer = create_node(&all, &all.lexer, &all.strs);
-		//node_affichage(all.lexer); /// strs et line..et all
+		// node_affichage(all.lexer); /// strs et line..et all
 		if (state_init(all.lexer, &all))
 			// token dans une chaine de caractere mais sans guillemet comment le gerer!
 			continue ;

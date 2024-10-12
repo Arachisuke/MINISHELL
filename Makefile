@@ -7,7 +7,7 @@ SRC	= srcs/fonction.c srcs/main.c srcs/init_node.c srcs/tokenisation.c srcs/veri
 		 
 OBJ = $(SRC:.c=.o)
 LIBFT = ./libft/libft.a
-CC = gcc
+CC = cc
 FLAG = -Wall -Werror -Wextra -g3
 LD_FLAGS = -lreadline -lncurses -lcurses
 
@@ -16,7 +16,6 @@ $(NAME): $(OBJ) $(LIBFT)
 
 $(LIB):	$(OBJ)
 	ar rcs $(LIB) $(OBJ)
-	rm -rf $(OBJ)
 
 all: $(NAME) $(LIB)
 

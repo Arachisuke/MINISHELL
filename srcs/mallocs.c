@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mallocs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:28:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/11 18:24:30 by macos            ###   ########.fr       */
+/*   Updated: 2024/10/12 15:23:47 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	malloc_input(t_all *all)
 	if (!all->line || !*all->line)
 		return (ft_final(all, NULL, ERR_LINE));
 	i = skip_spaces(all->line);
+	i = firstquotecheck(all->line, i);
 	count = count_word(all->line); // caractere speciaux non gere car depasse 127 donc negatif
 	count = check_quote_and_redir(all->line, i, count);
 	printf("COUUUUNT = %d\n", count);

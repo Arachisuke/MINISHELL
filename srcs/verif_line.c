@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/11 18:34:45 by macos            ###   ########.fr       */
+/*   Updated: 2024/10/12 15:26:13 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	is_double_redir(char *line, int token)
 
 	i = 0;
 	if (((line[i] == '>' && line[i + 1] == '>') || (line[i] == '<' && line[i
-					+ 1] == '<')) && token == 0)
+				+ 1] == '<')) && token == 0)
 		return (1);
 	return (0);
 }
@@ -93,9 +93,13 @@ int	check_quote_and_redir(char *line, int i, int count)
 	}
 	return (count);
 }
-int	firstquotecheck(char *line)
+int	firstquotecheck(char *line, int i)
 {
-	if (line[0] < 0 && line[1] && line[1] < 0 && line[2] && ft_isalpha(line[2]))
-		return (1);
-	return (0);
+	if (line[i] == SQ && line[i + 1] && line[i + 1] == SQ && line[i + 2]
+		&& ft_isalpha(line[i + 2]))
+		return (i + 2);
+	if (line[i] == DQ && line[i + 1] && line[i + 1] == DQ && line[i + 2]
+		&& ft_isalpha(line[i + 2]))
+		return (i + 2);
+	return (i);
 }

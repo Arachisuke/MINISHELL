@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   planning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/11 18:32:48 by macos            ###   ########.fr       */
+/*   Updated: 2024/10/12 19:02:10 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,17 @@ void	other(char *str)
 // double dollar ??
 // sil ya un pipe ca ne marchait pas ...le probleme de l'incrementation de J....
 // reregler ""ls (marche) a "" ls (cmd not found)
+
+
+
+
+
+OCTOBRE 13!
+
 // le *-1 des quotes ne sers a rien!
+// valgrind $ nombre impair
+//valgrind // echo "$HOME:$=" // echo $: 
+// exit
+// tester $$HOME si home est bien expand @@@
+//tester $$$HOME @@@
+// valgrind tout les test au dessus en plus de ceux repertorier sur le googlesheet

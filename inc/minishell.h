@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/11 17:59:45 by macos            ###   ########.fr       */
+/*   Updated: 2024/10/12 18:25:55 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <limits.h>
+# include <linux/limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -111,6 +111,7 @@ typedef struct s_all
 	t_expand				*expand;
 	char					**envp;
 	int						tab[100];
+	char					*shell_id;
 }							t_all;
 
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
@@ -143,7 +144,7 @@ void						ft_back(t_lexer **lst, t_lexer *new);
 t_lexer						*ft_last(t_lexer *lst);
 int							ft_size(t_lexer *lst);
 int							if_here_doc(t_all *all);
-char						*get_current_dir(void);
+void						get_current_dir(char **line);
 void						node_affichage(t_lexer *lexer);
 int							verif_quotes(t_all *all, char *line);
 int							verif_space(char *line, t_all *all);
@@ -177,7 +178,9 @@ int							skip_spaces(char *str);
 int							check_quote_and_redir(char *line, int i, int count);
 int							is_double_redir(char *line, int token);
 void						fill_tab(int indice, int *tab, int **k);
-void							init_parse(t_parse *parse, char *line);
+void						init_parse(t_parse *parse, char *line);
 int							count_arg(t_lexer *curr);
+int							firstquotecheck(char *line, int i);
+char						*ft_pid(t_all *all);
 
 #endif

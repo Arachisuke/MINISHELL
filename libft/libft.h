@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:27:21 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/10 15:11:31 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:34:52 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <fcntl.h>
+# include <stdarg.h>
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <stdarg.h>
-
+# define BUFFER_SIZE 1
 
 int					ft_atoi(const char *nptr);
 void				ft_bzero(void *s, size_t n);
@@ -64,6 +65,12 @@ int					ft_printnbr(int nbr, int fd);
 int					ft_print_unsigned(unsigned int nbr, int fd);
 int					ft_printhex(unsigned long nbr, char arg, int fd);
 int					ft_printptr(unsigned long ptr, int fd);
+char				*ft_strduper(const char *s);
+char				*get_next_line(int fd);
+char				*ft_strcpy(char *dest, const char *src);
+char				*strcut(char *s);
+char				*joinfreenew(char *s1, char *s2);
+char				*read_file(int fd, char *buf, char *left, char *line);
 
 typedef struct s_list
 {

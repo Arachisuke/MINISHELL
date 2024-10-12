@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_final_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:44:55 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/05 17:15:46 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:22:06 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	get_len_expand_line(t_expand *expand)
 	while (expand)
 	{
 		if (expand->strexpanded)
-		{
-			expand->lenafter = ft_strlen(expand->strexpanded);
-			len_total += expand->lenafter - expand->lenbefore;
-		}
+			len_total += ft_strlen(expand->strexpanded) - expand->lenbefore;
 		else
 			len_total -= expand->lenbefore;
 		expand = expand->next;
@@ -93,6 +90,7 @@ int	get_final_line(t_all *all)
 	if (!all->expand)
 		return (SUCCESS);
 	len_total = get_len_expand_line(all->expand) + ft_strlen(all->line);
+	printf("LEEEEEEEEEEEEEEEEEEEN = %d\n", len_total);
 	if (malloc_final_line(&all->line, len_total, &line_tmp))
 		return (ft_final(all, NULL, ERR_MALLOC));
 	if (fill_final_line(all->expand, all->line, line_tmp))

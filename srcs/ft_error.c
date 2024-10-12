@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/08 15:02:15 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/12 17:38:28 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	free_all(t_all *all)
 		free_expand(&all->expand);
 	if (all->line)
 		free(all->line);
+	if (all->shell_id)
+		free(all->shell_id);
 	all->line = NULL;
 	all->tmp_cmds = NULL;
 	all->tmp_lexer = NULL;
@@ -55,6 +57,8 @@ int	ft_final(t_all *all, char *error, int sortie)
 {
 	char	*str;
 
+	str = NULL;
+
 	if (is_triple_redir(all->line) == 3)
 		error = "newline";
 	if (sortie == ERR_MALLOC)
@@ -63,12 +67,12 @@ int	ft_final(t_all *all, char *error, int sortie)
 		str = "minishell: Invalid syntax: ";
 	else if (sortie == ERR_SYNTAX)
 		str = "minishell : syntax error near unexpected token: `";
-	else if (sortie == 0)
-		return (SUCCESS);
+	// else if (sortie == 0)
+	// 	return (SUCCESS);
 	else if (sortie == ERR_INVALID_INPUT) // a supp
 		str = "syntax error : line";
-	else
-		return (sortie);
+	// else
+	// 	return (sortie);
 	ft_putstr_fd(str, 1);
 	ft_putstr_fd(error, 1);
 	if (sortie == ERR_SYNTAX)
