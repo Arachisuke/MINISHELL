@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/12 15:02:59 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/13 12:58:14 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	count_word(const char *str)
 	compteur = 0;
 	while (str[i])
 	{
-		if (str[i] == -39 || str[i] == -34)
+		if (str[i] == SQ || str[i] == DQ)
 		{
 			if (str[i - 1] && !is_token_space(str[i - 1]))
 				compteur++;
@@ -64,7 +64,8 @@ char	*remplir(t_all *all, int start, int end)
 		str = malloc(sizeof(char) * (end - start + 1));
 	if (!str)
 		return (ft_final(all, NULL, ERR_INVALID_INPUT), NULL);
-	while (end - start > i && (all->line[j] != -34 && all->line[j] != -39)) // jai change le || par &&
+	while (end - start > i && (all->line[j] != DQ && all->line[j] != SQ))
+	// jai change le || par &&
 	{
 		if (all->line[j] == -32)
 			all->line[j] = all->line[j] * -1;
@@ -108,8 +109,9 @@ void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 		(*parse)->end = (*parse)->i;
 		while ((!is_token_space(all->line[(*parse)->i])
 				&& all->line[(*parse)->i] && !(*parse)->flag
-				&& all->line[(*parse)->i] > -33) || ((*parse)->flag
-				&& all->line[(*parse)->i] > -33))
+				&& all->line[(*parse)->i] != SQ && all->line[(*parse)->i] != DQ)
+			|| ((*parse)->flag && all->line[(*parse)->i] != DQ
+				&& all->line[(*parse)->i] != DQ))
 		{
 			(*parse)->end++;
 			(*parse)->i++;
@@ -121,11 +123,12 @@ void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 }
 char	**parse_line(t_all *all, char **strs, t_parse *parse)
 {
-	static int k;
+	static int	k;
 
 	while (all->line[++parse->i])
 	{
-		if ((all->line[parse->i] == -34 || all->line[parse->i] == -39) && !parse->flag)
+		if ((all->line[parse->i] == DQ || all->line[parse->i] == SQ)
+			&& !parse->flag)
 		{
 			parse->flag = 1;
 		}

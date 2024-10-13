@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/12 19:02:10 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/13 13:05:35 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,8 +179,18 @@ OCTOBRE 13!
 
 // le *-1 des quotes ne sers a rien!
 // valgrind $ nombre impair
-//valgrind // echo "$HOME:$=" // echo $: 
-// exit
+//valgrind // echo "$HOME:$=" // echo $: @@@@@
+//mettre plein de commande et ensuite exit et/ou mettre juste un caratere @@@
 // tester $$HOME si home est bien expand @@@
 //tester $$$HOME @@@
+// erreur $$HOME$HOME @@@@
 // valgrind tout les test au dessus en plus de ceux repertorier sur le googlesheet
+// makefile le minishell.a et minishell ne se supp pas a verifier
+// supp les fonctions negative hollow et double dollar et chercher els fonctions inutiliser @@@
+// tester avec guillemet les token et sans guillemet mettre des redir des pipe ect, et mettre des vrai sans guillemet tjr regarde si count vaut bien le count et lentotal et bon!
+//verifier si cest vraiment le pid du shell le $$ et pas celui dun prog
+//verifier si ont doit utiliser toute les fonctions proposer..
+//strerror est interessant pour les msg derreur avec errno
+//si un expand existe pas error chez yan et si ya echo > $HOE il dit que c une erreur alors que dans bash ca affiche juste rien // nous c boon
+//supp syntax error line
+//doit on supp lhistorique ?

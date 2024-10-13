@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/12 15:26:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/13 10:23:48 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	check_quote_and_redir(char *line, int i, int count)
 	token = 0;
 	while (line[i])
 	{
-		if (line[i] == -39 || line[i] == -34)
+		if (line[i] == SQ || line[i] == DQ)
 			i = count_word_quotes(line, i, NULL);
 		else if (is_double_redir(line, token))
 			token = 1;

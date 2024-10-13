@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/12 18:25:55 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/13 13:03:23 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ typedef struct s_all
 	t_expand				*expand;
 	char					**envp;
 	int						tab[100];
+	int						id;
 	char					*shell_id;
+
 }							t_all;
 
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
@@ -164,13 +166,12 @@ t_redir						*ft_last_redir(t_redir *lst);
 int							get_final_line(t_all *all);
 t_expand					*create_nodexpand(t_expand **expand, int nbrexpand);
 void						expand_affichage(t_expand *expand);
-int							find_var(t_all *all, char **envp);
+int							find_var(t_all *all);
 int							init_all(t_all *all, char **envp);
-char						*negative_hollow(char *s);
 int							checkredir(char *line, int i);
 char						*free_redir(t_redir **redir);
 char						*free_lexer(t_lexer **lexer);
-char						*free_expand(t_expand **expand);
+char	*free_expand(t_expand **expand); // 4
 int							ft_final(t_all *all, char *error, int sortie);
 int							count_word_quotes(const char *str, int i,
 								int *compteur);
@@ -181,6 +182,6 @@ void						fill_tab(int indice, int *tab, int **k);
 void						init_parse(t_parse *parse, char *line);
 int							count_arg(t_lexer *curr);
 int							firstquotecheck(char *line, int i);
-char						*ft_pid(t_all *all);
+char							*ft_pid(t_all *all);
 
 #endif
