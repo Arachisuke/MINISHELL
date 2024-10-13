@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   negative.c                                         :+:      :+:    :+:   */
+/*   ft_printf_fd.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 15:50:54 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/08 14:58:33 by ankammer         ###   ########.fr       */
+/*   Created: 2023/11/28 00:16:36 by ankammer          #+#    #+#             */
+/*   Updated: 2024/10/10 14:23:59 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#ifndef FT_PRINTF_FD_H
 
-char	*negative_hollow(char *s)
-{
-	int		i;
-	int		j;
-	char	*str;
+# define FT_PRINTF_FD_H
 
-	i = -1;
-	j = 0;
-	while (s[++i])
-		if (s[i] < 0)
-			j++;
-	str = malloc(sizeof(char) * (i + 1 - j));
-	if (str == NULL)
-		return (NULL);
-	i = -1;
-	j = 0;
-	while (s[++i])
-		if (s[i] > 0) // a changer
-			str[j++] = s[i]; 
-	free(s);
-	str[j] = '\0';
-	return (str);
-}
+# include <stdarg.h>
+# include <unistd.h>
+
+int	ft_printf_fd(int fd, const char *format, ...);
+int	ft_printchar(char arg, int fd);
+int	ft_printstr(char *str, int fd);
+int	ft_printnbr(int nbr, int fd);
+int	ft_print_unsigned(unsigned int nbr, int fd);
+int	ft_printhex(unsigned long nbr, char arg, int fd);
+int	ft_printptr(unsigned long ptr, int fd);
+
+#endif

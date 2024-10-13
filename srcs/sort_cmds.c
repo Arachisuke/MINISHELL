@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sort_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/02 15:09:51 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/05 17:18:25 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	count_arg(t_lexer *curr)
-{
-	t_lexer	*tmp;
-	int		count;
-
-	count = 0;
-	tmp = curr;
-	if (tmp->token == STRING && !tmp->prev) // premier mot forcement une cmd
-		count = 1;
-	if (tmp->token == PIPE && tmp->next)
-		tmp = tmp->next;
-	while (tmp && tmp->token != PIPE)
-	{
-		if (tmp->token == STRING && tmp->prev && (tmp->prev->token == STRING
-				|| tmp->prev->token == PIPE))
-			count++;
-		tmp = tmp->next;
-	}
-	return (count);
-}
 
 void	sort_cmds_args(t_lexer *curr, t_simple_cmds **tmp, int *i)
 {

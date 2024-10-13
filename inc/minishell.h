@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/04 09:41:37 by macos            ###   ########.fr       */
+/*   Updated: 2024/10/13 09:50:32 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@
 # define ERR_ENV 7
 # define ERR_LINE 8
 # define INVALID_SYNTAX 9
+
+typedef struct s_parse
+{
+	int						i;
+	int						j;
+	int						flag;
+	int						start;
+	int						end;
+}							t_parse;
 
 typedef enum e_token
 {
@@ -84,7 +93,6 @@ typedef struct s_simple_cmds
 {
 	int						name;
 	char					**strs;
-	// int						(*builtin)(t_tools *, struct s_simple_cmds *);
 	bool					is_builtin;
 	int						num_redirections;
 	t_redir					*redir;
@@ -103,6 +111,7 @@ typedef struct s_all
 	t_expand				*expand;
 	char					**envp;
 	int						tab[100];
+	char					*shell_id;
 }							t_all;
 
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
@@ -124,10 +133,10 @@ t_expand					*ft_new_expand(void);
 int							is_token_space(char c);
 int							count_word(const char *str);
 char						*remplir(t_all *all, int start, int end);
-
-char						*tokenisation(char **strs, char *line, int *index,
-								int *j);
-char						**parse_line(t_all *all, char **strs);
+int							checktab(int *tab, int j);
+char						*tokenisation(char **strs, char *line, int *index);
+char						**parse_line(t_all *all, char **strs,
+								t_parse *parse);
 t_lexer						*create_node(t_all *all, t_lexer **lexer,
 								char ***strs);
 t_lexer						*ft_new(t_all *all, void *content, int i);
@@ -135,7 +144,7 @@ void						ft_back(t_lexer **lst, t_lexer *new);
 t_lexer						*ft_last(t_lexer *lst);
 int							ft_size(t_lexer *lst);
 int							if_here_doc(t_all *all);
-char						*get_current_dir(void);
+void						get_current_dir(char **line);
 void						node_affichage(t_lexer *lexer);
 int							verif_quotes(t_all *all, char *line);
 int							verif_space(char *line, t_all *all);
@@ -159,13 +168,12 @@ int							find_var(t_all *all, char **envp);
 int							init_all(t_all *all, char **envp);
 char						*negative_hollow(char *s);
 int							checkredir(char *line, int i);
-char	*free_redir(t_redir **redir);    // 1
-char	*free_lexer(t_lexer **lexer);    // 3 ou 1
-char	*free_expand(t_expand **expand); // 4
+char						*free_redir(t_redir **redir);
+char						*free_lexer(t_lexer **lexer);
+char						*free_expand(t_expand **expand);
 int							ft_final(t_all *all, char *error, int sortie);
 int							count_word_quotes(const char *str, int i,
 								int *compteur);
 int							firstquotecheck(char *line);
 int							skip_spaces(char *str);
-
 #endif

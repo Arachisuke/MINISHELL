@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   negative.c                                         :+:      :+:    :+:   */
+/*   ft_print_unsigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 15:50:54 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/08 14:58:33 by ankammer         ###   ########.fr       */
+/*   Created: 2023/11/28 11:19:23 by ankammer          #+#    #+#             */
+/*   Updated: 2024/10/10 15:12:31 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../libft.h"
 
-char	*negative_hollow(char *s)
+int	ft_print_unsigned(unsigned int nbr, int fd)
 {
-	int		i;
-	int		j;
-	char	*str;
+	int	count;
 
-	i = -1;
-	j = 0;
-	while (s[++i])
-		if (s[i] < 0)
-			j++;
-	str = malloc(sizeof(char) * (i + 1 - j));
-	if (str == NULL)
-		return (NULL);
-	i = -1;
-	j = 0;
-	while (s[++i])
-		if (s[i] > 0) // a changer
-			str[j++] = s[i]; 
-	free(s);
-	str[j] = '\0';
-	return (str);
+	count = 0;
+	if (nbr >= 10)
+	{
+		count += ft_print_unsigned(nbr / 10, fd);
+		count += ft_print_unsigned(nbr % 10, fd);
+	}
+	else
+	{
+		count += ft_printchar(nbr + 48, fd);
+	}
+	return (count);
 }

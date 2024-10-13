@@ -6,15 +6,15 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/03 18:03:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/13 09:51:03 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int skip_spaces(char *str)
+int	skip_spaces(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (is_space(str[i]))
@@ -22,15 +22,15 @@ int skip_spaces(char *str)
 	return (i);
 }
 
-int verif_space(char *str, t_all *all)
+int	verif_space(char *str, t_all *all)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
 		if (!is_space(str[i]))
-			return(SUCCESS);
+			return (SUCCESS);
 		i++;
 	}
 	return (ft_final(all, NULL, ERR_INVALID_INPUT));
@@ -62,12 +62,3 @@ int	verif_quotes(t_all *all, char *line)
 	return (SUCCESS);
 }
 
-
-int	firstquotecheck(char *line)
-{
-	if (line[0] < 0 && line[1] && line[1] < 0 && line[2] && ft_isalpha(line[2]))
-		return (1);
-	if (line[0] < 0 && line[1] && line[1] < 0 && line[2] && ft_isalpha(line[2]))
-		return (1);
-	return (-1);
-}
