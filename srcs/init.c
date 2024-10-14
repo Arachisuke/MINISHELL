@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 12:49:13 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:07:36 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	init_all(t_all *all, char **envp)
 
 	i = 0;
 	all->cmds = NULL;
-	all->my_env = ft_myenv(all, envp, all->my_env);
+	all->my_env = ft_myenv(all, envp, &all->my_env);
 	if (!all->my_env)
 		return (ERR_ENV);
 	all->expand = NULL;

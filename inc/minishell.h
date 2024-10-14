@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 12:51:55 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:48:44 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define ERR_ENV 7
 # define ERR_LINE 8
 # define INVALID_SYNTAX 9
+# define ERR_OPEN_DIR 10
 
 typedef struct s_parse
 {
