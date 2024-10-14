@@ -6,10 +6,9 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:52:42 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/14 17:09:37 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 17:37:23 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../inc/minishell.h"
 
@@ -56,7 +55,7 @@ int	fill_value_env(char **envp, int i, char **value)
 	return (SUCCESS);
 }
 
-t_my_env	**ft_myenv(t_all *all, char **envp)
+t_my_env	*ft_myenv(t_all *all, char **envp)
 {
 	int			i;
 	t_my_env	*my_env;
@@ -64,16 +63,16 @@ t_my_env	**ft_myenv(t_all *all, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		create_node_env(&my_env, all, envp, i);
+		create_node_env(&my_env, i);
 		i++;
 	}
 	i = 0;
 	while (envp[i])
 	{
 		if (fill_key_env(envp, i, &my_env->key))
-			return (ft_final(all, NULL, ERR_MALLOC));
-		if (fill_value_env(envp, i, &my_env->value))
-			return (ft_final(all, NULL, ERR_MALLOC));
+			return (ft_final(all, NULL, ERR_MALLOC), NULL);
+		if (fill_value_env(envp, i, &my_env->value), NULL)
+			return (ft_final(all, NULL, ERR_MALLOC), NULL);
 		if (my_env->next)
 			my_env = my_env->next;
 		i++;

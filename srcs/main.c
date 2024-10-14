@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 16:32:03 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 17:25:05 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		ft_final(&all, NULL, 0);
 	}
-	//rl_clear_history();
+	// rl_clear_history();
 	return (SUCCESS);
 }

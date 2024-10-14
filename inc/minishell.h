@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 17:14:39 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 17:37:12 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,10 @@ typedef struct s_all
 	char					*line;
 	char					**strs;
 	t_expand				*expand;
-	char					**envp;
 	int						tab[100];
 	int						id;
 	char					*shell_id;
 	t_my_env				*my_env;
-
 }							t_all;
 
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
@@ -196,9 +194,8 @@ void						init_parse(t_parse *parse, char *line);
 int							count_arg(t_lexer *curr);
 int							firstquotecheck(char *line, int i);
 char						*ft_pid(t_all *all);
-int							len_env(char **env);
-int							if_export(char *line);
-t_my_env					*create_node_env(t_my_env **my_env, t_all *all,
-								char **envp, int i);
+int							alloc_env(char **env);
+t_my_env					*ft_myenv(t_all *all, char **envp);
+t_my_env					*create_node_env(t_my_env **my_env, int i);
 
 #endif
