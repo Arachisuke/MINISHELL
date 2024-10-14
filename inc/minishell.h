@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 10:12:33 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 17:14:39 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 # define ERR_ENV 7
 # define ERR_LINE 8
 # define INVALID_SYNTAX 9
+# define ERR_EXPORT 10
+# define ERR_OPEN_DIR 11
 
 typedef struct s_parse
 {
@@ -48,6 +50,7 @@ typedef struct s_parse
 	int						flag;
 	int						start;
 	int						end;
+	char					quotes;
 }							t_parse;
 
 typedef enum e_token
@@ -100,6 +103,14 @@ typedef struct s_simple_cmds
 	struct s_simple_cmds	*prev;
 }							t_simple_cmds;
 
+typedef struct s_my_env
+{
+	char					*key;
+	char					*value;
+	int						index;
+	struct s_my_env			*next;
+}							t_my_env;
+
 typedef struct s_all
 {
 	t_lexer					*lexer;
@@ -112,9 +123,8 @@ typedef struct s_all
 	char					**envp;
 	int						tab[100];
 	int						id;
-	int						id;
 	char					*shell_id;
-
+	t_my_env				*my_env;
 
 }							t_all;
 
@@ -185,7 +195,10 @@ void						fill_tab(int indice, int *tab, int **k);
 void						init_parse(t_parse *parse, char *line);
 int							count_arg(t_lexer *curr);
 int							firstquotecheck(char *line, int i);
-char							*ft_pid(t_all *all);
-int							alloc_env(char **env);
+char						*ft_pid(t_all *all);
+int							len_env(char **env);
+int							if_export(char *line);
+t_my_env					*create_node_env(t_my_env **my_env, t_all *all,
+								char **envp, int i);
 
 #endif

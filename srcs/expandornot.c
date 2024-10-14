@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/13 13:04:22 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 17:01:32 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 		if ((all->line[j] == SQ || all->line[j] == DQ) && flag == 0)
 		{
 			quotes = all->line[j];
+			all->line[j] = all->line[j] * -1;
 			flag = 1;
 		}
 		else if (!condition(all->line, j) && ((flag && quotes == DQ) || !flag))
@@ -97,7 +98,10 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 			j--;
 		}
 		else if (all->line[j] == quotes && flag == 1)
+		{
 			flag = 0;
+			all->line[j] = all->line[j] * -1;
+		}
 		j++;
 	}
 	return (2);
@@ -118,7 +122,10 @@ int	expandornot(t_all *all)
 		{
 			quotes = all->line[i];
 			if (all->line[i] != '$')
+			{
+				all->line[i] = all->line[i] * -1;
 				flag = 1;
+			}
 			flag = ft_expand(all, i, quotes, flag);
 		}
 		i++;

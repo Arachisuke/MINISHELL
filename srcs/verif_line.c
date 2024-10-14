@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/13 10:23:48 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 16:53:24 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	check_quote_and_redir(char *line, int i, int count)
 	token = 0;
 	while (line[i])
 	{
-		if (line[i] == SQ || line[i] == DQ)
+		if (line[i] == -34 || line[i] == -39)
 			i = count_word_quotes(line, i, NULL);
 		else if (is_double_redir(line, token))
 			token = 1;
@@ -95,10 +95,10 @@ int	check_quote_and_redir(char *line, int i, int count)
 }
 int	firstquotecheck(char *line, int i)
 {
-	if (line[i] == SQ && line[i + 1] && line[i + 1] == SQ && line[i + 2]
+	if (line[i] == -34 && line[i + 1] && line[i + 1] == -34 && line[i + 2]
 		&& ft_isalpha(line[i + 2]))
 		return (i + 2);
-	if (line[i] == DQ && line[i + 1] && line[i + 1] == DQ && line[i + 2]
+	if (line[i] == -39 && line[i + 1] && line[i + 1] == -39 && line[i + 2]
 		&& ft_isalpha(line[i + 2]))
 		return (i + 2);
 	return (i);

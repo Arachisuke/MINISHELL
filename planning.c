@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 10:10:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 17:15:14 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void	other(char *str)
 
 
 
-OCTOBRE 13!
+// OCTOBRE 13!
 
 // le *-1 des quotes ne sers a rien!
 // valgrind $ nombre impair
@@ -198,9 +198,12 @@ OCTOBRE 13!
 
 
 
-14 octobre
+// 14 octobre
 // je fais unset et export andy exit et cd
 // on verifie bien les bultins sils sont correct
 // balancer le pipex // plus sortie d'erreur
 // balancer les signaux
 // faire full test avec valgrind
+// rajoute les messages d'erreur de CHAQUE BULTINS et NOUVELLE FONCTIONS
+// chaque fonction rajouter, bien free les valeurs et mettre NUL au copie de valeur et bien renvoyez le bon msg
+// changer toutes les fonctions qui depend de env car env est devenu une lsite chaine 

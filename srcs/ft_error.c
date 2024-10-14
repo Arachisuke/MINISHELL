@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/13 12:44:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 16:32:34 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	ft_final(t_all *all, char *error, int sortie)
 		str = "minishell: Invalid syntax: ";
 	else if (sortie == ERR_SYNTAX)
 		str = "minishell : syntax error near unexpected token: `";
+	else if (sortie == ERR_EXPORT)
+		str = "export: `";
 	// else if (sortie == 0)
 	// 	return (SUCCESS);
 	else if (sortie == ERR_INVALID_INPUT) // a supp
@@ -76,6 +78,8 @@ int	ft_final(t_all *all, char *error, int sortie)
 	ft_putstr_fd(error, 1);
 	if (sortie == ERR_SYNTAX)
 		ft_putchar_fd('\'', 1);
+	if (sortie == ERR_EXPORT)
+		ft_putstr_fd("': not a valid identifier", 1);
 	ft_putchar_fd('\n', 1);
 	free_all(all);
 	return (sortie);
