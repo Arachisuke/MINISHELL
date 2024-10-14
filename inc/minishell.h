@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/13 18:25:23 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 10:12:33 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,9 @@ typedef struct s_all
 	char					**envp;
 	int						tab[100];
 	int						id;
+	int						id;
 	char					*shell_id;
+
 
 }							t_all;
 
@@ -167,6 +169,7 @@ int							get_final_line(t_all *all);
 t_expand					*create_nodexpand(t_expand **expand, int nbrexpand);
 void						expand_affichage(t_expand *expand);
 int							find_var(t_all *all);
+int							find_var(t_all *all);
 int							init_all(t_all *all, char **envp);
 int							checkredir(char *line, int i);
 char						*free_redir(t_redir **redir);
@@ -182,7 +185,7 @@ void						fill_tab(int indice, int *tab, int **k);
 void						init_parse(t_parse *parse, char *line);
 int							count_arg(t_lexer *curr);
 int							firstquotecheck(char *line, int i);
-char						*ft_pid(t_all *all);
+char							*ft_pid(t_all *all);
 int							alloc_env(char **env);
 
 #endif

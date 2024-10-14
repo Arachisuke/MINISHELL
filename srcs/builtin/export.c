@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:51 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/13 18:29:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 10:14:01 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_export(t_all *all, char **args)
 		all->envp[i] = ft_strdup(all->envp);
 		i++;
 	}
-	all->envp[i++] = 
-	all->envp[i] = NULL;
+	all->envp[i++] = all->envp[i] = NULL;
 	return (all->envp);
 }

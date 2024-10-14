@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/13 19:05:22 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 10:13:25 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ int	main(int argc, char **argv, char **envp)
 		// i = -1;
 		// while(all.strs[++i])
 		// 	printf("strs[%d] = %s\n",i,  all.strs[i]);
+		//printf("lineafterparseline = %s\n", all.line);
+		// all.line = negative_hollow(all.line);
+		all.lexer = create_node(&all, &all.lexer, &all.strs);
 		// node_affichage(all.lexer); /// strs et line..et all
 		all.lexer = create_node(&all, &all.lexer, &all.strs);
 		if (state_init(all.lexer, &all))
