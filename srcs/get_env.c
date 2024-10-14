@@ -3,41 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:52:42 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/13 12:39:03 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 13:29:13 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	**get_env(char **envp) // a refaire avec structure env
+int	fill_key_env(char **envp, int i, char *key)
 {
-	if (!envp)
-		return (NULL);
-	return (envp);
+	int	equal_sign;
+	int	j;
+
+	j = -1;
+	equal_sign = 0;
+	while (envp[i][++j] != '=')
+		equal_sign++;
+	j = -1;
+	key = malloc(sizeof(char) * (equal_sign + 1));
+	if (!key)
+		return (ERR_MALLOC);
+	while (envp[i][++j] != '=')
+		key[j] = envp[i][j];
+	key[j] = '\0';
+	return (SUCCESS);
 }
 
-char	*ft_pid(t_all *all)
+char	*fill_value_env(char **envp, int i, char *value)
 {
-	int fd;
+	int	len_value;
+	int	j;
+	int k;
 
-	if (all->shell_id)
-		return (all->shell_id);
-	if (all->id)
+	k = 0;
+	j = -1;
+	len_value = 0;
+	while (envp[i][j] != '=')
+		j++;
+	k = j;
+	while (envp[i][k])
 	{
-		all->shell_id = ft_itoa(all->id);
-		return (all->shell_id);
+		len_value++;
+		k++;
 	}
-	fd = open("/proc/self/stat", O_RDONLY);
-	if (fd < 0)
-		return (ft_final(all, NULL, ERR_FD), NULL);
-	all->expand->strexpanded = get_next_line(fd);
-	all->id = ft_atoi(all->expand->strexpanded);
-	free(all->expand->strexpanded);
-	printf("IIIIIIIIIIIIIIID = %d\n", all->id);
-	close(fd);
-	all->shell_id = ft_itoa(all->id);
-	return (all->shell_id);
+	j = -1;
+	value = malloc(sizeof(char) * (len_value + 1));
+	if (!value)
+		return (ERR_MALLOC);
+	while (envp[i][k])
+		value[++j] = envp[i][k++];
+	value[j] = '\0';
+	return (SUCCESS);
+}
+
+char	**ft_myenv(t_all *all, char **envp, t_my_env *my_env)
+{
+	int			i;
+	t_my_env	*tmp;
+
+	tmp = my_env;
+	i = 0;
+	while (envp[i])
+	{
+		create_node_env(&tmp, all, envp, i);
+		i++;
+	}
+	tmp = my_env;
+	i = 0;
+	while (envp[i])
+	{
+		if (fill_key_env(envp, i, tmp->key))
+			return (ft_final(all, NULL, ERR_MALLOC));
+		if (fill_value_env(envp, i, tmp->value))
+			return (ft_final(all, NULL, ERR_MALLOC));
+		if (tmp->next)
+			tmp = tmp->next;
+		i++;
+	}
 }

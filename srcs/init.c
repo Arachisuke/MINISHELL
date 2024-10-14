@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 10:13:01 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 12:49:13 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,27 @@ int	alloc_env(char **env)
 		i++;
 	return (i);
 }
-char	**ft_myenv(t_all *all, char **env)
+char	*ft_pid(t_all *all)
 {
-	int	i;
+	int fd;
 
-	i = alloc_env(env);
-	all->envp = malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	while (env[i])
+	if (all->shell_id)
+		return (all->shell_id);
+	if (all->id)
 	{
-		all->envp[i] = ft_strdup(env[i]);
-		i++;
+		all->shell_id = ft_itoa(all->id);
+		return (all->shell_id);
 	}
-	all->envp[i] = NULL;
-	return (all->envp);
+	fd = open("/proc/self/stat", O_RDONLY);
+	if (fd < 0)
+		return (ft_final(all, NULL, ERR_FD), NULL);
+	all->expand->strexpanded = get_next_line(fd);
+	all->id = ft_atoi(all->expand->strexpanded);
+	free(all->expand->strexpanded);
+	printf("IIIIIIIIIIIIIIID = %d\n", all->id);
+	close(fd);
+	all->shell_id = ft_itoa(all->id);
+	return (all->shell_id);
 }
 int	init_all(t_all *all, char **envp)
 {
@@ -42,8 +49,8 @@ int	init_all(t_all *all, char **envp)
 
 	i = 0;
 	all->cmds = NULL;
-	all->envp = ft_myenv(all, envp);
-	if (!all->envp)
+	all->my_env = ft_myenv(all, envp, all->my_env);
+	if (!all->my_env)
 		return (ERR_ENV);
 	all->expand = NULL;
 	all->lexer = NULL;

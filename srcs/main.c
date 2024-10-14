@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 10:13:25 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 13:42:06 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 		printf("lineafterget = %s\n", all.line);
 		if (verif_space(all.line, &all))
 			continue ;
-		ifexport(); // si ya export voir si ya un espace apres si ya tu met un flag // si ya pas d.espace tu prend les arg dapres jusqua la fin ou jusqua space.
+		// ifexport(); // si ya export voir si ya un espace apres si ya tu met un flag // si ya pas d.espace tu prend les arg dapres jusqua la fin ou jusqua space.
 		if (malloc_input(&all))
 			continue ;
 		init_parse(&parse, all.line);
@@ -87,6 +87,6 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		ft_final(&all, NULL, 0);
 	}
-	//rl_clear_history();
+	// rl_clear_history();
 	return (SUCCESS);
 }

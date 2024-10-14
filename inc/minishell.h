@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 10:12:33 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/14 12:51:55 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,14 @@ typedef struct s_simple_cmds
 	struct s_simple_cmds	*prev;
 }							t_simple_cmds;
 
+typedef struct s_my_env
+{
+	char					*key;
+	char					*value;
+	int						index;
+	struct s_my_env			*next;
+}							t_my_env;
+
 typedef struct s_all
 {
 	t_lexer					*lexer;
@@ -109,12 +117,10 @@ typedef struct s_all
 	char					*line;
 	char					**strs;
 	t_expand				*expand;
-	char					**envp;
 	int						tab[100];
 	int						id;
-	int						id;
 	char					*shell_id;
-
+	t_my_env				*my_env;
 
 }							t_all;
 
@@ -185,7 +191,9 @@ void						fill_tab(int indice, int *tab, int **k);
 void						init_parse(t_parse *parse, char *line);
 int							count_arg(t_lexer *curr);
 int							firstquotecheck(char *line, int i);
-char							*ft_pid(t_all *all);
+char						*ft_pid(t_all *all);
 int							alloc_env(char **env);
+t_my_env					*create_node_env(t_my_env **my_env, t_all *all,
+								char **envp, int i);
 
 #endif
