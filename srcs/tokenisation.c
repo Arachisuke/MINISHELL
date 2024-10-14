@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/13 09:52:15 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/13 12:58:14 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 int	count_word_quotes(const char *str, int i, int *compteur)
 {
 	int	quote;
-	int	j;
 
 	quote = str[i];
 	i++;
-	j = i;
 	while (str[i] != quote)
 		i++;
 	if (compteur)
@@ -34,13 +32,13 @@ int	count_word(const char *str)
 
 	if (!str)
 		return (-1);
-	i = firstquotecheck((char *)str) + 1;
+	i = 0;
 	compteur = 0;
 	while (str[i])
 	{
-		if (str[i] == -39 || str[i] == -34)
+		if (str[i] == SQ || str[i] == DQ)
 		{
-			if (str[i - 1] && !is_token_space(str[i - 1]) && str[i - 1] > 0)
+			if (str[i - 1] && !is_token_space(str[i - 1]))
 				compteur++;
 			i = count_word_quotes(str, i, &compteur);
 		}
@@ -66,7 +64,7 @@ char	*remplir(t_all *all, int start, int end)
 		str = malloc(sizeof(char) * (end - start + 1));
 	if (!str)
 		return (ft_final(all, NULL, ERR_INVALID_INPUT), NULL);
-	while (end - start > i && (all->line[j] != -34 && all->line[j] != -39))
+	while (end - start > i && (all->line[j] != DQ && all->line[j] != SQ))
 	// jai change le || par &&
 	{
 		if (all->line[j] == -32)
@@ -106,20 +104,14 @@ char	*tokenisation(char **strs, char *line, int *index)
 
 void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 {
-	int			end;
-	int			start;
-	int			j;
-	int			i;
-	int			flag;
-	static int	k;
-
 	{
 		(*parse)->start = (*parse)->i;
 		(*parse)->end = (*parse)->i;
 		while ((!is_token_space(all->line[(*parse)->i])
 				&& all->line[(*parse)->i] && !(*parse)->flag
-				&& all->line[(*parse)->i] > -33) || ((*parse)->flag
-				&& all->line[(*parse)->i] > -33))
+				&& all->line[(*parse)->i] != SQ && all->line[(*parse)->i] != DQ)
+			|| ((*parse)->flag && all->line[(*parse)->i] != DQ
+				&& all->line[(*parse)->i] != DQ))
 		{
 			(*parse)->end++;
 			(*parse)->i++;
@@ -135,7 +127,7 @@ char	**parse_line(t_all *all, char **strs, t_parse *parse)
 
 	while (all->line[++parse->i])
 	{
-		if ((all->line[parse->i] == -34 || all->line[parse->i] == -39)
+		if ((all->line[parse->i] == DQ || all->line[parse->i] == SQ)
 			&& !parse->flag)
 		{
 			parse->flag = 1;
@@ -150,13 +142,8 @@ char	**parse_line(t_all *all, char **strs, t_parse *parse)
 			if (!strs[(parse)->j - 1])
 				return (NULL);
 		}
-<<<<<<< HEAD
-		else if (is_token(all->line[i]))
-			strs[j++] = tokenisation(strs, all->line, &i, &j);
-=======
 		else if (is_token(all->line[parse->i]))
 			strs[parse->j++] = tokenisation(strs, all->line, &parse->i);
->>>>>>> andy
 	}
 	strs[parse->j] = NULL;
 	return (strs);

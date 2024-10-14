@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:08 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/10 18:22:31 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/13 14:46:20 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../inc/minishell.h"
 
-void ft_env()
-{}
+void ft_env(t_all *all)
+{
+	int i;
+
+	i = 0;
+	while(all->envp[i])
+		ft_printf_fd(1, "%s\n",  all->envp[1]);
+}

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/13 09:47:36 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/13 19:07:20 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	other(char *str)
 
 
 //faire tout les test du repertoire de commande
-// gerer chaque erreur avec le bon message @@@@@
+// gerer chaque erreur avec le bon message
 // cas envoyez juste : ou ! ca ne renvoie rien car ni un token(> ou |) ni un string donc rien par contre envoyez deux fois lun de ses caractere command not found 
 // yann a pas gerer il a dis direct command not found car cest une string! if pas redir donc cest une commande donc erreur!
 // > gerer car le msg parle de ce quil ya apres donc si cest juste > alors dire newline sinon > | ou >>> ca va parler de pipe ou de redir
@@ -179,46 +179,27 @@ OCTOBRE 13!
 
 // le *-1 des quotes ne sers a rien!
 // valgrind $ nombre impair
-//valgrind // echo "$HOME:$=" // echo $: 
-// exit
+//valgrind // echo "$HOME:$=" // echo $: @@@@@
+//mettre plein de commande et ensuite exit et/ou mettre juste un caratere @@@
 // tester $$HOME si home est bien expand @@@
 //tester $$$HOME @@@
+// erreur $$HOME$HOME @@@@
 // valgrind tout les test au dessus en plus de ceux repertorier sur le googlesheet
+// makefile le minishell.a et minishell ne se supp pas a verifier
+// supp les fonctions negative hollow et double dollar et chercher els fonctions inutiliser @@@
+// tester avec guillemet les token et sans guillemet mettre des redir des pipe ect, et mettre des vrai sans guillemet tjr regarde si count vaut bien le count et lentotal et bon!
+//verifier si cest vraiment le pid du shell le $$ et pas celui dun prog
+//verifier si ont doit utiliser toute les fonctions proposer..
+//strerror est interessant pour les msg derreur avec errno
+//si un expand existe pas error chez yan et si ya echo > $HOE il dit que c une erreur alors que dans bash ca affiche juste rien // nous c boon
+//supp syntax error line
+//doit on supp lhistorique ?
 
 
-// echo hola -n doit afficher -n
-// echo -n hola 
-// envoyez a execve comment il fais ?
-// ""echo c ok
-// "" echo command not found
-// $? n'est pas dans env attendre l'exec pour le recuperer dans find_var pour que get_final ne le supp aps le $
-// echo $:$= get_final supp les dollars il devrait rester dans ce cas ci
-// le dollar solo il le supp get_final faut y remedier 
-// $UID
-// Echo $Hola* > jaffiche * >> lui naffiche rien
-// echo $"" >> echo $ >> rien
-/*
 
-strs[0] = echo
-strs[1] = 
-strs[2] = HOME  */
-
-// comment va gerer execve lespace dans les arg ?
-
-//echo $=HOME get_final le supp mais il devrais le supp que si ya dollar et que dollar correspond au expand->i normalement
-// echo"'hola'" > echo 'hola donc nous il va marcher > command not found
-// cat"ok"
-// REGLE GENERAL cmd colle a une guillemet sa saute ! cmdnotfound
-// REGLE GENERAL "" au debut espacer de cmd on le garde pour execve il dit cmdnotfound sinon on le prend plus en compte on le supp
-// echo "" hola > affiche le hola en decalle avec un espace echo ""hola > sans espace
-
-// echo $"" >> echo $ >> rien
-/*
-
-strs[0] = echo
-strs[1] = 
-strs[2] = HOME  */
-
-
-// dernier pb que je connais a regler
-// valgrind
+14 octobre
+// je fais unset et export andy exit et cd
+// on verifie bien les bultins sils sont correct
+// balancer le pipex // plus sortie d'erreur
+// balancer les signaux
+// faire full test avec valgrind

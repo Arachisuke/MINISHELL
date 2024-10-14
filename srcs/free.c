@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:18:46 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/08 15:03:15 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:40:43 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_strs(char **strs)
 
 char	*free_cmds(t_simple_cmds **cmds) // 2
 {
-	t_simple_cmds	*curr;
+	t_simple_cmds *curr;
 
 	if (!*cmds || !cmds)
 		return (NULL);
@@ -52,7 +52,7 @@ char	*free_cmds(t_simple_cmds **cmds) // 2
 }
 char	*free_redir(t_redir **redir) // 1
 {
-	t_redir	*curr;
+	t_redir *curr;
 
 	if (!*redir || !redir)
 		return (NULL);
@@ -70,7 +70,7 @@ char	*free_redir(t_redir **redir) // 1
 
 char	*free_lexer(t_lexer **lexer) // 3 ou 1
 {
-	t_lexer	*curr;
+	t_lexer *curr;
 
 	if (!*lexer || !lexer)
 		return (NULL);
@@ -89,13 +89,14 @@ char	*free_lexer(t_lexer **lexer) // 3 ou 1
 
 char	*free_expand(t_expand **expand) // 4
 {
-	t_expand	*curr;
+	t_expand *curr;
 
 	if (!*expand || !expand)
 		return (NULL);
 	curr = *expand;
 	while (*expand)
 	{
+		(*expand)->strexpanded = NULL;
 		if ((*expand)->strtoexpand)
 			free((*expand)->strtoexpand);
 		curr = (*expand)->next;

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:41:50 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/12 18:39:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/13 10:43:19 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	*read_file(int fd, char *buf, char *left, char *line)
 	{
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		buf[bytes_read] = '\0';
+		if (ft_strchr(buf, ' '))
+			break ;
 		left = ft_strcpy(left, buf);
 		line = joinfreenew(line, left);
 	}

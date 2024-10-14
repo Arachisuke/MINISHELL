@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/05 17:18:35 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:09:29 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	checkredir(char *line, int i)
 	return (flag);
 }
 
-int	find_var(t_all *all, char **envp)
+int	find_var(t_all *all)
 {
 	int			i;
 	t_expand	*tmp;
@@ -43,17 +43,19 @@ int	find_var(t_all *all, char **envp)
 	tmp = all->expand;
 	while (tmp)
 	{
-		while (envp[++i])
-		{
-			if ((!ft_strncmp(envp[i], tmp->strtoexpand, tmp->lenbefore - 1))
-				&& (envp[i][tmp->lenbefore - 1] == '='))
-			{
-				tmp->strexpanded = envp[i] + tmp->lenbefore;
-				break ;
-			}
-		}
+		// while (envp[++i])
+		// {
+		// 	if ((!ft_strncmp(envp[i], tmp->strtoexpand, tmp->lenbefore - 1))
+		// 		&& (envp[i][tmp->lenbefore - 1] == '='))
+		// 	{
+		// 		tmp->strexpanded = envp[i] + tmp->lenbefore;
+		// 		break ;
+		// 	}
+		// }
+		if (ft_strlen(tmp->strtoexpand) != 0)
+			tmp->strexpanded = getenv(tmp->strtoexpand);
 		tmp = tmp->next;
-		i = 0;
+		// i = 0;
 	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:28:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/13 09:50:55 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/12 15:23:47 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,10 @@ int	malloc_input(t_all *all)
 	if (!all->line || !*all->line)
 		return (ft_final(all, NULL, ERR_LINE));
 	i = skip_spaces(all->line);
-	token = 0;
-	count = count_word(all->line);
-	while (all->line[i])
-	{
-		if (all->line[i] < 0)
-			i = count_word_quotes(all->line, i, NULL);
-		else if (((all->line[i] == '>' && all->line[i + 1] == '>') || (all->line[i] == '<' && all->line[i + 1] == '<'))  && token == 0)
-			token = 1;
-		else if ((is_token(all->line[i]) && token == 1 )|| (is_token(all->line[i]) && token == 0))
-		{
-			token = 0;
-			count++;
-		}
-		i++;
-	}
-	printf("COOOOOOOOOUNT %d\n", count);
+	i = firstquotecheck(all->line, i);
+	count = count_word(all->line); // caractere speciaux non gere car depasse 127 donc negatif
+	count = check_quote_and_redir(all->line, i, count);
+	printf("COUUUUNT = %d\n", count);
 	all->strs = malloc(sizeof(char *) * (count + 1));
 	if (!all->strs)
 		return (ft_final(all, NULL, ERR_MALLOC));
