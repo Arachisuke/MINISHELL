@@ -3,52 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 16:49:46 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/30 16:12:44 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	count_word_quotes(const char *str, int i, int *compteur)
-{
-	int	quote;
-
-	quote = str[i];
-	i++;
-	while (str[i] != quote)
-		i++;
-	if (compteur)
-		(*compteur)++;
-	return (i);
-}
-
-int	count_word(const char *str)
-{
-	int	i;
-	int	compteur;
-
-	if (!str)
-		return (-1);
-	i = 0;
-	compteur = 0;
-	while (str[i])
-	{
-		if (str[i] == -34 || str[i] == -39)
-		{
-			if (str[i - 1] && !is_token_space(str[i - 1]))
-				compteur++;
-			i = count_word_quotes(str, i, &compteur);
-		}
-		else if ((!is_token_space(str[i]) && is_token_space(str[i + 1]))
-			|| (!is_token_space(str[i]) && str[i + 1] == '\0'))
-			compteur++;
-		i++;
-	}
-	return (compteur);
-}
 
 char	*remplir(t_all *all, int start, int end)
 {
@@ -73,32 +35,44 @@ char	*remplir(t_all *all, int start, int end)
 	str[i] = '\0';
 	return (str);
 }
+// probleme si !str la fonction continue et ne renvoit pas null
+// return (NULL) + verif parseline puis ft_final?
+// changer free(strs) -> return (NULL) a voir avec walid!
 
-char	*tokenisation(char **strs, char *line, int *index)
+char	*tokenisation(char *line, int **index)
 {
 	char	*str;
 
-	if ((line[*index] == '<' && line[*index + 1] == '<') || (line[*index] == '>'
-			&& line[*index + 1] == '>'))
+	if ((line[**index] == '<' && line[**index + 1] == '<')
+		|| (line[**index] == '>' && line[**index + 1] == '>'))
 	{
 		str = malloc(sizeof(char) * 3);
 		if (!str)
-			free_strs(strs); // sortie d'erreur free puis exit! utiliser erno
-		str[0] = line[*index];
-		str[1] = line[*index + 1];
+			return (NULL); // sortie d'erreur free puis exit! utiliser erno
+		str[0] = line[**index];
+		str[1] = line[**index + 1];
 		str[2] = '\0';
 		if ((size_t)(index + 2) != ft_strlen(line))
-			(*index)++;
+			(**index)++;
 	}
 	else
 	{
 		str = malloc(sizeof(char) * 2);
 		if (!str)
-			free_strs(strs); // sortie d'erreur free puis exit! utiliser erno
-		str[0] = line[*index];
+			return (NULL); // sortie d'erreur free puis exit! utiliser erno
+		str[0] = line[**index];
 		str[1] = '\0';
 	}
 	return (str);
+}
+
+int	fill_token(t_all *all, char **strs, int *j, int *i)
+{
+	strs[(*j)++] = tokenisation(all->line, &i);
+	if (!strs[(*j) - 1])
+		return (1);
+	(*i)++;
+	return (SUCCESS);
 }
 
 void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
@@ -108,8 +82,8 @@ void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 		(*parse)->end = (*parse)->i;
 		while ((!is_token_space(all->line[(*parse)->i])
 				&& all->line[(*parse)->i] && !(*parse)->flag
-				&& all->line[(*parse)->i] != -34 && all->line[(*parse)->i] != -39)
-			|| ((*parse)->flag && all->line[(*parse)->i] != -34 && all->line[(*parse)->i] != -39))
+				&& !is_negative_quotes(all->line[(*parse)->i]))
+			|| ((*parse)->flag && !is_negative_quotes(all->line[(*parse)->i])))
 		{
 			(*parse)->end++;
 			(*parse)->i++;
@@ -119,27 +93,36 @@ void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 		strs[(*parse)->j++] = remplir(all, (*parse)->start, (*parse)->end);
 	}
 }
+
+// changement dans le while parse++i et init retrait du	-1 pour gerer pipe collee plus reduction ligne parse_line
+// parse++i -> probleme lorsque pipe collee incrementait 2 x!
+// creation de token utils 2
+// voir fonction tokenisation !
+
 char	**parse_line(t_all *all, char **strs, t_parse *parse)
 {
 	static int	k;
 
-	while (all->line[++parse->i])
+	while (all->line[parse->i])
 	{
-		if ((all->line[parse->i] == -34 || all->line[parse->i] == -39)
-			&& !parse->flag)
-			parse->flag = 1;			
+		if ((is_negative_quotes(all->line[parse->i])) && !parse->flag)
+			parse->i += quotes_is_beginning(&parse->flag);
 		else if ((!is_token_space(all->line[(parse)->i])
 				&& all->line[(parse)->i]) || (parse)->flag)
 		{
 			parsing(&parse, &k, all, strs);
 			if (!all->line[(parse)->i])
 				break ;
-			(parse)->flag = 0;
-			if (!strs[(parse)->j - 1])
+			if (is_closed_quotes(all->line, &parse, strs))
 				return (NULL);
 		}
 		else if (is_token(all->line[parse->i]))
-			strs[parse->j++] = tokenisation(strs, all->line, &parse->i);
+		{
+			if (fill_token(all, strs, &parse->j, &parse->i))
+				return (ft_final(all, NULL, ERR_MALLOC), NULL);
+		}
+		else if (is_space(all->line[parse->i]))
+			parse->i++;
 	}
 	strs[parse->j] = NULL;
 	return (strs);

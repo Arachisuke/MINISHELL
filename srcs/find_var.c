@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/13 12:09:29 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/31 15:17:26 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,29 @@ int	checkredir(char *line, int i)
 
 int	find_var(t_all *all)
 {
-	int			i;
 	t_expand	*tmp;
+	t_my_env *tmpenv;
 
-	i = -1;
 	if (expandornot(all) == 1)
 		return (ERR_MALLOC);
 	if (!all->expand)
 		return (SUCCESS);
 	tmp = all->expand;
+	tmpenv = all->my_env;
 	while (tmp)
 	{
-		// while (envp[++i])
-		// {
-		// 	if ((!ft_strncmp(envp[i], tmp->strtoexpand, tmp->lenbefore - 1))
-		// 		&& (envp[i][tmp->lenbefore - 1] == '='))
-		// 	{
-		// 		tmp->strexpanded = envp[i] + tmp->lenbefore;
-		// 		break ;
-		// 	}
-		// }
 		if (ft_strlen(tmp->strtoexpand) != 0)
-			tmp->strexpanded = getenv(tmp->strtoexpand);
+		{
+			while (tmpenv)
+			{
+				if (!ft_strncmp(tmpenv->key, tmp->strtoexpand,
+						tmp->lenbefore - 1))
+					tmp->strexpanded = tmpenv->value;
+				tmpenv = tmpenv->next;
+			}
+		}
 		tmp = tmp->next;
-		// i = 0;
+		tmpenv = all->my_env;
 	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 17:37:12 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/31 15:59:58 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct s_all
 	int						id;
 	char					*shell_id;
 	t_my_env				*my_env;
+	int exit_code;
 }							t_all;
 
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
@@ -146,7 +147,7 @@ int							is_token_space(char c);
 int							count_word(const char *str);
 char						*remplir(t_all *all, int start, int end);
 int							checktab(int *tab, int j);
-char						*tokenisation(char **strs, char *line, int *index);
+char						*tokenisation(char *line, int **index);
 char						**parse_line(t_all *all, char **strs,
 								t_parse *parse);
 t_lexer						*create_node(t_all *all, t_lexer **lexer,
@@ -197,5 +198,9 @@ char						*ft_pid(t_all *all);
 int							alloc_env(char **env);
 t_my_env					*ft_myenv(t_all *all, char **envp);
 t_my_env					*create_node_env(t_my_env **my_env, int i);
+int							is_negative_quotes(char c);
+int							is_closed_quotes(char *line, t_parse **parse,
+								char **strs);
+int							quotes_is_beginning(int *flag);
 
 #endif

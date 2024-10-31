@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:51 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/14 17:14:52 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/31 15:20:48 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,25 @@ int	if_export(char *line)
 	return (1); // on va export !
 }
 
-int	if_egal(t_all *all, char *line, char **key)
+int	if_egal(t_all *all, char **strs, char **key)
 {
 	int	i;
 	int	flag;
 
 	i = 0;
 	flag = 0;
+	// prendre le word juste avant le egal ca deviendra notre key.
 	while (line[i])
 	{
 		if (line[i] == '=' && line[i - 1] == ' ')
+			// des ici tu dis flag pas flag au lieu de faire la boucle a decrematation apres...
 		{
-			ft_final(all, '=', ERR_EXPORT);
-			break ;
+			ft_printf_fd(2, "bash: export: `=ok': not a valid identifier");
+			
+			return(0);
 		}
 	}
+	// vu que ta check une erruer en haut tas juste a verif la du debut a la fin si ya un flag au lieu decrementer tu reprend a 0
 	while (line[--i])
 	{
 		if ((line[i] == -34 || line[i] == -39) && !flag)
@@ -72,33 +76,18 @@ int	if_egal(t_all *all, char *line, char **key)
 int	check_export(t_all *all, char *line)
 // apres avoir vu que export se porte bien on test les arg juste apres
 {
-	int export;
+	int error;
 	char *value;
 	char *key;
 	key = NULL;
-	export = ifexport(all, line); // if 0 export respecte les conditions
-	export = if_egal(all, line, &key);
-	// 0 mais il se passe R  @@@@@// export ok = error@@@@
-	// if espace dans key exemple export "ok ok"=ok 2 ERRROR
-	// if 3 ok !
+	error = ifexport(all, line);      // if 0 export respecte les conditions
+	error = if_egal(all, line, &key); // si ya un egal return 0, key prendre la derniere avant egal, sinon return 1.
 	value = findvalue(line);
-	// prend le premier espace ou bien continue jusqua finir trouve un espace ou la fin de l'arg
-	export = check_exist(all->envp, key);
-	// est ce que la key existe ou pas if 1 alors je replace if 0 je rajoute a env
-	if (export)
+	error = check_exist(all->envp, key);
+	if (error)
 		replaceenv();
 	else
 		addtoenv();
-
-	// explication le export ne doit rien avoir apres lui mise a part l'espace ou une quotes si ya eu une quotes precedemment @@@@
-	// explication si il ya un = alors le mot d'avant doit etre coller. @@@@
-	// prend le dernier juste avant le egal sans egal ca ne marche pas @@@@@
-	// apres le egal il prend le premier si cest un espace donc espace sinon le premier mot! if guillemet logique il prend tout
-	// explication ok= "" if space suivi de guillmet et que dans les guillemets ya un espace! ERROR
-	// "okwdkodkwqofk  ok"=ok // si ya un space dans le NAME c cuit
-	// chiffre dans la key non,
-	//mais dans la value je peux avoir chiffre nombre mais pas direct apres un espace
-	// alphanum pour la value alpha pour la key
 }
 int	check_exist(t_all *all, char *key)
 // la variable existe si oui je remplace juste la valeur sinon je rajoute une ligne.

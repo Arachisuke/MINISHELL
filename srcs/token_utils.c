@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 16:30:40 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/05 17:17:19 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:05:49 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,9 @@ int	is_token(char c)
 		i++;
 	}
 	return (SUCCESS);
+}
+
+int	is_negative_quotes(char c)
+{
+	return (c == -34 || c == -39);
 }

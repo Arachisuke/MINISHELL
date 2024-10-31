@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:52:42 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/14 17:37:23 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/31 15:06:57 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_my_env	*ft_myenv(t_all *all, char **envp)
 {
 	int			i;
 	t_my_env	*my_env;
+	t_my_env	*my_env_tmp;
 
 	i = 0;
 	while (envp[i])
@@ -66,6 +67,7 @@ t_my_env	*ft_myenv(t_all *all, char **envp)
 		create_node_env(&my_env, i);
 		i++;
 	}
+	my_env_tmp = my_env;
 	i = 0;
 	while (envp[i])
 	{
@@ -77,5 +79,5 @@ t_my_env	*ft_myenv(t_all *all, char **envp)
 			my_env = my_env->next;
 		i++;
 	}
-	return (my_env);
+	return (my_env_tmp);
 }

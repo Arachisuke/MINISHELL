@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 17:15:14 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/10/31 15:18:52 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void	other(char *str)
 // < "Makefile" "<<oui'" echo "'"$HOME"'" @@@@
 //<<oui'@@@
 //"ok ok" "123ok" "132ok" "<<ook" "|" @@@@  
+//echo "'l'" > '"lo"'
 
 
 
@@ -204,6 +205,9 @@ void	other(char *str)
 // balancer le pipex // plus sortie d'erreur
 // balancer les signaux
 // faire full test avec valgrind
-// rajoute les messages d'erreur de CHAQUE BULTINS et NOUVELLE FONCTIONS
+// rajoute les messages d'erreur de CHAQUE BULTINS et NOUVELLE FONCTIONS 
 // chaque fonction rajouter, bien free les valeurs et mettre NUL au copie de valeur et bien renvoyez le bon msg
-// changer toutes les fonctions qui depend de env car env est devenu une lsite chaine 
+// changer toutes les fonctions qui depend de env car env est devenu une liste chaine @@@@@
+
+// faire node de env@@
+// faire export avec cmds au lieu de line c'est plus simple.
