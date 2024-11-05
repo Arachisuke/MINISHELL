@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 16:53:24 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 12:48:00 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	verif_space(char *str, t_all *all)
 			return (SUCCESS);
 		i++;
 	}
-	return (ft_final(all, NULL, ERR_INVALID_INPUT));
+	return (ft_final(all, NULL, ERR_INVALID_INPUT, 0));
 }
 
 int	verif_quotes(t_all *all, char *line)
@@ -58,7 +58,7 @@ int	verif_quotes(t_all *all, char *line)
 			flag = 0;
 	}
 	if (flag == 1)
-		return (ft_final(all, "unclosed quotes", INVALID_SYNTAX));
+		return (ft_final(all, NULL, INVALID_SYNTAX, 0));
 	return (SUCCESS);
 }
 

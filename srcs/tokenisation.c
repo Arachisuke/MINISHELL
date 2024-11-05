@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/30 16:12:44 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:46:10 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*remplir(t_all *all, int start, int end)
 	else
 		str = malloc(sizeof(char) * (end - start + 1));
 	if (!str)
-		return (ft_final(all, NULL, ERR_INVALID_INPUT), NULL);
+		return (ft_final(all, NULL, ERR_INVALID_INPUT, 10), NULL);
 	while (end - start > i && (all->line[j] != -34 && all->line[j] != -39))
 	{
 		if (all->line[j] == -32)
@@ -119,7 +119,7 @@ char	**parse_line(t_all *all, char **strs, t_parse *parse)
 		else if (is_token(all->line[parse->i]))
 		{
 			if (fill_token(all, strs, &parse->j, &parse->i))
-				return (ft_final(all, NULL, ERR_MALLOC), NULL);
+				return (ft_final(all, NULL, ERR_MALLOC, 0), NULL);
 		}
 		else if (is_space(all->line[parse->i]))
 			parse->i++;

@@ -6,148 +6,95 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:51 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/31 15:20:48 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:16:30 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	if_export(char *line)
+void	findvalue(char *str, char **value)
+// je lui ai envoye la str ou ya le egal..
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '=')
+		i++;
+	if (str[i + 1])
+		*value = ft_substr(str + (i + 1), 0, ft_strlen(str + i + 1));
+	else
+		*value = NULL;
+}
+
+int	if_export(t_all *all, char *line)
 {
 	int		i;
-	char	*tmp;
 	int		flag;
 	char	quotes;
 
 	i = 0;
-	tmp = line;
 	quotes = 0;
-	while (tmp)
+	while (line[i])
 	{
-		if ((*tmp == -39 || *tmp == -34) && !flag)
+		if ((line[i] == -39 || line[i] == -34) && !flag)
 		{
 			flag = 1;
-			quotes = *tmp;
+			quotes = line[i];
 		}
-		if (ft_strncmp(tmp, "export", 6))
+		if (ft_strncmp(line + i, "export", 6)) // exporta=ok
 		{
-			if ((tmp[6] != ' ' && !flag) || (tmp[6] != quotes && flag))
-				return (0);
+			if (line[i + 5] && !flag)
+				return (msg_error(all, ERR_EXPORT, line), 1); // a changer
+			return (0);
 		}
-		if (*tmp == quotes && flag)
+		if (line[i] == quotes && flag)
 			flag = 0;
-		tmp++;
+		i++;
 	}
-	return (1); // on va export !
+	return (1);
 }
 
 int	if_egal(t_all *all, char **strs, char **key)
 {
 	int	i;
-	int	flag;
+	int	j;
 
 	i = 0;
-	flag = 0;
-	// prendre le word juste avant le egal ca deviendra notre key.
-	while (line[i])
+	j = 1;
+	while (strs[j])
 	{
-		if (line[i] == '=' && line[i - 1] == ' ')
-			// des ici tu dis flag pas flag au lieu de faire la boucle a decrematation apres...
+		while (strs[j][i])
 		{
-			ft_printf_fd(2, "bash: export: `=ok': not a valid identifier");
-			
-			return(0);
+			if (strs[j][i] == '=')
+			{
+				if (i == 0)
+					return (msg_error(all, ERR_EGAL, strs[j]), 0);
+				// juste renvoyer une erreur, le = est avec espace.
+				return (*key = ft_substr(strs[j], 0, i), j);
+			}
+			i++;
 		}
+		i = 0;
+		j++;
 	}
-	// vu que ta check une erruer en haut tas juste a verif la du debut a la fin si ya un flag au lieu decrementer tu reprend a 0
-	while (line[--i])
-	{
-		if ((line[i] == -34 || line[i] == -39) && !flag)
-		{
-			flag = 1;
-		}
-		if ((line[i] == -34 || line[i] == -39) && flag)
-			flag = 0;
-	}
-	if (line[++i] && line[i] == -34 || line[i] == -39)
-		return (0);
+	return (0);
 }
 
-int	check_export(t_all *all, char *line)
+void	ft_export(t_all *all, char **strs)
 // apres avoir vu que export se porte bien on test les arg juste apres
 {
 	int error;
 	char *value;
 	char *key;
 	key = NULL;
-	error = ifexport(all, line);      // if 0 export respecte les conditions
-	error = if_egal(all, line, &key); // si ya un egal return 0, key prendre la derniere avant egal, sinon return 1.
-	value = findvalue(line);
-	error = check_exist(all->envp, key);
+	error = if_export(all, strs[0]);
 	if (error)
-		replaceenv();
-	else
-		addtoenv();
+		return ;
+	error = if_egal(all, strs, &key);
+	if (!error) // return 0 en error
+		return ;
+	findvalue(strs[error], &value);
+	ft_env(all->my_env);
+	modify_env(key, value, all->my_env);
+	ft_env(all->my_env);
 }
-int	check_exist(t_all *all, char *key)
-// la variable existe si oui je remplace juste la valeur sinon je rajoute une ligne.
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (args[j][i]) // if space suivi de guillemet ERROR
-	{
-	}
-	// je verifie si ya un egal y en a pas je prend le dernier args et je dis quil est     exemple =    je prend le dernier arg juste avant egal
-	while (all->envp[i])
-	// je prend le dernier avant le = sinon je prend le dernier tout court
-	{
-		if (all->envp =)
-			i++;
-	}
-}
-
-char	*ft_export(t_all *all, char **args)
-// checker si export est separer dun espace apres sinon faut pas le faire a getfinal.
-{
-	int i;
-	int max;
-	char *tmp;
-	int newline;
-
-	newline = 1;
-	check_exist(all, args);
-	max = len_env(all->envp);
-	free_strs(all->envp);
-	all->envp = malloc(sizeof(char *) * (max + 1 + newline));
-	if (!all->envp)
-		return (ft_final(all, ERR_MALLOC, 1), NULL);
-	i = 0;
-	while (i <= max)
-	{
-		all->envp[i] = ft_strdup(all->envp[i]);
-		i++;
-	}
-	while (args[i])
-	{
-	}
-	all->envp[i++] = ;
-	all->envp[i] = NULL;
-	return (all->envp);
-}
-
-// ERROR msg
-// "export " export1 exportp
-// "export ok=ok"
-// export "ok = ok" // // export "ok =ok"
-// export =ok // export opopop lol ok
-
-// VALIDE
-// export "ok= ok" // export "ok= ok ok" // export ok= ok ok
-
-// sil ya un egal alors il doit y avoir un mot avant autre que export
-// export LOL= ca fais LOL=        dans env
-// export LOL OKOKOK TG=  ca export TG=
-// export OKOK TGB= okok

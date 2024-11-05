@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:44:55 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/12 18:22:06 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 13:02:44 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	str_to_expand_exist(int *i, int **j, char *final_line, t_expand *expand)
 	int	k;
 
 	if (!expand || !final_line)
-		return (ERR_INVALID_INPUT);
+		return (1);
 	k = 0;
 	while (expand && expand->strexpanded[k])
 		final_line[(**j)++] = expand->strexpanded[k++];
@@ -55,7 +55,7 @@ int	manage_str_to_expand(int *j, t_expand *exp, char *tmp, char *line)
 			else if (exp->strexpanded)
 			{
 				if (str_to_expand_exist(&i, &j, line, exp))
-					return (ERR_INVALID_INPUT);
+					return (1);
 			}
 			else
 				line[(*j)++] = tmp[i++];
@@ -74,9 +74,9 @@ int	fill_final_line(t_expand *expand, char *final_line, char *line_tmp)
 
 	j = 0;
 	if (!expand || !final_line)
-		return (ERR_INVALID_INPUT);
+		return (1);
 	if (manage_str_to_expand(&j, expand, line_tmp, final_line))
-		return (ERR_INVALID_INPUT);
+		return (1);
 	final_line[j] = '\0';
 	return (SUCCESS);
 }
@@ -92,12 +92,12 @@ int	get_final_line(t_all *all)
 	len_total = get_len_expand_line(all->expand) + ft_strlen(all->line);
 	printf("LEEEEEEEEEEEEEEEEEEEN = %d\n", len_total);
 	if (malloc_final_line(&all->line, len_total, &line_tmp))
-		return (ft_final(all, NULL, ERR_MALLOC));
+		return (ft_final(all, NULL, ERR_MALLOC, 1));
 	if (fill_final_line(all->expand, all->line, line_tmp))
 	{
 		if (line_tmp)
 			free(line_tmp);
-		return (ft_final(all, NULL, ERR_INVALID_INPUT));
+		return (ft_final(all, NULL, ERR_INVALID_INPUT, 1));
 	}
 	if (line_tmp)
 		free(line_tmp);

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/14 17:01:32 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 12:57:09 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int *i)
 		(*tmp)->strexpanded = ft_pid(all);
 	env = malloc(sizeof(char) * (*i - j + 1));
 	if (!env)
-		return (ft_final(all, NULL, ERR_MALLOC));
+		return (ft_final(all, NULL, ERR_MALLOC, 1));
 	(*tmp)->lenbefore = *i - j + 1;
 	while (j < *i)
 		env[r++] = all->line[j++];
@@ -94,7 +94,7 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 		{
 			tmp = ft_back_expand(&all->expand, ft_new_expand());
 			if (fonctionexpand(all, &tmp, &j))
-				return (ERR_MALLOC);
+				return (ft_final(all, NULL, ERR_MALLOC, 1));
 			j--;
 		}
 		else if (all->line[j] == quotes && flag == 1)

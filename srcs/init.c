@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/31 16:00:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:14:32 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_pid(t_all *all)
 	}
 	fd = open("/proc/self/stat", O_RDONLY);
 	if (fd < 0)
-		return (ft_final(all, NULL, ERR_FD), NULL);
+		return (ft_final(all, NULL, ERR_FD, 1), NULL);
 	all->expand->strexpanded = get_next_line(fd);
 	all->id = ft_atoi(all->expand->strexpanded);
 	free(all->expand->strexpanded);
@@ -51,7 +51,7 @@ char	*ft_pid(t_all *all)
 	}
 	fd = open("/proc/self/stat", O_RDONLY);
 	if (fd < 0)
-		return (ft_final(all, NULL, ERR_FD), NULL);
+		return (ft_final(all, NULL, ERR_FD, 1), NULL);
 	all->expand->strexpanded = get_next_line(fd);
 	all->id = ft_atoi(all->expand->strexpanded);
 	free(all->expand->strexpanded);
@@ -68,7 +68,7 @@ int	init_all(t_all *all, char **envp)
 	all->cmds = NULL;
 	all->my_env = ft_myenv(all, envp);
 	if (!all->my_env)
-		return (ERR_ENV);
+		return (1);
 	all->expand = NULL;
 	all->lexer = NULL;
 	all->line = NULL;

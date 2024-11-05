@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mallocs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:28:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/15 13:15:31 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:04:03 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,16 @@ int	malloc_input(t_all *all)
 	int	i;
 
 	if (!all->line || !*all->line)
-		return (ft_final(all, NULL, ERR_LINE));
+		return (ft_final(all, NULL, ERR_LINE, 1));
 	i = skip_spaces(all->line);
 	i = firstquotecheck(all->line, i);
-	count = count_word(all->line); // caractere speciaux non gere car depasse 127 donc negatif
+	count = count_word(all->line);
+		// caractere speciaux non gere car depasse 127 donc negatif
 	count = check_quote_and_redir(all->line, i, count);
 	printf("COUUUUNT = %d\n", count);
 	all->strs = malloc(sizeof(char *) * (count + 1));
 	if (!all->strs)
-		return (ft_final(all, NULL, ERR_MALLOC));
+		return (ft_final(all, NULL, ERR_MALLOC, 1));
 	return (SUCCESS);
 }
 
@@ -64,7 +65,7 @@ int	malloc_final_line(char **line, int len_total, char **line_tmp)
 {
 	*line_tmp = ft_strdup(*line);
 	if (!*line_tmp)
-		return (free(*line), ERR_MALLOC);
+		return (free(*line), 1);
 	free(*line);
 	*line = NULL;
 	if (len_total <= 0)
@@ -77,7 +78,7 @@ int	malloc_final_line(char **line, int len_total, char **line_tmp)
 	else
 		*line = malloc(sizeof(char) * (len_total + 1));
 	if (!*line)
-		return (free(*line_tmp), ERR_MALLOC);
+		return (free(*line_tmp), 1);
 	(*line)[len_total] = '\0';
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 16:30:40 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/15 14:05:49 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:53:10 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	init_token(t_lexer *lexer, t_all *all)
 		else if (lexer->string[0] == '>' && lexer->string[1] == '>')
 			lexer->token = D_GREATER;
 		else if (lexer->string[0] == '<' && lexer->string[1] == '>')
-			return (ft_final(all, ">", ERR_SYNTAX));
+			return (ft_final(all, ">", ERR_SYNTAX, 1));
 		else if (lexer->string[0] == '>' && lexer->string[1] == '<')
-			return (ft_final(all, "newline", ERR_SYNTAX));
+			return (ft_final(all, "newline", ERR_SYNTAX, 1));
 	}
 	else if (lexer->string[0] == '|')
 		lexer->token = PIPE;

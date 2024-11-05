@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/31 15:18:52 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:24:40 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,3 +211,29 @@ void	other(char *str)
 
 // faire node de env@@
 // faire export avec cmds au lieu de line c'est plus simple.
+
+
+
+
+
+
+
+
+// 5 NOVEMBRE
+// verifier export avec gdb et toutiquenti
+// finir export unset et poser pipex AUJOURDHUI
+// ensuite finir par tout tester.
+// ne pas oublier les sorties d'erreur et les free sur les dernieres fonctions.
+
+
+
+
+// paufiner le msgerror, et remettre tout le code a jour avec cette fonction.
+// verifier tout les malloc
+// verifier les cas d'erreur de export
+// verifier unset par rapport au index de env, jai deja mis un printf pour verifier lavant et apres changement
+// rechercher tout les malloc et les gerer
+//  tout les message d'erreur 
+// regler et revoir tout les builtins et cas d'errreur builtin
+// PIPEX
+// test avec l'ecran split

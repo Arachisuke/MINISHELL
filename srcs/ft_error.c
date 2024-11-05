@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/31 13:13:27 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 13:36:46 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,34 +53,24 @@ int	is_triple_redir(char *line)
 	return (i);
 }
 
-int	ft_final(t_all *all, char *error, int sortie)
+int	ft_final(t_all *all, char *error, char *msgerror, int sortie)
 {
-	char	*str;
-
-	str = NULL;
-	if (is_triple_redir(all->line) == 3)
-		error = "newline";
-	if (sortie == ERR_MALLOC)
-		str = "Allocation failed";
-	else if (sortie == INVALID_SYNTAX)
-		str = "minishell: Invalid syntax: ";
-	else if (sortie == ERR_SYNTAX)
-		str = "minishell : syntax error near unexpected token: `";
-	else if (sortie == ERR_EXPORT)
-		str = "export: `";
-	// else if (sortie == 0)
-	// 	return (SUCCESS);
-	else if (sortie == ERR_INVALID_INPUT) // a supp
-		str = "syntax error : line";
-	// else
-	// 	return (sortie);
-	ft_putstr_fd(str, 1);
-	ft_putstr_fd(error, 1);
-	if (sortie == ERR_SYNTAX)
-		ft_putchar_fd('\'', 1);
-	if (sortie == ERR_EXPORT)
-		ft_putstr_fd("': not a valid identifier", 1);
-	ft_putchar_fd('\n', 1);
-	free_all(all);
+	msg_error(all, msgerror, error);
+	if (sortie)
+		free_all(all);
 	return (sortie);
+}
+void	msg_error(t_all *all, char *msgerror, char *error)
+{
+	if (is_triple_redir(all->line) == 3)
+		ft_putstr_fd("newline", 2);
+	if (!ft_strncmp(msgerror, ERR_SYNTAX, 20))
+		ft_printf_fd(2, "%s%s'", msgerror, error);
+	else if (!ft_strncmp(msgerror, ERR_EGAL, 20))
+		ft_printf_fd(2, "%s%s': not a valid identifier", msgerror, error);
+	else if (!ft_strncmp(msgerror, ERR_EXPORT, 2))
+		ft_printf_fd(2, "%s%s': command not found", msgerror, error);
+	else
+		ft_putstr_fd(msgerror, 2);
+	ft_putchar_fd('\n', 1);
 }

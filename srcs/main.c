@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/15 13:15:23 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:17:15 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ int	main(int argc, char **argv, char **envp)
 		cmds_affichage(all.cmds);
 		if (if_here_doc(&all))
 			continue ;
-		ft_final(&all, NULL, 0);
+		builtins_or_not(&all, all.cmds);
+		ft_final(&all, NULL, 0, 1);
 	}
 	// rl_clear_history();
 	return (SUCCESS);

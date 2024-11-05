@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/31 15:17:26 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 12:56:57 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	find_var(t_all *all)
 	t_my_env *tmpenv;
 
 	if (expandornot(all) == 1)
-		return (ERR_MALLOC);
+		return (ft_final(all, NULL, ERR_MALLOC, 1));
 	if (!all->expand)
 		return (SUCCESS);
 	tmp = all->expand;

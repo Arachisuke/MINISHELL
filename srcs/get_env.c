@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:52:42 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/31 15:06:57 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 12:58:58 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	fill_key_env(char **envp, int i, char **key)
 	j = -1;
 	*key = malloc(sizeof(char) * (equal_sign + 1));
 	if (!*key)
-		return (ERR_MALLOC);
+		return (1);
 	while (++j < equal_sign)
 		(*key)[j] = envp[i][j];
 	(*key)[j] = '\0';
@@ -48,7 +48,7 @@ int	fill_value_env(char **envp, int i, char **value)
 	j = -1;
 	*value = malloc(sizeof(char) * (len_value + 1));
 	if (!*value)
-		return (ERR_MALLOC);
+		return (1);
 	while (++j < len_value)
 		(*value)[j] = envp[i][k + j];
 	(*value)[j] = '\0';
@@ -72,9 +72,9 @@ t_my_env	*ft_myenv(t_all *all, char **envp)
 	while (envp[i])
 	{
 		if (fill_key_env(envp, i, &my_env->key))
-			return (ft_final(all, NULL, ERR_MALLOC), NULL);
+			return (ft_final(all, NULL, ERR_MALLOC, 1), NULL);
 		if (fill_value_env(envp, i, &my_env->value), NULL)
-			return (ft_final(all, NULL, ERR_MALLOC), NULL);
+			return (ft_final(all, NULL, ERR_MALLOC, 1), NULL);
 		if (my_env->next)
 			my_env = my_env->next;
 		i++;

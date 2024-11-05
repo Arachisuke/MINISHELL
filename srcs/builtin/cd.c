@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/14 17:20:51 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:11:58 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int	new_oldpwd(t_my_env *my_env, char *oldpwd, char *pwd, t_all *all)
 			free(my_env->value);
 			my_env->value = ft_strdup(oldpwd);
 			if (!my_env->value)
-				return (ft_final(all, NULL, ERR_MALLOC));
+				return (ft_final(all, NULL, ERR_MALLOC, 1));
 		}
 		else if (!ft_strncmp(my_env->key, "PWD", 3))
 		{
 			free(my_env->value);
 			my_env->value = ft_strdup(pwd);
 			if (!my_env->value)
-				return (ft_final(all, NULL, ERR_MALLOC));
+				return (ft_final(all, NULL, ERR_MALLOC, 1));
 		}
 		my_env = my_env->next;
 	}
@@ -49,7 +49,7 @@ void	exec_cd(char *path, t_all *all)
 		ft_printf_fd(2, "cd: error retrieving current directory: %s\n",
 			strerror(errno));
 		free(path);
-		ft_final(all, "error env", ERR_ENV);
+		ft_final(all, NULL, ERR_ENV, 1);
 	}
 	if (chdir(path) == -1)
 	{
@@ -62,7 +62,7 @@ void	exec_cd(char *path, t_all *all)
 	{
 		free(path);
 		free(oldpwd);
-		ft_final(all, "error env", ERR_ENV);
+		ft_final(all, "error env", ERR_ENV, 1);
 	}
 }
 
@@ -79,7 +79,7 @@ char	*get_home(t_my_env *my_env, t_all *all)
 		{
 			home = ft_strdup(my_env->value);
 			if (!home)
-				ft_final(all, NULL, ERR_MALLOC);
+				ft_final(all, NULL, ERR_MALLOC, 1);
 			return (home);
 		}
 		my_env = my_env->next;
@@ -88,7 +88,7 @@ char	*get_home(t_my_env *my_env, t_all *all)
 	return (NULL);
 }
 
-int	check_dir(char *path, t_all *all)
+int	check_dir(char *path)
 {
 	DIR	*dir;
 
@@ -117,7 +117,7 @@ void	ft_cd(t_simple_cmds *cmds, t_all *all)
 		pwd = get_home(all->my_env, all);
 	else
 	{
-		if (check_dir(cmds->strs[1], all))
+		if (check_dir(cmds->strs[1]))
 		{
 			ft_printf_fd(2, "cd: %s: %s", strerror(errno), cmds->strs[1]);
 			return ;
@@ -126,7 +126,7 @@ void	ft_cd(t_simple_cmds *cmds, t_all *all)
 	}
 	if (!pwd)
 	{
-		ft_final(all, NULL, ERR_MALLOC);
+		ft_final(all, NULL, ERR_MALLOC, 1);
 		return ;
 	}
 	exec_cd(pwd, all);

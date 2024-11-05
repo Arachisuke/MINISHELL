@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/31 15:59:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:11:54 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,18 @@
 # define DQ '\"'
 # define IS_BUILTIN 1
 # define SUCCESS 0
-# define ERR_MALLOC 1
-# define ERR_INVALID_INPUT 2
+# define ERR_MALLOC "Allocation failed"
+# define ERR_INVALID_INPUT "syntax error : line"
 # define ERR_FILL_LINE 3
-# define ERR_SYNTAX 4
-# define ERR_FD 5
+# define ERR_SYNTAX "minishell : syntax error near unexpected token: `"
+# define ERR_FD "failed to open file descriptor"
 # define ERR_READ 6
-# define ERR_ENV 7
-# define ERR_LINE 8
-# define INVALID_SYNTAX 9
-# define ERR_EXPORT 10
+# define ERR_ENV "error env"
+# define ERR_LINE "error line"
+# define INVALID_SYNTAX "unclosed quotes"
+# define ERR_EGAL "minishell: export: `"
 # define ERR_OPEN_DIR 11
+# define ERR_EXPORT "minishell : "
 
 typedef struct s_parse
 {
@@ -124,7 +125,7 @@ typedef struct s_all
 	int						id;
 	char					*shell_id;
 	t_my_env				*my_env;
-	int exit_code;
+	int						exit_code;
 }							t_all;
 
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
@@ -184,7 +185,9 @@ int							checkredir(char *line, int i);
 char						*free_redir(t_redir **redir);
 char						*free_lexer(t_lexer **lexer);
 char	*free_expand(t_expand **expand); // 4
-int							ft_final(t_all *all, char *error, int sortie);
+int							ft_final(t_all *all, char *error, char *msgerror,
+								int sortie);
+
 int							count_word_quotes(const char *str, int i,
 								int *compteur);
 int							skip_spaces(char *str);
@@ -195,12 +198,23 @@ void						init_parse(t_parse *parse, char *line);
 int							count_arg(t_lexer *curr);
 int							firstquotecheck(char *line, int i);
 char						*ft_pid(t_all *all);
-int							alloc_env(char **env);
 t_my_env					*ft_myenv(t_all *all, char **envp);
 t_my_env					*create_node_env(t_my_env **my_env, int i);
 int							is_negative_quotes(char c);
 int							is_closed_quotes(char *line, t_parse **parse,
 								char **strs);
 int							quotes_is_beginning(int *flag);
+void						builtins_or_not(t_all *all, t_simple_cmds *cmds);
+void						ft_cd(t_simple_cmds *cmds, t_all *all);
+int							ft_echo(char **args);
+void						ft_env(t_my_env *my_env);
+int							ft_exit(t_simple_cmds *cmds, t_all *all);
+void						ft_export(t_all *all, char **strs);
+void						ft_pwd(t_simple_cmds *cmds, t_all *all);
+void						ft_unset(t_all *all, char **strs);
+
+void						msg_error(t_all *all, char *msgerror, char *error);
+t_my_env					*modify_env(char *key, char *value, t_my_env *env);
+t_my_env					*ft_last_env(t_my_env *my_env);
 
 #endif

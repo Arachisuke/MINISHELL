@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:21:50 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/13 16:57:51 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:15:18 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	ft_echo(char **args)
 		ft_putstr_fd(args[i], 1);
 		i++;
 		if (args[i] && args[i][0] != '\0')
-			write(1, ' ', 1);
+			write(1, " ", 1);
 	}
 	if (n)
-		write(1, '\n', 1);
+		write(1, "\n", 1);
 	return (SUCCESS);
 }
