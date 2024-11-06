@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/05 16:24:40 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 13:06:10 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,13 +227,22 @@ void	other(char *str)
 
 
 
-
-// paufiner le msgerror, et remettre tout le code a jour avec cette fonction.
+ // 6 NOV
+// paufiner le msgerror, et remettre tout le code a jour avec cette fonction. @@@@@@@@@@
 // verifier tout les malloc
-// verifier les cas d'erreur de export
-// verifier unset par rapport au index de env, jai deja mis un printf pour verifier lavant et apres changement
+// verifier les cas d'erreur de export @@@@@@
+// verifier unset par rapport au index de env, jai deja mis un printf pour verifier lavant et apres changement@@@@@@@@@
 // rechercher tout les malloc et les gerer
 //  tout les message d'erreur 
 // regler et revoir tout les builtins et cas d'errreur builtin
 // PIPEX
-// test avec l'ecran split
+// test avec l'ecran split 
+// lire le main tres lentement...valgrind et reaction en chaine.
+// faire la fonction qui free env
+
+
+// cas d'erreur de unset... juste la cmd doit etre bien ortographier c tout @@@@
+// all my env faut le free apres la boucle vu quon en a besoin pendant toute lexecution!
+//export plusieurs variable en meme temps @@@@@
+// si le premier unset existe pas ou le premier export nexiste pas est ce que ceux dapres qui existe marche @@@@
+// le cas chiffre espace chiffre -> erreur et on intialise la variable @@@

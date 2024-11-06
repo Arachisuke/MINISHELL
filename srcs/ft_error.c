@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/05 13:36:46 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 09:33:15 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	is_triple_redir(char *line)
 
 int	ft_final(t_all *all, char *error, char *msgerror, int sortie)
 {
-	msg_error(all, msgerror, error);
+	if (msgerror)
+		msg_error(all, msgerror, error);
 	if (sortie)
 		free_all(all);
 	return (sortie);

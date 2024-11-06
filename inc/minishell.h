@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/05 16:11:54 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 11:40:34 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,9 @@ typedef struct s_my_env
 typedef struct s_all
 {
 	t_lexer					*lexer;
-	t_lexer *tmp_lexer; // cest des copies donc pas de free
+	t_lexer					*tmp_lexer;
 	t_simple_cmds			*cmds;
-	t_simple_cmds *tmp_cmds; // la aussi
+	t_simple_cmds			*tmp_cmds;
 	char					*line;
 	char					**strs;
 	t_expand				*expand;
