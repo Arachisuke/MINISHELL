@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_or_not.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 15:55:15 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/05 15:55:45 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 14:08:04 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 void	builtins_or_not(t_all *all, t_simple_cmds *cmds)
 {
 	if (!ft_strncmp(cmds->strs[0], "cd", 2) && cmds->is_builtin)
-		return ;
+		ft_cd(cmds, all);
 	else if (!ft_strncmp(cmds->strs[0], "echo", 4) && cmds->is_builtin)
-		return ;
-	else if (!ft_strncmp(cmds->strs[0], "env", 4) && cmds->is_builtin)
-		return ;
+		ft_echo(cmds->strs);
+	else if (!ft_strncmp(cmds->strs[0], "env", 3) && cmds->is_builtin)
+		ft_env(all->my_env);
 	else if (!ft_strncmp(cmds->strs[0], "exit", 4) && cmds->is_builtin)
-		return ;
+		ft_exit(cmds, all);
 	else if (!ft_strncmp(cmds->strs[0], "export", 6) && cmds->is_builtin)
 		ft_export(all, cmds->strs);
 	else if (!ft_strncmp(cmds->strs[0], "pwd", 3) && cmds->is_builtin)
-		return ;
+		ft_pwd(cmds);
 	else if (!ft_strncmp(cmds->strs[0], "unset", 5) && cmds->is_builtin)
-		return (ft_unset(all, cmds->strs));
+		ft_unset(all, cmds->strs);
 }

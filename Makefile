@@ -14,7 +14,8 @@ SRC = $(SRC_DIR)/fonction.c $(SRC_DIR)/main.c $(SRC_DIR)/init_node.c \
       $(SRC_DIR)/init.c $(SRC_DIR)/ft_error.c $(SRC_DIR)/token_utils.c \
       $(SRC_DIR)/token_utils2.c $(SRC_DIR)/utils.c $(SRC_DIR)/init_env.c \
       $(BUILTIN_DIR)/cd.c $(BUILTIN_DIR)/echo.c  $(SRC_DIR)/builtins_or_not.c \
-	  $(BUILTIN_DIR)/export.c $(BUILTIN_DIR)/unset.c $(SRC_DIR)/modif_env.c $(BUILTIN_DIR)/env.c 
+	  $(BUILTIN_DIR)/export.c $(BUILTIN_DIR)/unset.c $(SRC_DIR)/modif_env.c $(BUILTIN_DIR)/env.c \
+	  $(BUILTIN_DIR)/exit.c $(BUILTIN_DIR)/pwd.c
 
 # Génération des objets en fonction des sources (respecte les sous-dossiers)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

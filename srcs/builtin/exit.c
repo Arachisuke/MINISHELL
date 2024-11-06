@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:26 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/31 16:00:20 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 14:17:01 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_exit(t_simple_cmds *cmds, t_all *all)
 	ft_printf_fd(1, "exit\n");
 	if (cmds->strs[1])
 	{
-		if (str_is_numeric(cmds->strs[1]))
+		if (!str_is_numeric(cmds->strs[1]))
 		{
 			all->exit_code = ft_atoi(cmds->strs[1]);
 			if (cmds->strs[2])

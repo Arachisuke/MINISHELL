@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/05 16:11:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 14:03:52 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,17 @@ void	exec_cd(char *path, t_all *all)
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 	{
-		ft_printf_fd(2, "cd: error retrieving current directory: %s\n",
-			strerror(errno));
+		ft_printf_fd(2, "minishell: cd: %s\n", strerror(errno));
 		free(path);
 		ft_final(all, NULL, ERR_ENV, 1);
 	}
 	if (chdir(path) == -1)
 	{
-		ft_printf_fd(2, "cd: %s: %s\n", path, strerror(errno));
-		free(path);
-		free(oldpwd);
-		return ;
+		ft_printf_fd(2, "minishell: cd: %s: %s\n", path, strerror(errno));
+		return (free(path), free(oldpwd));
 	}
+	else
+		path = getcwd(NULL, 0);
 	if (new_oldpwd(all->my_env, oldpwd, path, all))
 	{
 		free(path);
@@ -84,7 +83,7 @@ char	*get_home(t_my_env *my_env, t_all *all)
 		}
 		my_env = my_env->next;
 	}
-	ft_printf_fd(2, "cd: HOME not set\n");
+	ft_printf_fd(2, "minishell: cd: HOME not set\n");
 	return (NULL);
 }
 
@@ -97,7 +96,7 @@ int	check_dir(char *path)
 	dir = opendir(path);
 	if (!dir)
 	{
-		ft_printf_fd(2, "cd : %s: %s\n", path, strerror(errno));
+		ft_printf_fd(2, "minishell: cd : %s: %s\n", path, strerror(errno));
 		return (ERR_OPEN_DIR);
 	}
 	closedir(dir);
@@ -110,7 +109,7 @@ void	ft_cd(t_simple_cmds *cmds, t_all *all)
 
 	if (cmds->strs[2])
 	{
-		ft_printf_fd(2, "cd: too many arguments\n");
+		ft_printf_fd(2, "minishell: cd: too many arguments\n");
 		return ;
 	}
 	if (!cmds->strs[1])
@@ -118,10 +117,7 @@ void	ft_cd(t_simple_cmds *cmds, t_all *all)
 	else
 	{
 		if (check_dir(cmds->strs[1]))
-		{
-			ft_printf_fd(2, "cd: %s: %s", strerror(errno), cmds->strs[1]);
 			return ;
-		}
 		pwd = ft_strdup(cmds->strs[1]);
 	}
 	if (!pwd)
