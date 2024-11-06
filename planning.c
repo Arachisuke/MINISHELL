@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/06 14:27:12 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 16:03:09 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ void	other(char *str)
 
 
 
-
+// changer la methode pour recuperer env et value car maintenant cest line
 // DERNIERE VERIF CAS D'ERREUR EXPORT UNSET
 // echo 
 // all my env faut le free apres la boucle vu quon en a besoin pendant toute lexecution!

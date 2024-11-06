@@ -6,13 +6,13 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:51 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/06 13:00:35 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 16:02:57 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	findvalue(char *str, char **value)
+char	*findvalue(char *str, char **value)
 // je lui ai envoye la str ou ya le egal..
 {
 	int i;
@@ -20,13 +20,14 @@ void	findvalue(char *str, char **value)
 	i = 0;
 	while (str[i] != '=')
 		i++;
-	if (str[i + 1])
-		*value = ft_substr(str + (i + 1), 0, ft_strlen(str + i + 1));
+	while(str[i] && str[i] != ' ')
+		*value = ft_substr(str + (i + 1), 0, ft_strlen(str + i + 1)); //1
 	else
 	{
 		*value = malloc(1);
 		*value[0] = '\0';
 	}
+	return(*value);
 }
 
 int	if_export(t_all *all, char *line)
@@ -47,7 +48,7 @@ int	if_export(t_all *all, char *line)
 		if (ft_strncmp(line + i, "export", 6)) // exporta=ok
 		{
 			if (line[i + 5] && !flag)
-				return (msg_error(all, ERR_EXPORT, line), 1); // a changer
+				return (msg_error(all, ERR_EXPORT, line), 1);
 			return (0);
 		}
 		if (line[i] == quotes && flag)
@@ -57,20 +58,25 @@ int	if_export(t_all *all, char *line)
 	return (1);
 }
 
-int	if_egal(t_all *all, char *strs, char **key, char **value)
+int	if_egal(t_all *all, char *line, char **key, char **value)
 {
 	int	i;
+	int flag;
 
+	flag = 0;
 	i = 0;
-	while (strs[i])
+	while (line[i])
 	{
-		if (ft_isdigit(strs[i]))
-			msg_error(all, ERR_EGAL, strs);
-		if (strs[i] == '=')
+		if (ft_isdigit(line[i]) && i == 0)
+		{
+			msg_error(all, ERR_EGAL, line);
+			flag = 1;
+		}
+		if (line[i] == '=' && !flag)
 		{
 			if (i == 0)
-				return (msg_error(all, ERR_EGAL, strs), 0);
-			return (*key = ft_substr(strs, 0, i), findvalue(strs, value), 1);
+				return (msg_error(all, ERR_EGAL, line), 0);
+			modify_env(ft_substr(line, 0, i), findvalue(line, value), all->my_env); // changer la methode pour recuperer env et value car maintenant cest line
 		}
 		i++;
 	}
@@ -89,16 +95,8 @@ void	ft_export(t_all *all, char **strs)
 	error = if_export(all, strs[0]);
 	if (error)
 		return ;
-	while (strs[j])
-	{
-		error = if_egal(all, strs[j], &key, &value);
-		if (!error)
-		{
-			j++;
-			continue ;
-		}
-		modify_env(key, value, all->my_env);
-		j++;
-	}
-	ft_env(all->my_env);
+	error = if_egal(all, strs[j], &key, &value);
+	if (!error)
+		return ;
+	modify_env(key, value, all->my_env);
 }

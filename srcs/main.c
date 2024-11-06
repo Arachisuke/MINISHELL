@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/06 14:18:04 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:44:01 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (sort_cmds(&all))
 			continue ;
-		cmds_affichage(all.cmds);
+		printf("THEline = %s", all.line);
+		//cmds_affichage(all.cmds);
 		if (if_here_doc(&all))
 			continue ;
 		builtins_or_not(&all, all.cmds);

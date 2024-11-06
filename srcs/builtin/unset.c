@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:24:05 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/06 12:13:33 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 14:54:16 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,5 @@ void	ft_unset(t_all *all, char **strs)
 		all->my_env = check_env(strs[j], all->my_env);
 		j++;
 	}
-	ft_env(all->my_env);
 	return ;
 }
