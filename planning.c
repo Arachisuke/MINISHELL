@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/06 13:06:10 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 14:27:12 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,26 +223,33 @@ void	other(char *str)
 // verifier export avec gdb et toutiquenti
 // finir export unset et poser pipex AUJOURDHUI
 // ensuite finir par tout tester.
-// ne pas oublier les sorties d'erreur et les free sur les dernieres fonctions.
 
 
 
  // 6 NOV
 // paufiner le msgerror, et remettre tout le code a jour avec cette fonction. @@@@@@@@@@
-// verifier tout les malloc
 // verifier les cas d'erreur de export @@@@@@
 // verifier unset par rapport au index de env, jai deja mis un printf pour verifier lavant et apres changement@@@@@@@@@
-// rechercher tout les malloc et les gerer
-//  tout les message d'erreur 
+
+
+
+
+// cas d'erreur de unset... juste la cmd doit etre bien ortographier c tout @@@@
+//export plusieurs variable en meme temps @@@@@
+// si le premier unset existe pas ou le premier export nexiste pas est ce que ceux dapres qui existe marche @@@@
+// le cas chiffre espace chiffre -> erreur et on intialise la variable @@@
+// si la cmd est mauvaise c pipex qui gere @@@@
+
+
+
+
+
+
+// DERNIERE VERIF CAS D'ERREUR EXPORT UNSET
+// echo 
+// all my env faut le free apres la boucle vu quon en a besoin pendant toute lexecution!
+// rechercher tout les malloc et les sorties d'erreur et gerer en faisant des free et des vrai sortie et msg
 // regler et revoir tout les builtins et cas d'errreur builtin
 // PIPEX
 // test avec l'ecran split 
 // lire le main tres lentement...valgrind et reaction en chaine.
-// faire la fonction qui free env
-
-
-// cas d'erreur de unset... juste la cmd doit etre bien ortographier c tout @@@@
-// all my env faut le free apres la boucle vu quon en a besoin pendant toute lexecution!
-//export plusieurs variable en meme temps @@@@@
-// si le premier unset existe pas ou le premier export nexiste pas est ce que ceux dapres qui existe marche @@@@
-// le cas chiffre espace chiffre -> erreur et on intialise la variable @@@
