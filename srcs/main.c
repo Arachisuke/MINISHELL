@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/06 09:34:42 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 14:18:04 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@ int	main(int argc, char **argv, char **envp)
 		get_current_dir(&all.line);
 		if (!all.line || !*all.line)
 			continue ;
-		if (ft_strncmp(all.line, "exit", 4) == 0)
-		{
-			free(all.line);
-			break ; // a supprimer apres!
-		}
 		add_history(all.line);
 		if (verif_space(all.line, &all))
 			continue ;

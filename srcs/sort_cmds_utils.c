@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_cmds_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:25:10 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/04 16:16:47 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 14:11:07 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	is_builtin(char *str)
 		return (IS_BUILTIN);
 	else if (!ft_strncmp(str, "echo", 4) && ft_strlen(str) == 4)
 		return (IS_BUILTIN);
-	else if (!ft_strncmp(str, "env", 4) && ft_strlen(str) == 4)
+	else if (!ft_strncmp(str, "env", 3) && ft_strlen(str) == 3)
 		return (IS_BUILTIN);
 	else if (!ft_strncmp(str, "exit", 4) && ft_strlen(str) == 4)
 		return (IS_BUILTIN);

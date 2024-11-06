@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/06 11:40:34 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/06 13:15:28 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,11 +210,12 @@ int							ft_echo(char **args);
 void						ft_env(t_my_env *my_env);
 int							ft_exit(t_simple_cmds *cmds, t_all *all);
 void						ft_export(t_all *all, char **strs);
-void						ft_pwd(t_simple_cmds *cmds, t_all *all);
+void						ft_pwd(t_simple_cmds *cmds);
 void						ft_unset(t_all *all, char **strs);
 
 void						msg_error(t_all *all, char *msgerror, char *error);
 t_my_env					*modify_env(char *key, char *value, t_my_env *env);
 t_my_env					*ft_last_env(t_my_env *my_env);
+void						free_all(t_all *all);
 
 #endif
