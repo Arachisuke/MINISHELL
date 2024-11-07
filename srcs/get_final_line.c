@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:44:55 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/05 13:02:44 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/07 14:39:35 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int	get_final_line(t_all *all)
 	if (!all->expand)
 		return (SUCCESS);
 	len_total = get_len_expand_line(all->expand) + ft_strlen(all->line);
-	printf("LEEEEEEEEEEEEEEEEEEEN = %d\n", len_total);
 	if (malloc_final_line(&all->line, len_total, &line_tmp))
 		return (ft_final(all, NULL, ERR_MALLOC, 1));
 	if (fill_final_line(all->expand, all->line, line_tmp))

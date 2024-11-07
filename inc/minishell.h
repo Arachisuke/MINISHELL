@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/06 13:15:28 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:05:49 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int							state_redirection(t_lexer *stack, t_all *all);
 void						cmds_affichage(t_simple_cmds *cmds);
 char						**malloc_strs(int arg_count);
 char						*free_cmds(t_simple_cmds **cmds);
-void						free_strs(char **strs);
+void						free_strs(char ***strs);
 void						ft_back_redir(t_redir **lst, t_redir *new);
 t_redir						*ft_new_redir(void);
 t_redir						*ft_last_redir(t_redir *lst);
@@ -217,5 +217,6 @@ void						msg_error(t_all *all, char *msgerror, char *error);
 t_my_env					*modify_env(char *key, char *value, t_my_env *env);
 t_my_env					*ft_last_env(t_my_env *my_env);
 void						free_all(t_all *all);
+char						*removequotes(char *line);
 
 #endif

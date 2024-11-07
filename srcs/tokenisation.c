@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/06 15:33:25 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/07 16:24:05 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*remplir(t_all *all, int start, int end)
 		return (ft_final(all, NULL, ERR_INVALID_INPUT, 10), NULL);
 	while (end - start > i && (all->line[j] != -34 && all->line[j] != -39))
 	{
-		if (all->line[j] == -32)
+		if (all->line[j] < 0)
 			all->line[j] = all->line[j] * -1;
 		str[i++] = all->line[j++];
 	}
@@ -101,7 +101,8 @@ void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 
 char	**parse_line(t_all *all, char **strs, t_parse *parse)
 {
-	static int	k;
+	int	k;
+	k = 0;
 
 	while (all->line[parse->i])
 	{

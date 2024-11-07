@@ -6,27 +6,27 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:18:46 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/13 12:40:43 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/07 15:43:17 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	free_strs(char **strs)
+void	free_strs(char ***strs)
 {
 	int	i;
 
 	i = 0;
-	if (!strs || !*strs)
+	if (!*strs || !**strs)
 		return ;
-	while (strs[i])
+	while ((*strs)[i])
 	{
-		free(strs[i]);
-		strs[i] = NULL;
+		free((*strs)[i]);
+		(*strs)[i] = NULL;
 		i++;
 	}
-	free(strs);
-	strs = NULL;
+	free(*strs);
+	*strs = NULL;
 	return ;
 }
 
@@ -40,7 +40,7 @@ char	*free_cmds(t_simple_cmds **cmds) // 2
 	while (*cmds)
 	{
 		if ((*cmds)->strs)
-			free_strs((*cmds)->strs);
+			free_strs(&(*cmds)->strs);
 		if ((*cmds)->redir)
 			(*cmds)->redir = NULL;
 		curr = (*cmds)->next;

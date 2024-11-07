@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/05 12:48:00 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/07 16:23:37 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int	verif_quotes(t_all *all, char *line)
 			quote = line[i];
 			flag = 1;
 		}
-		else if (flag == 1 && line[i] == ' ')
+		else if ((line[i] == ' ' || is_token(line[i])) && flag == 1)
 			line[i] = line[i] * -1;
 		else if (line[i] == quote && flag == 1) /// fin quotes
 			flag = 0;
 	}
 	if (flag == 1)
-		return (ft_final(all, NULL, INVALID_SYNTAX, 0));
+		return (ft_final(all, NULL, INVALID_SYNTAX, 1));
 	return (SUCCESS);
 }
 
@@ -80,9 +80,7 @@ int	check_quote_and_redir(char *line, int i, int count)
 	token = 0;
 	while (line[i])
 	{
-		if (line[i] == -34 || line[i] == -39)
-			i = count_word_quotes(line, i, NULL);
-		else if (is_double_redir(line, token))
+		if (is_double_redir(line, token))
 			token = 1;
 		else if (is_token(line[i]))
 		{

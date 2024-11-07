@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:24:05 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/06 14:54:16 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/07 11:50:45 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ t_my_env	*check_env(char *key, t_my_env *env)
 
 int	if_unset(t_all *all, char *line)
 {
-	int		i;
+	int		i;	
+
 	int		flag;
 	char	quotes;
 
@@ -108,7 +109,6 @@ void	ft_unset(t_all *all, char **strs)
 	j = 1;
 
 	int error;
-	ft_putchar_fd('\n', 1);
 	error = if_unset(all, strs[0]); // verification de la cmd unset
 	if (error)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/06 16:03:09 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/07 16:26:27 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,9 @@ void	other(char *str)
 
 // changer la methode pour recuperer env et value car maintenant cest line
 // DERNIERE VERIF CAS D'ERREUR EXPORT UNSET
+// entre quotes pas d'espace.
+
+
 // echo 
 // all my env faut le free apres la boucle vu quon en a besoin pendant toute lexecution!
 // rechercher tout les malloc et les sorties d'erreur et gerer en faisant des free et des vrai sortie et msg
@@ -253,3 +256,22 @@ void	other(char *str)
 // PIPEX
 // test avec l'ecran split 
 // lire le main tres lentement...valgrind et reaction en chaine.
+
+
+
+// a quoi sers la sortie de ft_final
+
+
+
+
+
+// pourquoi quand ya une guillemet on dis que cest un autre mot.
+// unclosed quotes sa segfault @@@@@
+// revenir a mon ancien export et le retester.
+
+
+//9 NOV
+
+// finir parse_line ce quil ya sur ton livre, et remettre lancien export
+
+

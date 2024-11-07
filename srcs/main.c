@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/06 15:44:01 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/07 16:15:57 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@ int	main(int argc, char **argv, char **envp)
 		// expand_affichage(all.expand);
 		if (get_final_line(&all))
 			continue ;
-		printf("lineafterget = %s\n", all.line);
+		//	printf("lineafterget = %s\n", all.line);
 		if (verif_space(all.line, &all))
 			continue ;
 		if (malloc_input(&all))
 			continue ;
+		printf("before = %s\n", all.line);
+		all.line = removequotes(all.line); // jenleve les quotes
+		printf("afterremove = %s\n", all.line);
 		init_parse(&parse, all.line);
 		if (!parse_line(&all, all.strs, &parse))
 			continue ;
@@ -50,8 +53,8 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (sort_cmds(&all))
 			continue ;
-		printf("THEline = %s", all.line);
-		//cmds_affichage(all.cmds);
+		printf("afterremove = %s\n", all.line);
+		cmds_affichage(all.cmds);
 		if (if_here_doc(&all))
 			continue ;
 		builtins_or_not(&all, all.cmds);
