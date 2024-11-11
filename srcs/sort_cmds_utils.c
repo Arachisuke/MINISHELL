@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_cmds_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:25:10 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/06 14:11:07 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:07:45 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*strjoinfree(char const *s1, char const *s2)
 		return (NULL);
 	j = 0;
 	i = 0;
-	s = malloc((sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 2));
+	s = malloc((sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (s == NULL)
 		return (NULL);
 	while (s1[i])
@@ -51,10 +51,9 @@ char	*strjoinfree(char const *s1, char const *s2)
 		s[i] = s1[i];
 		i++;
 	}
-	s[i++] = ' ';
 	while (s2[j])
 		s[i++] = s2[j++];
 	s[i] = '\0';
-	free((char *)s1);
+	free((char *)s2);
 	return (s);
 }

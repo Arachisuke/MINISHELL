@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/07 16:24:05 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/11 10:53:04 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,7 @@ void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 	{
 		(*parse)->start = (*parse)->i;
 		(*parse)->end = (*parse)->i;
-		while ((!is_token_space(all->line[(*parse)->i])
-				&& all->line[(*parse)->i] && !(*parse)->flag
-				&& !is_negative_quotes(all->line[(*parse)->i]))
-			|| ((*parse)->flag && !is_negative_quotes(all->line[(*parse)->i])))
+		while (!is_token_space(all->line[(*parse)->i]) && all->line[(*parse)->i])
 		{
 			(*parse)->end++;
 			(*parse)->i++;
@@ -102,20 +99,16 @@ void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 char	**parse_line(t_all *all, char **strs, t_parse *parse)
 {
 	int	k;
-	k = 0;
 
+	k = 0;
 	while (all->line[parse->i])
 	{
-		if ((is_negative_quotes(all->line[parse->i])) && !parse->flag)
-			parse->i += quotes_is_beginning(&parse->flag);
-		else if ((!is_token_space(all->line[(parse)->i])
-				&& all->line[(parse)->i]) || (parse)->flag)
+		if (!is_token_space(all->line[(parse)->i])
+				&& all->line[(parse)->i])
 		{
 			parsing(&parse, &k, all, strs);
 			if (!all->line[(parse)->i])
 				break ;
-			if (is_closed_quotes(all->line, &parse, strs))
-				return (NULL);
 		}
 		else if (is_token(all->line[parse->i]))
 		{

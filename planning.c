@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/07 16:26:27 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/11 15:52:13 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,16 +250,21 @@ void	other(char *str)
 
 
 // echo 
-// all my env faut le free apres la boucle vu quon en a besoin pendant toute lexecution!
+// all my env faut le free apres la boucle vu quon en a besoin pendant toute lexecution!@@@@@@
 // rechercher tout les malloc et les sorties d'erreur et gerer en faisant des free et des vrai sortie et msg
 // regler et revoir tout les builtins et cas d'errreur builtin
-// PIPEX
-// test avec l'ecran split 
-// lire le main tres lentement...valgrind et reaction en chaine.
+// lire le main tres lentement...valgrind et entre fonction reaction en chaine.
+// 
 
 
 
 // a quoi sers la sortie de ft_final
+// reduire export et les autres fonction a 25
+// PIPEX
+// test avec l'ecran split 
+// printf count, line, et cmds.->
+
+
 
 
 
@@ -275,3 +280,4 @@ void	other(char *str)
 // finir parse_line ce quil ya sur ton livre, et remettre lancien export
 
 
+//lancien raisonnement de notre parse line cetait que quand yavais une commande comme echo "" on pensait quil comprennais espace, mais il comprennait que cetait vide, y avais les deux cas je les avait repetorier

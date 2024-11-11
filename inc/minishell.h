@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/07 16:05:49 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/11 15:33:56 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define ERR_EGAL "minishell: export: `"
 # define ERR_OPEN_DIR 11
 # define ERR_EXPORT "minishell : "
+# define ERR_OPT "export: bad option: "
 
 typedef struct s_parse
 {
@@ -95,7 +96,7 @@ typedef struct s_redir
 
 typedef struct s_simple_cmds
 {
-	int						name;
+	int						index;
 	char					**strs;
 	bool					is_builtin;
 	int						num_redirections;
@@ -218,5 +219,6 @@ t_my_env					*modify_env(char *key, char *value, t_my_env *env);
 t_my_env					*ft_last_env(t_my_env *my_env);
 void						free_all(t_all *all);
 char						*removequotes(char *line);
+char	*free_env(t_my_env **env); // 3 ou 1
 
 #endif

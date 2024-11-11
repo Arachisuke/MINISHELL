@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/07 16:15:57 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/11 15:18:54 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,15 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (sort_cmds(&all))
 			continue ;
-		printf("afterremove = %s\n", all.line);
+	//	printf("afterremove = %s\n", all.line);
 		cmds_affichage(all.cmds);
 		if (if_here_doc(&all))
 			continue ;
 		builtins_or_not(&all, all.cmds);
 		ft_final(&all, NULL, NULL, 1);
 	}
-	// rl_clear_history();
+	free_env(&all.my_env);
+	// dans pipex recuperer tsimple commande cmds, et builtin 
+	//rl_clear_history();
 	return (SUCCESS);
 }
