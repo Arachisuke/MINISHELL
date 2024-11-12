@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_tcmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:21:06 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/05 17:25:55 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:06:29 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,14 @@ t_simple_cmds	*ft_new_cmds(int i)
 	if (!elem)
 		return (NULL);
 	elem->is_builtin = 0;
-	elem->name = i;
+	elem->index = i;
 	elem->next = NULL;
 	elem->redir = NULL;
 	elem->prev = NULL;
 	elem->num_redirections = 0;
 	elem->strs = NULL;
+	elem->fd_infile = 0;
+	elem->fd_outfile = 0;
 	return (elem);
 }
 

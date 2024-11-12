@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/12 16:06:11 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/12 12:15:28 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ void	cmds_affichage(t_simple_cmds *cmds)
 	tmp_redir = cmds->redir;
 	while (tmp)
 	{
-		printf("node = %d\nis builtin = %d\n", tmp->name, tmp->is_builtin);
+		printf("node = %d\nis builtin = %d\n", tmp->index, tmp->is_builtin);
 		tmp_redir = tmp->redir;
 		if (tmp_redir)
 		{
 			while (tmp_redir)
 			{
-				printf("redir = %d\nfile_name = %s\n", tmp_redir->token,
-					tmp_redir->file_name);
+				printf("redir = %d\nfile_name = %s\nheredoc = %d\n", tmp_redir->token,
+					tmp_redir->file_name, tmp->redir->here_doc);
 				tmp_redir = tmp_redir->next;
 			}
 		}

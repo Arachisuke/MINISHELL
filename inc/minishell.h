@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/11 15:33:56 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:01:39 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ typedef enum e_token
 {
 	STRING,
 	PIPE,
-	GREATER,
 	LOWER,
-	D_GREATER,
 	D_LOWER,
+	GREATER,
+	D_GREATER,
 }							t_token;
 
 typedef struct s_lexer
@@ -89,8 +89,9 @@ typedef struct s_redir
 {
 	char					*file_name;
 	t_token					token;
+	int						fd_here_doc;
+	int						ifhdoc;
 	struct s_redir			*next;
-	int						HD;
 
 }							t_redir;
 
@@ -100,6 +101,8 @@ typedef struct s_simple_cmds
 	char					**strs;
 	bool					is_builtin;
 	int						num_redirections;
+	int						fd_outfile; //rajout de fd pour infile et outfile
+	int						fd_infile;
 	t_redir					*redir;
 	struct s_simple_cmds	*next;
 	struct s_simple_cmds	*prev;
@@ -112,6 +115,17 @@ typedef struct s_my_env
 	int						index;
 	struct s_my_env			*next;
 }							t_my_env;
+typedef struct s_pipex
+{
+	t_simple_cmds			*cmds;
+	int						**pipefd;
+	pid_t					*pid;
+	int						status;
+	char					**all_path;
+	char					*path;
+	int						nbrcmd;
+
+}							t_pipex;
 
 typedef struct s_all
 {
@@ -126,6 +140,7 @@ typedef struct s_all
 	int						id;
 	char					*shell_id;
 	t_my_env				*my_env;
+	t_pipex					*pipex;
 	int						exit_code;
 }							t_all;
 
@@ -220,5 +235,18 @@ t_my_env					*ft_last_env(t_my_env *my_env);
 void						free_all(t_all *all);
 char						*removequotes(char *line);
 char	*free_env(t_my_env **env); // 3 ou 1
+int							pipex(t_all *all, int argv, t_simple_cmds *cmds,
+								char *envp);
+
+void						init_struct(t_pipex *pipex, t_simple_cmds *cmds,
+								t_my_env *envp);
+void						close_fd(int argc, t_data *data);
+void						ft_error(t_data *data, char *str, int msg);
+char						*checkcmd(char **all_path, char *cmd, t_data *data);
+void						parsing(int argc, char **envp, t_data *data);
+void						ft_free2(int **tab);
+int							wait_childs(pid_t pid, t_data *data);
+void						init_variable(t_pipex *pipex);
+
 
 #endif

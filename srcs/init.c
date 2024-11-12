@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/06 10:23:15 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/12 10:28:49 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	init_all(t_all *all, char **envp)
 
 	i = 0;
 	all->cmds = NULL;
-	if (!all->my_env->next)
+	if (!all->my_env) // cest une condition instable...
 		all->my_env = ft_myenv(all, envp);
 	if (!all->my_env)
 		return (1);

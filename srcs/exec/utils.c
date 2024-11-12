@@ -6,13 +6,13 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:17:30 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/11 15:30:40 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:25:20 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	ft_error(t_data *data, char *str, int msg)
+void	ft_error(t_all *all, char *str, int msg)
 {
 	close_fd(data->argc_copy, data);
 	if (data->ifhdoc)
@@ -29,7 +29,7 @@ void	ft_error(t_data *data, char *str, int msg)
 		ft_free((void **)data->cmd);
 	if (str)
 		perror(str);
-	exit(msg);
+	return(msg);
 }
 
 void	close_fd(int argc, t_data *data)
@@ -54,21 +54,22 @@ void	close_fd(int argc, t_data *data)
 	}
 }
 
-void	init_struct(t_data *data, int argc, char **argv, char **envp)
+void	init_struct(t_pipex *pipex, t_simple_cmds *cmds, t_my_env *envp)
 {
-	data->all_path = NULL;
-	data->cmd = NULL;
-	data->infile = 0;
-	data->outf = 0;
-	data->path = NULL;
-	data->status = 0;
-	data->heredoc = 0;
-	data->ifhdoc = 0;
-	data->argc_copy = argc;
-	data->argv_copy = argv;
-	data->envp_copy = envp;
-	data->pipefd = NULL;
-	data->id = malloc(sizeof(int) * argc);
+	int	i;
+
+	i = -1;
+	pipex->all_path = NULL; // c tout le path des commandes
+	pipex->path = NULL;     // le path je le recupere dans checkcmd
+	pipex->status = 0;
+	pipex->nbrcmd = ft_lstsize(cmds);
+	pipex->cmds = cmds;
+	pipex->pid = malloc(sizeof(int) * (pipex->nbrcmd - 1)); // fois le nombre de node de cmds
+	while (pipex->nbrcmd > ++i)
+		pipex->pid[i] = 0;
+	pipex->pipefd = malloc(sizeof(int *) * (pipex->nbrcmd - 1)); // fois le nombre de node de cmds -1
+	if (pipex->pipefd == NULL)
+		ft_error(pipex, "malloc", 1);
 }
 
 char	*strjoinfree(char const *s1, char const *s2)

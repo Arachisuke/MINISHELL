@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/11 15:52:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/12 10:56:16 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,11 +258,6 @@ void	other(char *str)
 
 
 
-// a quoi sers la sortie de ft_final
-// reduire export et les autres fonction a 25
-// PIPEX
-// test avec l'ecran split 
-// printf count, line, et cmds.->
 
 
 
@@ -280,4 +275,20 @@ void	other(char *str)
 // finir parse_line ce quil ya sur ton livre, et remettre lancien export
 
 
-//lancien raisonnement de notre parse line cetait que quand yavais une commande comme echo "" on pensait quil comprennais espace, mais il comprennait que cetait vide, y avais les deux cas je les avait repetorier
+//lancien raisonnement de notre parse line cetait que quand yavais une commande comme echo "" on pensait quil comprennais espace, mais il comprennait que cetait vide, y avais les deux cas je les avait repetorier]
+
+
+
+
+// a quoi sers la sortie de ft_final
+// reduire export et les autres fonction a 25
+// PIPEX
+// test avec l'ecran split 
+// printf count, line, et cmds.->
+
+
+
+// execve(data->path, data->cmd, envp); // le path de la commande la commande, et l'env
+// data.id -> le pid du process
+// pipefd, le double fd qui permet la communication entre les process.
+// here_doc envoyez le fd direct.
