@@ -6,27 +6,23 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:17:30 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/13 11:15:30 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 15:35:04 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	ft_error(t_all *all, char *str, int msg)
+int	ft_error(t_all *all, char *str, t_pipex *pipex, int msg)
 {
-	close_fd(data->argc_copy, data);
-	if (data->ifhdoc)
-		unlink(".heredoc_tmp");
-	if (data->pipefd)
-		ft_free2(data->pipefd);
-	if (data->id)
-		free(data->id);
-	if (data->all_path)
-		ft_free((void **)data->all_path);
-	if (data->path)
-		free(data->path);
-	if (data->cmd)
-		ft_free((void **)data->cmd);
+	close_fd(pipex, all->cmds);
+	if (pipex->pipefd)
+		ft_free2(pipex->pipefd);
+	if (pipex->pid)
+		free(pipex->pid);
+	if (pipex->all_path)
+		ft_free((void **)pipex->all_path);
+	if (pipex->path)
+		free(pipex->path);
 	if (str)
 		perror(str);
 	return (msg);
@@ -37,45 +33,43 @@ void	close_fd(t_pipex *pipex, t_simple_cmds *cmds)
 	int	i;
 
 	i = 0;
-	if (data->heredoc)
-		close(data->heredoc);
-	if (data->infile > 0)
-		close(data->infile);
-	if (data->outf)
-		close(data->outf);
-	if (last_infile->fd_here_doc)
-		close(last_infile->fd_here_doc);
+	if (cmds->redir && cmds->redir->fd_here_doc)
+		close(cmds->redir->fd_here_doc);
+	if (cmds->fd_infile)
+		close(cmds->fd_infile);
 	if (cmds->fd_outfile > 0)
 		close(cmds->fd_outfile);
-	while ((argc - 4) - data->ifhdoc > i)
+	while (pipex->nbrcmd - 1 > i)
 	{
-		if (data->pipefd[i])
+		if (pipex->pipefd[i])
 		{
-			close(data->pipefd[i][0]);
-			close(data->pipefd[i][1]);
+			close(pipex->pipefd[i][0]);
+			close(pipex->pipefd[i][1]);
 		}
 		i++;
 	}
 }
 
-void	init_struct(t_pipex *pipex, t_simple_cmds *cmds, t_my_env *envp)
+int	init_struct(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 {
 	int	i;
 
 	i = -1;
-	pipex->all_path = NULL; // c tout le path des commandes
-	pipex->path = NULL;     // le path je le recupere dans checkcmd
+	pipex->all_path = NULL;
+	pipex->path = NULL;
 	pipex->status = 0;
-	pipex->nbrcmd = ft_lstsize(cmds);
+	pipex->nbrcmd = ft_size_cmds(cmds);
 	pipex->cmds = cmds;
+	pipex->last_outfile = NULL;
+	pipex->last_infile = NULL;
+	pipex->env = NULL;
 	pipex->pid = malloc(sizeof(int) * (pipex->nbrcmd - 1));
-	// fois le nombre de node de cmds
 	while (pipex->nbrcmd > ++i)
 		pipex->pid[i] = 0;
 	pipex->pipefd = malloc(sizeof(int *) * (pipex->nbrcmd - 1));
-	// fois le nombre de node de cmds -1
 	if (pipex->pipefd == NULL)
-		ft_error(pipex, "malloc", 1);
+		return (ft_error(all, "malloc", pipex, 1));
+	return (0);
 }
 
 char	*strjoinfree(char const *s1, char const *s2)

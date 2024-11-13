@@ -6,13 +6,13 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:25:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/11 15:30:36 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 15:51:31 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*checkcmd(char **all_path, char *cmd, t_data *data)
+char	*checkcmd(t_all *all, char **all_path, char *cmd, t_pipex *pipex)
 {
 	int		i;
 	char	*path;
@@ -23,7 +23,7 @@ char	*checkcmd(char **all_path, char *cmd, t_data *data)
 	if (access(cmd, F_OK) == 0)
 	{
 		if (access(cmd, X_OK) == -1)
-			ft_error(data, "Permission denied", 126);
+			return (ft_error(all, "Permission denied", pipex, 126), NULL);
 		return (cmd);
 	}
 	if (!all_path)
@@ -41,28 +41,25 @@ char	*checkcmd(char **all_path, char *cmd, t_data *data)
 	return (NULL);
 }
 
-void	parsing(int argc, char **envp, t_data *data)
+void	parsing_pipex(t_pipex *pipex, char **envp)
 {
 	int	i;
 
-	if (argc < 5)
-		ft_error(data, "arguments", 1);
 	i = 0;
-	if (!ft_strncmp(data->argv_copy[1], "here_doc", 8))
-		here_doc(data, data->argv_copy);
+	// if (!ft_strncmp(data->argv_copy[1], "here_doc", 8))
+	// 	here_doc(data, data->argv_copy);
 	if (!envp)
 		return ;
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
-			data->all_path = ft_split(envp[i] + 5, ':');
+			pipex->all_path = ft_split(envp[i] + 5, ':');
 			break ;
 		}
 		i++;
 	}
 }
-
 void	ft_free2(int **tab)
 {
 	int	i;
@@ -79,35 +76,60 @@ void	ft_free2(int **tab)
 	free(tab);
 }
 
-int	wait_childs(pid_t pid, t_data *data)
+int	wait_childs(pid_t pid, t_pipex *pipex)
 {
 	int	code;
 
 	code = EXIT_FAILURE;
 	while (errno != ECHILD)
-		if (wait(&data->status) == pid && WIFEXITED(data->status))
-			code = WEXITSTATUS(data->status);
+		if (wait(&pipex->status) == pid && WIFEXITED(pipex->status))
+			code = WEXITSTATUS(pipex->status);
 	if (pid == -1)
 		return (127);
 	return (code);
 }
-
-void	getcmd(t_data *data, char *cmd)
+int	envlist_envchar(t_pipex *pipex, t_my_env *envp)
 {
-	char	*str;
-	int		i;
+	t_my_env	*tmp;
+	int			i;
 
-	i = -1;
-	if (strchr(cmd, '\''))
+	i = 0;
+	tmp = envp;
+	pipex->env = malloc(sizeof(char *) * ft_lstsize_env(envp) + 1);
+	if (!pipex->env)
+		return (1);
+	while (tmp)
 	{
-		str = ft_strdup(" ");
-		data->cmd = ft_split(cmd, '\'');
-		while (data->cmd[++i])
-			str = strjoinfree(str, data->cmd[i]);
-		free(data->cmd);
-		data->cmd = ft_split(str, ' ');
-		free(str);
+		pipex->env[i] = strjoinegal(tmp->key, tmp->value);
+		tmp = tmp->next;
+		i++;
 	}
-	else
-		data->cmd = ft_split(cmd, ' ');
+	pipex->env[i] = NULL;
+	return (0);
+}
+char	*strjoinegal(char const *s1, char const *s2)
+{
+	char *s;
+	int i;
+	int j;
+
+	if (s1 == NULL)
+		return (NULL);
+	if (s2 == NULL)
+		return (NULL);
+	j = 0;
+	i = 0;
+	s = malloc((sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 2));
+	if (s == NULL)
+		return (NULL);
+	while (s1[i])
+	{
+		s[i] = s1[i];
+		i++;
+	}
+	s[i++] = '=';
+	while (s2[j])
+		s[i++] = s2[j++];
+	s[i] = '\0';
+	return (s);
 }

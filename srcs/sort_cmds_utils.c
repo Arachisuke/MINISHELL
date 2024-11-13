@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:25:10 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/11 15:07:45 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 14:17:59 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	is_builtin(char *str)
 	return (SUCCESS);
 }
 
-char	*strjoinfree(char const *s1, char const *s2)
+char	*strjoinfrees2(char const *s1, char const *s2)
 {
 	char	*s;
 	int		i;

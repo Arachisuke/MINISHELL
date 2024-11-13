@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/13 11:06:16 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 15:47:12 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,9 @@ typedef struct s_pipex
 	char					**all_path;
 	char					*path;
 	int						nbrcmd;
+	t_redir					*last_outfile;
+	t_redir					*last_infile;
+	char					**env;
 
 }							t_pipex;
 
@@ -196,7 +199,7 @@ t_expand					*create_nodexpand(t_expand **expand, int nbrexpand);
 void						expand_affichage(t_expand *expand);
 int							find_var(t_all *all);
 int							find_var(t_all *all);
-int							init_all(t_all *all, char **envp);
+int							init_all(t_all *all, char **envp, t_pipex *pipex);
 int							checkredir(char *line, int i);
 char						*free_redir(t_redir **redir);
 char						*free_lexer(t_lexer **lexer);
@@ -235,23 +238,41 @@ t_my_env					*ft_last_env(t_my_env *my_env);
 void						free_all(t_all *all);
 char						*removequotes(char *line);
 char	*free_env(t_my_env **env); // 3 ou 1
-int							pipex(t_all *all, int argv, t_simple_cmds *cmds,
-								char *envp);
+int							ft_pipex(t_all *all, t_pipex *pipex,
+								t_simple_cmds *cmds, t_my_env *envp);
 
-void						init_struct(t_pipex *pipex, t_simple_cmds *cmds,
-								t_my_env *envp);
-void						close_fd(int argc, t_data *data);
-void						ft_error(t_data *data, char *str, int msg);
-char						*checkcmd(char **all_path, char *cmd, t_data *data);
-void						parsing(int argc, char **envp, t_data *data);
+int							init_struct(t_all *all, t_pipex *pipex,
+								t_simple_cmds *cmds);
+
+void						close_fd(t_pipex *pipex, t_simple_cmds *cmds);
+int							ft_error(t_all *all, char *str, t_pipex *pipex,
+								int msg);
+
+char						*checkcmd(t_all *all, char **all_path, char *cmd,
+								t_pipex *pipex);
+void						ft_free(void **strs);
 void						ft_free2(int **tab);
-int							wait_childs(pid_t pid, t_data *data);
-void						init_variable(t_pipex *pipex);
-int							fd_out_and_inf(t_all *all, t_simple_cmds *cmds,
-								t_redir *redir, int fd);
-void						process_final(t_all *all, t_pipex *pipex,
-								t_simple_cmds *cmds, char **envp);
-								void	first_process(t_all *all, t_pipex *pipex, t_simple_cmds *cmds,
-		char **envp)
+int							wait_childs(pid_t pid, t_pipex *data);
+int							init_variable(t_pipex *pipex, t_all *all);
+int							open_and_close(t_all *all, t_simple_cmds *cmds,
+								t_pipex *pipex);
+
+int							process_final(t_all *all, t_pipex *pipex,
+								t_simple_cmds *cmds);
+int							first_process(t_all *all, t_pipex *pipex,
+								t_simple_cmds *cmds);
+void						parsing_pipex(t_pipex *pipex, char **envp);
+int							process_middle(t_all *all, t_simple_cmds *cmds,
+								int i);
+char						*strjoinfrees2(char const *s1, char const *s2);
+
+char						*strjoinegal(char const *s1, char const *s2);
+int							envlist_envchar(t_pipex *pipex, t_my_env *envp);
+int							create_process(t_all *all, t_pipex *pipex,
+								t_simple_cmds *cmds);
+int							ft_lstsize_env(t_my_env *lst);
+int							ft_size_cmds(t_simple_cmds *lst);
+int							onecmd(t_all *all, t_pipex *pipex,
+								t_simple_cmds *cmds);
 
 #endif

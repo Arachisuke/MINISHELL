@@ -6,85 +6,101 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:29:10 by macos             #+#    #+#             */
-/*   Updated: 2024/11/13 11:13:09 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 15:42:04 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	first_process(t_all *all, t_pipex *pipex, t_simple_cmds *cmds,
-		char **envp)
+int	first_process(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 {
-	fd_out_and_inf(all, cmds, cmds->redir, 0);
-	close_fd(data->argc_copy, data); // close all fd
+	if (dup2(all->pipex->pipefd[0][0], STDIN_FILENO) < 0)
+		return (ft_error(all, " first process stdout", pipex, 127));
+	if (dup2(all->pipex->pipefd[0][1], STDOUT_FILENO) < 0)
+		return (ft_error(all, " first process stdout", pipex, 127));
+	open_and_close(all, cmds, pipex);
+	close_fd(pipex, cmds); // pipefd, et les deux fd de cmds.
 	if (cmds->is_builtin)
 		builtins_or_not(all, cmds);
 	else
 	{
-		data->path = checkcmd(data->all_path, *data->cmd, data);
-		if (!data->path)
-			ft_error(data, "Command not found", 127);
-		execve(data->path, cmds->strs, envp);
-		ft_error(data, "execve", 1);
+		pipex->path = checkcmd(all, pipex->all_path, cmds->strs[0], pipex);
+		if (!pipex->path)
+			return (ft_error(all, "Command not found", pipex, 127));
+		execve(pipex->path, cmds->strs, pipex->env);
+		return (ft_error(all, "execve", pipex, 1));
 	}
+	return (0);
 }
 
-void	process_final(t_all *all, t_pipex *pipex, t_simple_cmds *cmds,
-		char **envp)
+int	process_final(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 {
+	if (dup2(all->pipex->pipefd[pipex->nbrcmd - 1][0], STDIN_FILENO) < 0)
+		return (ft_error(all, " first process stdout", pipex, 127));
 	cmds = cmds->next;
 	if (!cmds)
-		return ;
-	fd_out_and_inf(all, cmds, cmds->redir, pipex->nbrcmd - 1);
-	// close_fd(data->argc_copy, data); // close all fd
+		return (0);
+	open_and_close(all, cmds, pipex);
+	close_fd(pipex, cmds); // pipefd, et les deux fd de cmds.
 	if (cmds->is_builtin)
 		builtins_or_not(all, cmds);
 	else
 	{
-		data->path = checkcmd(data->all_path, *data->cmd, data);
-		if (!data->path)
-			ft_error(data, "Command not found", 127);
-		execve(data->path, cmds->strs, envp);
-		ft_error(data, "execve", 1);
+		pipex->path = checkcmd(all, pipex->all_path, cmds->strs[0], pipex);
+		if (!pipex->path)
+			return (ft_error(all, "Command not found", pipex, 127));
+		execve(pipex->path, cmds->strs, pipex->env);
+		return (ft_error(all, "execve", pipex, 1));
 	}
+	return (0);
 }
 
-void	create_process(char **argv, t_data *data)
+int	create_process(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 {
 	int	i;
 	int	j;
 
 	j = 1;
 	i = 1;
-	while (data->argc_copy - (5 + data->ifhdoc) > i - 1)
+	cmds = cmds->next;
+	while (pipex->nbrcmd > i + 1)
 	{
-		data->id[i] = fork();
-		if (data->id[i] == -1)
-			ft_error(data, "fork", 1);
-		if (data->id[i] == 0 && data->id[i - 1] > 0)
-			process_middle(data, argv[i + j + 1 + data->ifhdoc], i);
+		pipex->pid[i] = fork();
+		if (pipex->pid[i] == -1)
+			return (ft_error(all, "fork", pipex, 1));
+		if (pipex->pid[i] == 0 && pipex->pid[i - 1] > 0)
+			process_middle(all, cmds, i);
+		cmds = cmds->next;
 		i++;
 	}
+	return (0);
 }
 
-void	process_middle(t_data *data, char *cmd, int i)
+int	process_middle(t_all *all, t_simple_cmds *cmds, int i)
 {
-	if (dup2(data->pipefd[i - 1][0], STDIN_FILENO) < 0)
-		ft_error(data, "middle dup23", 1);
-	if (dup2(data->pipefd[i][1], STDOUT_FILENO) < 0)
-		ft_error(data, " middle dup31", 1);
-	close_fd(data->argc_copy, data);
-	getcmd(data, cmd);
-	if (!data->cmd[0])
-		ft_error(data, "Command not found", 127);
-	data->path = checkcmd(data->all_path, *data->cmd, data);
-	if (!data->path)
-		ft_error(data, "Command not found", 127);
-	execve(data->path, data->cmd, data->envp_copy);
-	ft_error(data, "execve", 1);
+	if (!cmds)
+		return (0);
+	if (dup2(all->pipex->pipefd[i - 1][0], STDIN_FILENO) < 0)
+		return (ft_error(all, "middle dup23", all->pipex, 1));
+	if (dup2(all->pipex->pipefd[i][1], STDOUT_FILENO) < 0)
+		return (ft_error(all, " middle dup31", all->pipex, 1));
+	open_and_close(all, cmds, all->pipex);
+	close_fd(all->pipex, cmds); // pipefd, et les deux fd de cmds.
+	if (cmds->is_builtin)
+		builtins_or_not(all, cmds);
+	else
+	{
+		all->pipex->path = checkcmd(all, all->pipex->all_path, cmds->strs[0],
+				all->pipex);
+		if (!all->pipex->path)
+			return (ft_error(all, "Command not found", all->pipex, 127));
+		execve(all->pipex->path, cmds->strs, all->pipex->env);
+		return (ft_error(all, "execve", all->pipex, 1));
+	}
+	return (0);
 }
 
-void	init_variable(t_pipex *pipex)
+int	init_variable(t_pipex *pipex, t_all *all)
 {
 	int	i;
 
@@ -93,7 +109,7 @@ void	init_variable(t_pipex *pipex)
 	{
 		pipex->pipefd[i] = malloc(sizeof(int) * 2);
 		if (pipex->pipefd[i] == NULL)
-			ft_error(pipex, "malloc1", 1);
+			return (ft_error(all, "malloc1", pipex, 1));
 		pipex->pipefd[i][0] = 0;
 		pipex->pipefd[i][1] = 0;
 		i++;
@@ -103,7 +119,8 @@ void	init_variable(t_pipex *pipex)
 	while (pipex->nbrcmd - 1 > i)
 	{
 		if (pipe(pipex->pipefd[i]) < 0)
-			ft_error(pipex, "pipe", 1);
+			return (ft_error(all, "pipe", pipex, 1));
 		i++;
 	}
+	return (0);
 }

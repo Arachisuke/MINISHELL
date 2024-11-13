@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:19:59 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/14 17:37:03 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 15:13:36 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,18 @@ t_my_env	*create_node_env(t_my_env **my_env, int i)
 	else
 		ft_back_env(my_env, ft_new_env(i));
 	return (*my_env);
+}
+int	ft_lstsize_env(t_my_env *lst)
+{
+	int		i;
+	t_my_env	*actuel;
+
+	actuel = lst;
+	i = 0;
+	while (actuel)
+	{
+		actuel = actuel->next;
+		i++;
+	}
+	return (i);
 }

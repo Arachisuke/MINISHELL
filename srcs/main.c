@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/12 11:17:03 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 15:07:56 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_parse	parse;
 	t_all	all;
+	t_pipex	pipex;
 
 	if (argc != 1 || argv[1])
 		return (0);
 	while (1)
 	{
-		if (init_all(&all, envp))
+		if (init_all(&all, envp, &pipex))
 			continue ;
 		get_current_dir(&all.line);
 		if (!all.line || !*all.line)
@@ -53,15 +54,14 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (sort_cmds(&all))
 			continue ;
-	//	printf("afterremove = %s\n", all.line);
+		//	printf("afterremove = %s\n", all.line);
 		cmds_affichage(all.cmds);
 		if (if_here_doc(&all))
 			continue ;
-		builtins_or_not(&all, all.cmds);
+		ft_pipex(&all, all.pipex, all.cmds, all.my_env);
 		ft_final(&all, NULL, NULL, 1);
 	}
 	free_env(&all.my_env);
-	// dans pipex recuperer tsimple commande cmds, et builtin
-	//rl_clear_history();
+	// rl_clear_history();
 	return (SUCCESS);
 }

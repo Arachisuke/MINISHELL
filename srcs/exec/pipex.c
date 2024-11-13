@@ -6,31 +6,43 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:32:10 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/12 11:56:47 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 16:16:45 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	pipex(t_all *all, t_pipex *pipex, t_simple_cmds *cmds, t_my_env *envp)
+int	ft_pipex(t_all *all, t_pipex *pipex, t_simple_cmds *cmds, t_my_env *envp)
 {
-	init_struct(pipex, cmds, envp);
-	init_variable(pipex);
+	init_struct(all, pipex, cmds);
+	init_variable(pipex, all);
+	if (envlist_envchar(pipex, envp))
+		return (ft_error(all, "malloc", pipex, 1));
+	parsing_pipex(pipex, pipex->env);
+	if (ft_strlen(cmds->strs[0]) == 4 && ft_strncmp(cmds->strs[0], "exit", 4) == 0
+		&& pipex->nbrcmd == 1)
+		ft_exit(cmds, all);
 	pipex->pid[0] = fork();
 	if (pipex->pid[0] == -1)
-		ft_error(all, "fork", 1);
+		return (ft_error(all, "fork", pipex, 1));
 	if (pipex->pid[0] == 0)
-		first_process(all, envp);
-	if (pipex->pid[0] > 0 && argc > 5)
-		create_process(all);
-	if (pipex->pid[0] == -1 || pipex->pid[argc - 4 - pipex.ifhdoc] == -1)
-		ft_error(all, "fork", 1);
-	if (pipex->pid[0] > 0)
-		pipex->pid[argc - 4 - pipex.ifhdoc] = fork();
-	if (pipex->pid[argc - 4 - pipex.ifhdoc] == -1)
-		ft_error(all, "fork", 1);
-	if (pipex->pid[argc - 5 - pipex.ifhdoc] && pipex->pid[argc - 4 - pipex.ifhdoc] == 0)
-		process_final(all, argc);
-	close_fd(argc, all);
-	ft_error(all, NULL, wait_childs(pipex->pid[argc - 4 - pipex.ifhdoc], all));
+	{
+		if (onecmd(all, pipex, cmds))
+			return (ft_error(all, NULL, pipex,
+					wait_childs(pipex->pid[pipex->nbrcmd - 1], pipex)));
+		first_process(all, pipex, cmds);
+	}
+	if (pipex->pid[0] > 0 && pipex->nbrcmd > 2)
+		create_process(all, pipex, cmds);
+	if (pipex->pid[0] == -1 || pipex->pid[pipex->nbrcmd - 1] == -1)
+		return (ft_error(all, "fork", pipex, 1));
+	if (pipex->pid[0] > 0 && pipex->nbrcmd > 1)
+		pipex->pid[pipex->nbrcmd - 1] = fork();
+	if (pipex->pid[pipex->nbrcmd - 1] == -1)
+		return (ft_error(all, "fork", pipex, 1)); // free envp
+	if (pipex->pid[pipex->nbrcmd - 2] && pipex->pid[pipex->nbrcmd - 1] == 0)
+		process_final(all, pipex, cmds);
+	close_fd(pipex, cmds); // envp
+	return (ft_error(all, NULL, pipex, wait_childs(pipex->pid[pipex->nbrcmd
+				- 1], pipex)));
 }

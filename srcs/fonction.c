@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:38:51 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/12 12:15:28 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 13:01:28 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	cmds_affichage(t_simple_cmds *cmds)
 			while (tmp_redir)
 			{
 				printf("redir = %d\nfile_name = %s\nheredoc = %d\n", tmp_redir->token,
-					tmp_redir->file_name, tmp->redir->here_doc);
+					tmp_redir->file_name, tmp->redir->fd_here_doc);
 				tmp_redir = tmp_redir->next;
 			}
 		}

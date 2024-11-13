@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:39:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/13 11:15:43 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 12:30:28 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,35 +47,26 @@ int	fd_out_and_inf(t_all *all, t_simple_cmds *cmds, t_redir *redir, int fd)
 	if (last_outfile)
 	{
 		if (dup2(cmds->fd_outfile, STDOUT_FILENO) < 0)
-			ft_error(all, " first process stdout", 127);
+			return(ft_error(all, " first process stdout", pipex, 127));
 	}
-	else if (dup2(all->pipex->pipefd[fd][1], STDOUT_FILENO) < 0)
-		ft_error(all, " first process stdout", 127);
 	if (last_infile)
 	{
 		if (last_infile->token == D_LOWER)
 		{
 			last_infile->fd_here_doc = open(last_infile->file_name, O_RDONLY);
 			if (last_infile->fd_here_doc < 0)
-				ft_error(all, " first process heredoc", 127);
+				return(ft_error(all, " first process heredoc", pipex, 127));
 			if (dup2(last_infile->fd_here_doc, STDIN_FILENO) < 0)
-				ft_error(all, " first process stdin", 127);
+				return(ft_error(all, " first process stdin", pipex, 127));
 			close(last_infile->fd_here_doc);
 		}
 		else if (last_infile->token == LOWER)
 		{
 			cmds->fd_infile = open(last_infile->file_name, O_RDONLY);
 			if (cmds->fd_infile < 0)
-				ft_error(all, " first process stdin", 127);
+				return(ft_error(all, " first process stdin", pipex, 127));
 			if (dup2(cmds->fd_infile, STDIN_FILENO) < 0)
-				ft_error(all, " first process stdin", 127);
-			close(cmds->fd_infile);
-		}
-		else
-		{
-			if (fd != 0) // dans le cas ou on est dans le first process et que ya pas de stdin pas besoin de dup. sinon faut dupp le pipe d
-				if (dup2(all->pipex->pipefd[fd][1], STDOUT_FILENO) < 0)
-					ft_error(all, " first process stdout", 127);
+				return(ft_error(all, " first process stdin", pipex, 127));
 		}
 	}
 }

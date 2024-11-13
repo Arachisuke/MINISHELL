@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/12 10:28:49 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 15:23:44 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,19 @@ char	*ft_pid(t_all *all)
 	all->shell_id = ft_itoa(all->id);
 	return (all->shell_id);
 }
-int	init_all(t_all *all, char **envp)
+int	init_all(t_all *all, char **envp, t_pipex *pipex)
 {
 	int	i;
 
 	i = 0;
 	all->cmds = NULL;
-	if (!all->my_env) // cest une condition instable...
+	if (!all->my_env->next) // cest une condition instable...
 		all->my_env = ft_myenv(all, envp);
 	if (!all->my_env)
 		return (1);
 	all->expand = NULL;
 	all->lexer = NULL;
+	all->pipex = pipex;
 	all->line = NULL;
 	all->strs = NULL;
 	while (i < 100)
