@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:29:10 by macos             #+#    #+#             */
-/*   Updated: 2024/11/12 15:41:35 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 11:13:09 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 void	first_process(t_all *all, t_pipex *pipex, t_simple_cmds *cmds,
 		char **envp)
 {
-	//  appel de fdoutandinf if (la fonction renvoie 0) ->
-	if (dup2(all->pipex->pipefd[0][1], STDOUT_FILENO) < 0)
-		ft_error(all, " first process stdout", 127);
+	fd_out_and_inf(all, cmds, cmds->redir, 0);
 	close_fd(data->argc_copy, data); // close all fd
-	if (cmds->is_builtin)            // apres avoir ouvert les fd
+	if (cmds->is_builtin)
 		builtins_or_not(all, cmds);
 	else
 	{
@@ -31,13 +29,15 @@ void	first_process(t_all *all, t_pipex *pipex, t_simple_cmds *cmds,
 	}
 }
 
-void	process_final(t_all *all, t_pipex *pipex,  char **argv, int argc)
+void	process_final(t_all *all, t_pipex *pipex, t_simple_cmds *cmds,
+		char **envp)
 {
-	//  appel de fdoutandinf if (la fonction renvoie 0) ->
-	if (dup2(all->pipex->pipefd[pipex->nbrcmd - 1][1], STDOUT_FILENO) < 0)
-		ft_error(all, " first process stdout", 127);
-	close_fd(data->argc_copy, data); // close all fd
-	if (cmds->is_builtin)            // apres avoir ouvert les fd
+	cmds = cmds->next;
+	if (!cmds)
+		return ;
+	fd_out_and_inf(all, cmds, cmds->redir, pipex->nbrcmd - 1);
+	// close_fd(data->argc_copy, data); // close all fd
+	if (cmds->is_builtin)
 		builtins_or_not(all, cmds);
 	else
 	{

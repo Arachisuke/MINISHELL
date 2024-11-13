@@ -6,14 +6,14 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:39:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/12 15:51:48 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 11:15:43 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 // A REDUIRE !!!
-int	fd_out_and_inf(t_all *all, t_simple_cmds *cmds, t_redir *redir)
+int	fd_out_and_inf(t_all *all, t_simple_cmds *cmds, t_redir *redir, int fd)
 {
 	t_redir	*last_infile;
 	t_redir	*last_outfile;
@@ -49,8 +49,8 @@ int	fd_out_and_inf(t_all *all, t_simple_cmds *cmds, t_redir *redir)
 		if (dup2(cmds->fd_outfile, STDOUT_FILENO) < 0)
 			ft_error(all, " first process stdout", 127);
 	}
-	else
-		// dup la sortie de base pipefd en sortie.
+	else if (dup2(all->pipex->pipefd[fd][1], STDOUT_FILENO) < 0)
+		ft_error(all, " first process stdout", 127);
 	if (last_infile)
 	{
 		if (last_infile->token == D_LOWER)
@@ -72,6 +72,10 @@ int	fd_out_and_inf(t_all *all, t_simple_cmds *cmds, t_redir *redir)
 			close(cmds->fd_infile);
 		}
 		else
-		// dup la sortie de base donc le pipefd en entree.
+		{
+			if (fd != 0) // dans le cas ou on est dans le first process et que ya pas de stdin pas besoin de dup. sinon faut dupp le pipe d
+				if (dup2(all->pipex->pipefd[fd][1], STDOUT_FILENO) < 0)
+					ft_error(all, " first process stdout", 127);
+		}
 	}
 }

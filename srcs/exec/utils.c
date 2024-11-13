@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:17:30 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/12 15:25:20 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 11:15:30 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	ft_error(t_all *all, char *str, int msg)
 		ft_free((void **)data->cmd);
 	if (str)
 		perror(str);
-	return(msg);
+	return (msg);
 }
 
-void	close_fd(int argc, t_data *data)
+void	close_fd(t_pipex *pipex, t_simple_cmds *cmds)
 {
 	int	i;
 
@@ -43,6 +43,10 @@ void	close_fd(int argc, t_data *data)
 		close(data->infile);
 	if (data->outf)
 		close(data->outf);
+	if (last_infile->fd_here_doc)
+		close(last_infile->fd_here_doc);
+	if (cmds->fd_outfile > 0)
+		close(cmds->fd_outfile);
 	while ((argc - 4) - data->ifhdoc > i)
 	{
 		if (data->pipefd[i])
@@ -64,10 +68,12 @@ void	init_struct(t_pipex *pipex, t_simple_cmds *cmds, t_my_env *envp)
 	pipex->status = 0;
 	pipex->nbrcmd = ft_lstsize(cmds);
 	pipex->cmds = cmds;
-	pipex->pid = malloc(sizeof(int) * (pipex->nbrcmd - 1)); // fois le nombre de node de cmds
+	pipex->pid = malloc(sizeof(int) * (pipex->nbrcmd - 1));
+	// fois le nombre de node de cmds
 	while (pipex->nbrcmd > ++i)
 		pipex->pid[i] = 0;
-	pipex->pipefd = malloc(sizeof(int *) * (pipex->nbrcmd - 1)); // fois le nombre de node de cmds -1
+	pipex->pipefd = malloc(sizeof(int *) * (pipex->nbrcmd - 1));
+	// fois le nombre de node de cmds -1
 	if (pipex->pipefd == NULL)
 		ft_error(pipex, "malloc", 1);
 }

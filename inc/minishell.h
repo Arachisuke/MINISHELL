@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/12 15:01:39 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/13 11:06:16 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_simple_cmds
 	char					**strs;
 	bool					is_builtin;
 	int						num_redirections;
-	int						fd_outfile; //rajout de fd pour infile et outfile
+	int fd_outfile; // rajout de fd pour infile et outfile
 	int						fd_infile;
 	t_redir					*redir;
 	struct s_simple_cmds	*next;
@@ -247,6 +247,11 @@ void						parsing(int argc, char **envp, t_data *data);
 void						ft_free2(int **tab);
 int							wait_childs(pid_t pid, t_data *data);
 void						init_variable(t_pipex *pipex);
-
+int							fd_out_and_inf(t_all *all, t_simple_cmds *cmds,
+								t_redir *redir, int fd);
+void						process_final(t_all *all, t_pipex *pipex,
+								t_simple_cmds *cmds, char **envp);
+								void	first_process(t_all *all, t_pipex *pipex, t_simple_cmds *cmds,
+		char **envp)
 
 #endif
