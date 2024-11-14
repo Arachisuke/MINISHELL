@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_t_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:09:41 by ankammer          #+#    #+#             */
-/*   Updated: 2024/10/05 17:24:18 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:31:04 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ t_redir	*ft_new_redir(void)
 	elem->file_name = NULL;
 	elem->token = 6;
 	elem->next = NULL;
+	elem->fd_here_doc = 0;
+	elem->ifhdoc = 0;
 	return (elem);
 }
 

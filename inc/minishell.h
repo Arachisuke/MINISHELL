@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/13 15:47:12 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/14 14:49:19 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,13 +245,12 @@ int							init_struct(t_all *all, t_pipex *pipex,
 								t_simple_cmds *cmds);
 
 void						close_fd(t_pipex *pipex, t_simple_cmds *cmds);
-int							ft_error(t_all *all, char *str, t_pipex *pipex,
-								int msg);
+
 
 char						*checkcmd(t_all *all, char **all_path, char *cmd,
 								t_pipex *pipex);
 void						ft_free(void **strs);
-void						ft_free2(int **tab);
+void						ft_free2(int **tab, t_pipex *pipex);
 int							wait_childs(pid_t pid, t_pipex *data);
 int							init_variable(t_pipex *pipex, t_all *all);
 int							open_and_close(t_all *all, t_simple_cmds *cmds,
@@ -274,5 +273,10 @@ int							ft_lstsize_env(t_my_env *lst);
 int							ft_size_cmds(t_simple_cmds *lst);
 int							onecmd(t_all *all, t_pipex *pipex,
 								t_simple_cmds *cmds);
+void						ft_freechild(void **strs);
+void						ft_free2child(int **tab, t_pipex *pipex);
+int							ft_errparent(t_all *all, char *str, t_pipex *pipex,
+								int msg);
+int	ft_errchild(t_all *all, char *str, t_pipex *pipex, int msg);
 
 #endif

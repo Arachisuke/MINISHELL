@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:32:10 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/13 16:16:45 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/14 15:29:05 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,26 @@ int	ft_pipex(t_all *all, t_pipex *pipex, t_simple_cmds *cmds, t_my_env *envp)
 	init_struct(all, pipex, cmds);
 	init_variable(pipex, all);
 	if (envlist_envchar(pipex, envp))
-		return (ft_error(all, "malloc", pipex, 1));
+		return (ft_errchild(all, "malloc", pipex, 1));
 	parsing_pipex(pipex, pipex->env);
-	if (ft_strlen(cmds->strs[0]) == 4 && ft_strncmp(cmds->strs[0], "exit", 4) == 0
-		&& pipex->nbrcmd == 1)
-		ft_exit(cmds, all);
 	pipex->pid[0] = fork();
 	if (pipex->pid[0] == -1)
-		return (ft_error(all, "fork", pipex, 1));
+		return (ft_errchild(all, "fork", pipex, 1));
+	if (pipex->pid[0] == 0 && pipex->nbrcmd == 1)
+		return (onecmd(all, pipex, cmds)); // apres il doit free.
 	if (pipex->pid[0] == 0)
-	{
-		if (onecmd(all, pipex, cmds))
-			return (ft_error(all, NULL, pipex,
-					wait_childs(pipex->pid[pipex->nbrcmd - 1], pipex)));
 		first_process(all, pipex, cmds);
-	}
 	if (pipex->pid[0] > 0 && pipex->nbrcmd > 2)
 		create_process(all, pipex, cmds);
 	if (pipex->pid[0] == -1 || pipex->pid[pipex->nbrcmd - 1] == -1)
-		return (ft_error(all, "fork", pipex, 1));
+		return (ft_errchild(all, "fork", pipex, 1));
 	if (pipex->pid[0] > 0 && pipex->nbrcmd > 1)
 		pipex->pid[pipex->nbrcmd - 1] = fork();
 	if (pipex->pid[pipex->nbrcmd - 1] == -1)
-		return (ft_error(all, "fork", pipex, 1)); // free envp
+		return (ft_errchild(all, "fork", pipex, 1)); // free envp
 	if (pipex->pid[pipex->nbrcmd - 2] && pipex->pid[pipex->nbrcmd - 1] == 0)
 		process_final(all, pipex, cmds);
 	close_fd(pipex, cmds); // envp
-	return (ft_error(all, NULL, pipex, wait_childs(pipex->pid[pipex->nbrcmd
+	return (ft_errparent(all, NULL, pipex, wait_childs(pipex->pid[pipex->nbrcmd
 				- 1], pipex)));
 }

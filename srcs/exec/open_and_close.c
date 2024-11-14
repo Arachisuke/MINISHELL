@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:39:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/13 15:47:04 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/14 14:51:17 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_out_or_inf(t_pipex *pipex, t_all *all, t_redir *redir,
 		if (cmds->fd_outfile > 0)
 		{
 			if (close(cmds->fd_outfile) == -1)
-				return (ft_error(all, "close", pipex, 127));
+				return (ft_errchild(all, "close", pipex, 127));
 			cmds->fd_outfile = 0;
 		}
 		if (pipex->last_outfile->token == GREATER)
@@ -31,54 +31,52 @@ int	is_out_or_inf(t_pipex *pipex, t_all *all, t_redir *redir,
 			cmds->fd_outfile = open(pipex->last_outfile->file_name,
 					O_WRONLY | O_APPEND | O_CREAT, 0644);
 		if (cmds->fd_outfile == -1)
-			return (ft_error(all, "open", pipex, 127));
+			return (ft_errchild(all, "open", pipex, 127));
 	}
 	else if (redir->token == LOWER || redir->token == D_LOWER)
 		pipex->last_infile = redir;
 	return (0);
 }
 
-int	who_is_last(t_redir *last_infile,
-		t_simple_cmds *cmds, t_all *all)
+int	who_is_last(t_redir *last_infile, t_simple_cmds *cmds, t_all *all)
 {
 	if (last_infile->token == D_LOWER)
 	{
 		last_infile->fd_here_doc = open(last_infile->file_name, O_RDONLY);
 		if (last_infile->fd_here_doc == -1)
-			return (ft_error(all, " first process heredoc", all->pipex, 127));
+			return (ft_errchild(all, " first process heredoc", all->pipex,
+					127));
 		if (dup2(last_infile->fd_here_doc, STDIN_FILENO) == -1)
-			return (ft_error(all, " first process stdin", all->pipex, 127));
+			return (ft_errchild(all, " first process stdin", all->pipex, 127));
 		close(last_infile->fd_here_doc);
 	}
 	else if (last_infile->token == LOWER)
 	{
 		cmds->fd_infile = open(last_infile->file_name, O_RDONLY);
 		if (cmds->fd_infile == -1)
-			return (ft_error(all, " first process stdin", all->pipex, 127));
+			return (ft_errchild(all, " first process stdin", all->pipex, 127));
 		if (dup2(cmds->fd_infile, STDIN_FILENO) == -1)
-			return (ft_error(all, " first process stdin", all->pipex, 127));
+			return (ft_errchild(all, " first process stdin", all->pipex, 127));
 	}
 	return (0);
 }
 
 int	open_and_close(t_all *all, t_simple_cmds *cmds, t_pipex *pipex)
 {
-	t_redir *tmp;
-	
+	t_redir	*tmp;
+
 	tmp = cmds->redir;
 	if (!tmp)
-		return (1);
-	
+		return (0);
 	while (tmp)
 	{
-		if (is_out_or_inf(pipex, all,  tmp,
-				cmds))
+		if (is_out_or_inf(pipex, all, tmp, cmds))
 			return (127);
 		tmp = tmp->next;
 	}
 	if (pipex->last_outfile)
 		if (dup2(cmds->fd_outfile, STDOUT_FILENO) == -1)
-			return (ft_error(all, " first process stdout", pipex, 127));
+			return (ft_errchild(all, " first process stdout", pipex, 127));
 	if (pipex->last_infile)
 		if (who_is_last(pipex->last_infile, cmds, all))
 			return (127);
@@ -86,21 +84,19 @@ int	open_and_close(t_all *all, t_simple_cmds *cmds, t_pipex *pipex)
 }
 int	onecmd(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 {
-	if (pipex->nbrcmd == 1)
+	open_and_close(all, cmds, pipex);
+	close_fd(pipex, cmds);
+	if (cmds->is_builtin)
 	{
-		open_and_close(all, cmds, pipex);
-		close_fd(pipex, cmds);
-		if (cmds->is_builtin)
-			builtins_or_not(all, cmds);
-		else
-		{
-			pipex->path = checkcmd(all, pipex->all_path, cmds->strs[0], pipex);
-			if (!pipex->path)
-				return (ft_error(all, "Command not found", pipex, 127));
-			execve(pipex->path, cmds->strs, pipex->env);
-			return (ft_error(all, "execve", pipex, 1));
-		}
-		return (1);
+		builtins_or_not(all, cmds);
+		exit(0);
 	}
-	return (0);
+	else
+	{
+		pipex->path = checkcmd(all, pipex->all_path, cmds->strs[0], pipex);
+		if (!pipex->path)
+			return (ft_errchild(all, "Command not found", pipex, 127));
+		execve(pipex->path, cmds->strs, pipex->env);
+		return (ft_errchild(all, "execve", pipex, 1));
+	}
 }

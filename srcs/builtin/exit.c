@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:26 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:01 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:56:02 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ bool	str_is_numeric(char *str)
 
 int	ft_exit(t_simple_cmds *cmds, t_all *all)
 {
-	ft_printf_fd(1, "exit\n");
+	if (all->pipex->nbrcmd == 1)
+		ft_printf_fd(1, "exit\n");
 	if (cmds->strs[1])
 	{
 		if (!str_is_numeric(cmds->strs[1]))

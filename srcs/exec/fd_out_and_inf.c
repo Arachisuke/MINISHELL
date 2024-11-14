@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:39:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/13 12:30:28 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/14 14:49:43 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	fd_out_and_inf(t_all *all, t_simple_cmds *cmds, t_redir *redir, int fd)
 	if (last_outfile)
 	{
 		if (dup2(cmds->fd_outfile, STDOUT_FILENO) < 0)
-			return(ft_error(all, " first process stdout", pipex, 127));
+			return (ft_errchild(all, " first process stdout", pipex, 127));
 	}
 	if (last_infile)
 	{
@@ -55,18 +55,18 @@ int	fd_out_and_inf(t_all *all, t_simple_cmds *cmds, t_redir *redir, int fd)
 		{
 			last_infile->fd_here_doc = open(last_infile->file_name, O_RDONLY);
 			if (last_infile->fd_here_doc < 0)
-				return(ft_error(all, " first process heredoc", pipex, 127));
+				return (ft_errchild(all, " first process heredoc", pipex, 127));
 			if (dup2(last_infile->fd_here_doc, STDIN_FILENO) < 0)
-				return(ft_error(all, " first process stdin", pipex, 127));
+				return (ft_errchild(all, " first process stdin", pipex, 127));
 			close(last_infile->fd_here_doc);
 		}
 		else if (last_infile->token == LOWER)
 		{
 			cmds->fd_infile = open(last_infile->file_name, O_RDONLY);
 			if (cmds->fd_infile < 0)
-				return(ft_error(all, " first process stdin", pipex, 127));
+				return (ft_errchild(all, " first process stdin", pipex, 127));
 			if (dup2(cmds->fd_infile, STDIN_FILENO) < 0)
-				return(ft_error(all, " first process stdin", pipex, 127));
+				return (ft_errchild(all, " first process stdin", pipex, 127));
 		}
 	}
 }

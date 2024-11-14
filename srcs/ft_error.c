@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 11:01:12 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/07 15:48:18 by wzeraig          ###   ########.fr       */
+/*   Created: 2024/11/14 14:50:37 by wzeraig           #+#    #+#             */
+/*   Updated: 2024/11/14 15:07:38 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	ft_final(t_all *all, char *error, char *msgerror, int sortie)
 	if (msgerror)
 		msg_error(all, msgerror, error);
 	free_all(all);
+	ft_errparent(all, NULL, all->pipex, 0);
 	return (sortie);
 }
 void	msg_error(t_all *all, char *msgerror, char *error)

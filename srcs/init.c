@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/13 15:23:44 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/14 15:25:02 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	init_all(t_all *all, char **envp, t_pipex *pipex)
 
 	i = 0;
 	all->cmds = NULL;
-	if (!all->my_env->next) // cest une condition instable...
+	if (!all->my_env) // cest une condition instable...
 		all->my_env = ft_myenv(all, envp);
 	if (!all->my_env)
 		return (1);
@@ -75,10 +75,13 @@ int	init_all(t_all *all, char **envp, t_pipex *pipex)
 	all->pipex = pipex;
 	all->line = NULL;
 	all->strs = NULL;
+	all->pipex->pid = NULL;
+	all->pipex->pipefd = NULL;
 	while (i < 100)
 		all->tab[i++] = -1;
 	all->tmp_cmds = NULL;
 	all->tmp_lexer = NULL;
+	all->cmds = NULL;
 	all->shell_id = NULL;
 	all->exit_code = 0;
 	all->id = 0;
