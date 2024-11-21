@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:25:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/14 15:20:44 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/21 10:30:07 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ void	parsing_pipex(t_pipex *pipex, char **envp)
 		i++;
 	}
 }
-void	ft_free2(int **tab, t_pipex *pipex)
+void	free_tab(int **tab, t_pipex *pipex)
 {
 	int	i;
 
 	i = 0;
 	if (!tab)
 		return ;
-	while (pipex->nbrcmd > i)
+	while (pipex->nbrcmd - 1 > i)
 	{
 		if (tab[i])
 		{
@@ -79,22 +79,6 @@ void	ft_free2(int **tab, t_pipex *pipex)
 	free(tab);
 	tab = NULL;
 }
-void	ft_free2child(int **tab, t_pipex *pipex)
-{
-	int	i;
-
-	i = 0;
-	if (!tab)
-		return ;
-	while (pipex->nbrcmd > i)
-	{
-		if (tab[i])
-			tab[i] = NULL;
-		i++;
-	}
-	tab = NULL;
-}
-
 int	wait_childs(pid_t pid, t_pipex *pipex)
 {
 	int	code;
@@ -151,21 +135,4 @@ char	*strjoinegal(char const *s1, char const *s2)
 		s[i++] = s2[j++];
 	s[i] = '\0';
 	return (s);
-}
-int	ft_errchild(t_all *all, char *str, t_pipex *pipex, int msg)
-{
-	close_fd(pipex, all->cmds);
-	if (pipex->pipefd)
-		ft_free2(pipex->pipefd, pipex);
-	if (pipex->pid)
-		free(pipex->pid);
-	if (pipex->all_path)
-		ft_free((void **)pipex->all_path);
-	if (pipex->path)
-		free(pipex->path);
-	if (pipex->env)
-		free_strs(&pipex->env);
-	if (str)
-		perror(str);
-	exit(msg);
 }

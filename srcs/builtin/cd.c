@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/06 14:03:52 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:34:52 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_cd(t_simple_cmds *cmds, t_all *all)
 {
 	char	*pwd;
 
-	if (cmds->strs[2])
+	if (cmds && cmds->strs[2]) // cd accepte zero arguments non ? pourquoi 2
 	{
 		ft_printf_fd(2, "minishell: cd: too many arguments\n");
 		return ;

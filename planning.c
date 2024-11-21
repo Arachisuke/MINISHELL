@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/14 15:57:45 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/21 15:26:10 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,3 +255,50 @@ void	other(char *str)
 // gerer builtins.
 // plusieurs commande qui existe ou non 
 // le nom du fichier outfile s'ouvre en double
+
+
+
+
+
+// 20 nov
+// erreur avec et sans break se concentrer sur free_all errchild errparent
+
+
+
+// changement principaux pour les leaks, pipe.pid, javais free2child, mais je lavais deja vu et je lavais change.
+// le deuxieme changement c'etait que cmds.strs avait un malloc.
+// troisieme changement le plus interessant et important peut etre, le ft_final dans errchild, le child partage toute les ressources de son pere, donc meme les ressources de tout le minishell logique.
+// free_env ....
+
+// demande une explication pour ft_final car finalement c'est pas si logique
+// vu que le parent quoi quil arrive il va supprimer ca.
+
+
+
+// test free_env avec gdb.
+
+
+// bazaluga mas dis quil faut tout free ssans distinction dans lenfant ca veut dire que notre erreur venait dautre part.
+
+
+
+
+// donc quand tu exit tu dois tout free.
+// free all, free env , et meme errchild.
+// enfant il free all, free env, et errchild
+// parent il free all free env et errparent
+// si ya un exit, tu fais la total de l'enfant ou du parent.
+// aucune diff entre errchild et errparent mis a part le pipex.path, si il ya le exit...
+// donc dans le exit autant mettre le errchild a la place du VRAI exit donc dans le ft_exit on change pas errchld qui a la vrai fonction exit en elle donc elle free et apres exit, ca ne change rien.
+// dans exit je met errchild qui lui a deja free env et ft_final, et free de la session pipex
+// errparent necessite que de free la session pipex car il exit pas donc il va se faire free dans le main apres.
+// errchild exit donc il doit tout free avant de quitter sauf sil execve, donc un errchild qui dedans a free env free final et la session en cours puis il exit.
+// cest pour ca que jai remplace les exit de isbuiltin et de exit en lui meme pas errchild car il a deja tout errchild.
+
+// // exit | ls | echo -n | cd
+// ce test represente quelque erreur rien de grave.
+
+
+// en terme de nouveaute enormement de supp de fonction et de ligne dans certaines fonctions.
+// reglage de echo et de cd.
+// tout les leaks

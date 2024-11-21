@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:50:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/14 15:07:38 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/21 10:20:48 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,20 @@
 
 void	free_all(t_all *all)
 {
+	if (all->strs)
+		free_strs(&all->strs);
 	if (all->cmds && all->cmds->redir)
 		free_redir(&all->cmds->redir);
 	if (all->cmds)
 		free_cmds(&all->cmds);
 	if (all->lexer)
 		free_lexer(&all->lexer);
-	if (all->strs)
-		free_strs(&all->strs);
 	if (all->expand)
 		free_expand(&all->expand);
 	if (all->shell_id)
 		free(all->shell_id);
 	if (all->line)
 		free(all->line);
-	all->line = NULL;
-	all->tmp_cmds = NULL;
-	all->tmp_lexer = NULL;
 }
 
 int	is_triple_redir(char *line)
@@ -58,7 +55,6 @@ int	ft_final(t_all *all, char *error, char *msgerror, int sortie)
 	if (msgerror)
 		msg_error(all, msgerror, error);
 	free_all(all);
-	ft_errparent(all, NULL, all->pipex, 0);
 	return (sortie);
 }
 void	msg_error(t_all *all, char *msgerror, char *error)

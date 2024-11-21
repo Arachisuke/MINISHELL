@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:18:46 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/11 15:12:17 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/21 10:15:28 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ char	*free_cmds(t_simple_cmds **cmds) // 2
 	while (*cmds)
 	{
 		if ((*cmds)->strs)
-			free_strs(&(*cmds)->strs);
+		{
+			free((*cmds)->strs);
+			(*cmds)->strs = NULL;
+		}
 		if ((*cmds)->redir)
 			(*cmds)->redir = NULL;
 		curr = (*cmds)->next;

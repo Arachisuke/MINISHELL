@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/14 15:03:00 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/21 13:23:30 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (malloc_input(&all))
 			continue ;
-		//printf("before = %s\n", all.line);
+		// printf("before = %s\n", all.line);
 		all.line = removequotes(all.line); // jenleve les quotes
-		//printf("afterremove = %s\n", all.line);
+		// printf("afterremove = %s\n", all.line);
 		init_parse(&parse, all.line);
 		if (!parse_line(&all, all.strs, &parse))
 			continue ;
@@ -56,13 +56,13 @@ int	main(int argc, char **argv, char **envp)
 		if (sort_cmds(&all))
 			continue ;
 		//	printf("afterremove = %s\n", all.line);
-		//cmds_affichage(all.cmds);
+		// cmds_affichage(all.cmds);
 		if (if_here_doc(&all))
 			continue ;
 		ft_pipex(&all, all.pipex, all.cmds, all.my_env);
+		free_env(&all.my_env);
 		ft_final(&all, NULL, NULL, 1);
 	}
-	free_env(&all.my_env);
-	// rl_clear_history();
 	return (SUCCESS);
 }
+

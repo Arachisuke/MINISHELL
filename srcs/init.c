@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/14 15:25:02 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/21 09:12:13 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ int	init_all(t_all *all, char **envp, t_pipex *pipex)
 	all->pipex = pipex;
 	all->line = NULL;
 	all->strs = NULL;
-	all->pipex->pid = NULL;
-	all->pipex->pipefd = NULL;
 	while (i < 100)
 		all->tab[i++] = -1;
 	all->tmp_cmds = NULL;

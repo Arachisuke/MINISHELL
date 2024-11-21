@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/11 10:53:04 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/20 12:50:07 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ char	*remplir(t_all *all, int start, int end)
 
 	i = 0;
 	j = start;
+	str = NULL;
 	if (end - start == 0)
 		str = malloc(sizeof(char) * (1));
 	else
 		str = malloc(sizeof(char) * (end - start + 1));
 	if (!str)
 		return (ft_final(all, NULL, ERR_INVALID_INPUT, 10), NULL);
-	while (end - start > i && (all->line[j] != -34 && all->line[j] != -39))
+	while (end - start > i)
 	{
 		if (all->line[j] < 0)
 			all->line[j] = all->line[j] * -1;
@@ -80,7 +81,8 @@ void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 	{
 		(*parse)->start = (*parse)->i;
 		(*parse)->end = (*parse)->i;
-		while (!is_token_space(all->line[(*parse)->i]) && all->line[(*parse)->i])
+		while (!is_token_space(all->line[(*parse)->i])
+			&& all->line[(*parse)->i])
 		{
 			(*parse)->end++;
 			(*parse)->i++;
@@ -103,8 +105,7 @@ char	**parse_line(t_all *all, char **strs, t_parse *parse)
 	k = 0;
 	while (all->line[parse->i])
 	{
-		if (!is_token_space(all->line[(parse)->i])
-				&& all->line[(parse)->i])
+		if (!is_token_space(all->line[(parse)->i]) && all->line[(parse)->i])
 		{
 			parsing(&parse, &k, all, strs);
 			if (!all->line[(parse)->i])

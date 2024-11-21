@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/05 12:57:04 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/21 09:43:35 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	sort_cmds_args(t_lexer *curr, t_simple_cmds **tmp, int *i)
 		|| (curr->token == STRING && (!curr->prev
 				|| curr->prev->token == PIPE)))
 	{
-		(*tmp)->strs[*i] = ft_strdup(curr->string);
+		(*tmp)->strs[*i] = curr->string;
 		(*i)++;
 	}
 	if (is_builtin(curr->string))

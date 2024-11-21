@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:26 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/14 13:56:02 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/21 15:17:15 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,5 @@ int	ft_exit(t_simple_cmds *cmds, t_all *all)
 			all->exit_code = 2;
 		}
 	}
-	free_all(all);
-	exit(all->exit_code);
+	return(ft_errchild(all, NULL, all->pipex, all->exit_code));
 }

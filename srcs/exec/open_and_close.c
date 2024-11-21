@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:39:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/14 14:51:17 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/21 11:52:21 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	onecmd(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 	if (cmds->is_builtin)
 	{
 		builtins_or_not(all, cmds);
-		exit(0);
+		return(ft_errchild(all, NULL, pipex, 0));
 	}
 	else
 	{

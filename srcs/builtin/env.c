@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:08 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/11 15:15:24 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/21 11:38:50 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_env(t_my_env *my_env)
 		my_env = my_env->next;
 	}
 }
-char	*free_env(t_my_env **env) // 3 ou 1
+char	*free_env(t_my_env **env) // a tester
 {
 	t_my_env *tmp;
 
@@ -34,7 +34,7 @@ char	*free_env(t_my_env **env) // 3 ou 1
 		if ((*env)->value)
 			free((*env)->value);
 		tmp = tmp->next;
-		free(env);
+		free(*env);
 		*env = NULL;
 		*env = tmp;
 	}

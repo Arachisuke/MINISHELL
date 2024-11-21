@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:17:30 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/14 15:28:21 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/21 15:14:17 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,54 @@ int	ft_errparent(t_all *all, char *str, t_pipex *pipex, int msg)
 {
 	close_fd(pipex, all->cmds);
 	if (pipex->pipefd)
-		ft_free2child(pipex->pipefd, pipex);
+	{
+		free_tab(pipex->pipefd, pipex); // 1
+		pipex->pipefd = NULL;
+	}
 	if (pipex->pid)
+	{
+		free(pipex->pid);
 		pipex->pid = NULL;
+	}
 	if (pipex->all_path)
-		ft_freechild((void **)pipex->all_path);
+		free_strs(&pipex->all_path);
 	if (pipex->path)
 		pipex->path = NULL;
 	if (pipex->env)
-		pipex->env = NULL;
+		free_strs(&pipex->env);
 	if (str)
-		perror(str);
-	return(msg);
+		ft_printf_fd(2, "minishell: %s: %s\n", all->cmds->strs[0], str);
+	// 	perror(str);
+	return (msg);
+}
+
+int	ft_errchild(t_all *all, char *str, t_pipex *pipex, int msg)
+{
+	if (str)
+		ft_printf_fd(2, "minishell: %s: %s\n", all->cmds->strs[0], str);
+	close_fd(pipex, all->cmds);
+	ft_final(all, NULL, NULL, 0);
+	free_env(&all->my_env); // ils sont dans ft_exit.
+	if (pipex->pipefd)
+	{
+		free_tab(pipex->pipefd, pipex); // 1
+		pipex->pipefd = NULL;
+	}
+	if (pipex->pid)
+	{
+		free(pipex->pid);
+		pipex->pid = NULL;
+	}
+	if (pipex->all_path)
+		free_strs(&pipex->all_path);
+	if (pipex->path)
+		pipex->path = NULL;
+	if (pipex->env)
+		free_strs(&pipex->env);
+	if (pipex->path)
+		pipex->path = NULL;
+	// 	perror(str);
+	exit(msg);
 }
 
 void	close_fd(t_pipex *pipex, t_simple_cmds *cmds)
@@ -37,7 +73,7 @@ void	close_fd(t_pipex *pipex, t_simple_cmds *cmds)
 	i = 0;
 	if (cmds && cmds->redir && cmds->redir->fd_here_doc)
 		close(cmds->redir->fd_here_doc);
-	if ( cmds && cmds->fd_infile)
+	if (cmds && cmds->fd_infile)
 		close(cmds->fd_infile);
 	if (cmds && cmds->fd_outfile > 0)
 		close(cmds->fd_outfile);
@@ -61,19 +97,21 @@ int	init_struct(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 	pipex->path = NULL;
 	pipex->status = 0;
 	pipex->nbrcmd = ft_size_cmds(cmds);
-	if (pipex->nbrcmd == 1 && (!ft_strncmp(cmds->strs[0], "exit", 4)
-			&& ft_strlen(cmds->strs[0]) == 4))
-		ft_exit(cmds, all);
+	pipex->pipefd = NULL;
 	pipex->cmds = cmds;
 	pipex->last_outfile = NULL;
 	pipex->last_infile = NULL;
 	pipex->env = NULL;
-	pipex->pid = malloc(sizeof(pid_t) * (pipex->nbrcmd));
+	pipex->pid = malloc(sizeof(pid_t) * pipex->nbrcmd);
 	while (pipex->nbrcmd > ++i)
 		pipex->pid[i] = 0;
-	pipex->pipefd = malloc(sizeof(int *) * (pipex->nbrcmd - 1));
-	if (pipex->pipefd == NULL)
+	if (pipex->nbrcmd > 1)
+		pipex->pipefd = malloc(sizeof(int *) * (pipex->nbrcmd - 1));
+	if (pipex->pipefd == NULL && pipex->nbrcmd > 1)
 		return (ft_errchild(all, "malloc", pipex, 1));
+	if (pipex->nbrcmd == 1 && (!ft_strncmp(cmds->strs[0], "exit", 4)
+			&& ft_strlen(cmds->strs[0]) == 4))
+		ft_exit(cmds, all);
 	return (0);
 }
 
@@ -102,41 +140,4 @@ char	*strjoinfree(char const *s1, char const *s2)
 	s[i] = '\0';
 	free((char *)s1);
 	return (s);
-}
-
-void	ft_free(void **strs)
-{
-	int	i;
-
-	i = 0;
-	if (!strs)
-		return ;
-	while (strs[i])
-	{
-		if (strs[i])
-		{
-			free(strs[i]);
-			strs[i] = NULL;
-		}
-		i++;
-	}
-	free(strs);
-	strs = NULL;
-}
-void	ft_freechild(void **strs)
-{
-	int	i;
-
-	i = 0;
-	if (!strs)
-		return ;
-	while (strs[i])
-	{
-		if (strs[i])
-		{
-			strs[i] = NULL;
-		}
-		i++;
-	}
-	strs = NULL;
 }
