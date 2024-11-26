@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:50:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/21 10:20:48 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 13:08:22 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 void	free_all(t_all *all)
 {
 	if (all->strs)
-		free_strs(&all->strs);
-	if (all->cmds && all->cmds->redir)
-		free_redir(&all->cmds->redir);
+	{
+		free_strs(all->strs);
+		all->strs = NULL;
+	}
+	if (all->cmds)
+		free_redir(all->cmds);
 	if (all->cmds)
 		free_cmds(&all->cmds);
 	if (all->lexer)
@@ -61,11 +64,11 @@ void	msg_error(t_all *all, char *msgerror, char *error)
 {
 	if (is_triple_redir(all->line) == 3)
 		ft_putstr_fd("newline", 2);
-	if (!ft_strncmp(msgerror, ERR_SYNTAX, 20))
+	if (!ft_strncmp(msgerror, ERR_SYNTAX, 26))
 		ft_printf_fd(2, "%s%s'", msgerror, error);
 	else if (!ft_strncmp(msgerror, ERR_EGAL, 20))
 		ft_printf_fd(2, "%s%s': not a valid identifier", msgerror, error);
-	else if (!ft_strncmp(msgerror, ERR_EXPORT, 2))
+	else if (!ft_strncmp(msgerror, ERR_BASE, 14))
 		ft_printf_fd(2, "%s%s': command not found", msgerror, error);
 	else
 		ft_putstr_fd(msgerror, 2);

@@ -6,27 +6,27 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:18:46 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/21 10:15:28 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 13:04:06 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	free_strs(char ***strs)
+void	free_strs(char **strs)
 {
 	int	i;
 
 	i = 0;
-	if (!*strs || !**strs)
+	if (!strs || !*strs)
 		return ;
-	while ((*strs)[i])
+	while ((strs)[i])
 	{
-		free((*strs)[i]);
-		(*strs)[i] = NULL;
+		free(strs[i]);
+		strs[i] = NULL;
 		i++;
 	}
-	free(*strs);
-	*strs = NULL;
+	free(strs);
+	strs = NULL;
 	return ;
 }
 
@@ -53,20 +53,26 @@ char	*free_cmds(t_simple_cmds **cmds) // 2
 	}
 	return (NULL);
 }
-char	*free_redir(t_redir **redir) // 1
+char	*free_redir(t_simple_cmds *cmds) // 1
 {
 	t_redir *curr;
+	t_simple_cmds *cmds_tmp;
 
-	if (!*redir || !redir)
+	if (!cmds)
 		return (NULL);
-	curr = *redir;
-	while (*redir) // filename a le meme pointeur que lexer.string
+	cmds_tmp = cmds;
+	while (cmds_tmp)
 	{
-		(*redir)->file_name = NULL;
-		curr = (*redir)->next;
-		free(*redir);
-		*redir = NULL;
-		*redir = curr;
+		curr = cmds_tmp->redir;
+		while (cmds_tmp->redir) // filename a le meme pointeur que lexer.string
+		{
+			cmds_tmp->redir->file_name = NULL;
+			curr = cmds_tmp->redir->next;
+			free(cmds_tmp->redir);
+			cmds_tmp->redir = NULL;
+			cmds_tmp->redir = curr;
+		}
+		cmds_tmp = cmds_tmp->next;
 	}
 	return (NULL);
 }

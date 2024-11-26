@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/07 16:23:37 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 11:00:20 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	verif_space(char *str, t_all *all)
 			return (SUCCESS);
 		i++;
 	}
-	return (ft_final(all, NULL, ERR_INVALID_INPUT, 0));
+	return (ft_final(all, NULL, NULL, 1));
 }
 
 int	verif_quotes(t_all *all, char *line)
@@ -44,8 +44,8 @@ int	verif_quotes(t_all *all, char *line)
 
 	quote = 0;
 	flag = 0;
-	i = -1;
-	while (line[++i])
+	i = 0;
+	while (line[i])
 	{
 		if ((line[i] == SQ || line[i] == DQ) && flag == 0) // debut quotes
 		{
@@ -56,32 +56,33 @@ int	verif_quotes(t_all *all, char *line)
 			line[i] = line[i] * -1;
 		else if (line[i] == quote && flag == 1) /// fin quotes
 			flag = 0;
+		i++;
 	}
 	if (flag == 1)
 		return (ft_final(all, NULL, INVALID_SYNTAX, 1));
 	return (SUCCESS);
 }
 
-int	is_double_redir(char *line, int token)
+int	is_double_redir(char *line, int token, int i) // regler !
 {
-	int	i;
-
-	i = 0;
 	if (((line[i] == '>' && line[i + 1] == '>') || (line[i] == '<' && line[i
 				+ 1] == '<')) && token == 0)
 		return (1);
 	return (0);
 }
 
-int	check_quote_and_redir(char *line, int i, int count)
+int	check_quote_and_redir(char *line, int i, int count) // le nom est pas coherent avec la fonction.
 {
 	int	token;
 
 	token = 0;
 	while (line[i])
 	{
-		if (is_double_redir(line, token))
-			token = 1;
+		if (is_double_redir(line, token, i))
+		{
+			count++;
+			i++;
+		}
 		else if (is_token(line[i]))
 		{
 			token = 0;

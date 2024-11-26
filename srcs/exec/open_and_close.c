@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:39:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/21 11:52:21 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 14:58:05 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	who_is_last(t_redir *last_infile, t_simple_cmds *cmds, t_all *all)
 	{
 		cmds->fd_infile = open(last_infile->file_name, O_RDONLY);
 		if (cmds->fd_infile == -1)
-			return (ft_errchild(all, " first process stdin", all->pipex, 127));
+			return (ft_errchild(all, " No such file or directory", all->pipex, 127));
 		if (dup2(cmds->fd_infile, STDIN_FILENO) == -1)
-			return (ft_errchild(all, " first process stdin", all->pipex, 127));
+			return (ft_errchild(all, " first process stdin3", all->pipex, 127));
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:17:30 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/21 15:14:17 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 13:12:38 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,27 @@ int	ft_errparent(t_all *all, char *str, t_pipex *pipex, int msg)
 		pipex->pid = NULL;
 	}
 	if (pipex->all_path)
-		free_strs(&pipex->all_path);
+	{
+		free_strs(pipex->all_path);
+		pipex->all_path = NULL;
+	}
 	if (pipex->path)
 		pipex->path = NULL;
 	if (pipex->env)
-		free_strs(&pipex->env);
+	{
+		free_strs(pipex->env);
+		pipex->env = NULL;
+	}
 	if (str)
-		ft_printf_fd(2, "minishell: %s: %s\n", all->cmds->strs[0], str);
-	// 	perror(str);
+		ft_printf_fd(2, "minishell: %s: %s\n", pipex->cmds->strs[0], str);
+	pipex->cmds = NULL;
 	return (msg);
 }
 
 int	ft_errchild(t_all *all, char *str, t_pipex *pipex, int msg)
 {
 	if (str)
-		ft_printf_fd(2, "minishell: %s: %s\n", all->cmds->strs[0], str);
+		ft_printf_fd(2, "minishell: %s: %s\n", pipex->cmds->strs[0], str);
 	close_fd(pipex, all->cmds);
 	ft_final(all, NULL, NULL, 0);
 	free_env(&all->my_env); // ils sont dans ft_exit.
@@ -55,14 +61,21 @@ int	ft_errchild(t_all *all, char *str, t_pipex *pipex, int msg)
 		pipex->pid = NULL;
 	}
 	if (pipex->all_path)
-		free_strs(&pipex->all_path);
+	{
+		free_strs(pipex->all_path);
+		pipex->all_path = NULL;
+	}
 	if (pipex->path)
+	{
+		free(pipex->path);
 		pipex->path = NULL;
+	}
 	if (pipex->env)
-		free_strs(&pipex->env);
-	if (pipex->path)
-		pipex->path = NULL;
-	// 	perror(str);
+	{
+		free_strs(pipex->env);
+		pipex->env = NULL;
+	}
+	pipex->cmds = NULL;
 	exit(msg);
 }
 

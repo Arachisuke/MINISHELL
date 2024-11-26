@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/21 15:26:10 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 14:17:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,3 +302,20 @@ void	other(char *str)
 // en terme de nouveaute enormement de supp de fonction et de ligne dans certaines fonctions.
 // reglage de echo et de cd.
 // tout les leaks
+
+
+
+
+
+// cd et echo et plein de details regler.
+// <<<<<<<<< mauvais calcul de malloc. car deux sameredir valent 1, donc 3 sameredir vaut 2. 4 sameredir vaut 2.
+// <<><>>< free(invalidepointeur) @@@@@@@
+// check aussi si le count est bon car dans ce cas il est surement pas bon car un cas similaire ne l'etais pas. @@@@@@
+// reparer checkquotes andredir et double redir. @@@@@@@@
+
+
+// valgrind.
+// le bon output
+// le bon message d'erreur
+// $?
+// SIGNAUX

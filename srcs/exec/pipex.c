@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:32:10 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/21 11:57:07 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 12:29:22 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ int	ft_pipex(t_all *all, t_pipex *pipex, t_simple_cmds *cmds, t_my_env *envp)
 	if (pipex->pid[0] == 0)
 		first_process(all, pipex, cmds);
 	if (pipex->pid[0] > 0 && pipex->nbrcmd > 2)
-		create_process(all, pipex, cmds);
+		create_process(all, pipex);
 	if (pipex->pid[0] == -1 || pipex->pid[pipex->nbrcmd - 1] == -1)
 		return (ft_errchild(all, "fork", pipex, 1));
 	if (pipex->pid[0] > 0 && pipex->nbrcmd > 1)
 		pipex->pid[pipex->nbrcmd - 1] = fork();
 	if (pipex->pid[pipex->nbrcmd - 1] == -1)
-		return (ft_errchild(all, "fork", pipex, 1)); // free envp
+		return (ft_errchild(all, "fork", pipex, 1));
 	if (pipex->nbrcmd > 1 && !pipex->pid[pipex->nbrcmd - 1])
-		process_final(all, pipex, cmds);
-	close_fd(pipex, cmds); // envp
+		process_final(all, pipex);
+	close_fd(pipex, cmds);
 	return (ft_errparent(all, NULL, pipex, wait_childs(pipex->pid[pipex->nbrcmd
 				- 1], pipex)));
 }

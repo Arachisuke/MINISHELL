@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:21:50 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/21 14:01:31 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 11:34:49 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,24 @@
 // }
 void	haine_or_not(char **args, int *j, int *i, int **n)
 {
-	while (args[*j])
+	int a;
+	int b;
+
+	a = *j;
+	b = *i;
+	while (args[a])
 	{
-		(*i)++; // je suis arrive au suppose n
-		if (args[*j] && args[*j][*i] == 'n')
+		b++; // je suis arrive au suppose n
+		if (args[a] && args[a][b] != 'n')
 		{
-			while (args[*j][*i] == 'n')
-				(*i)++;
-			if (args[*j][*i] && args[*j][*i] != 'n') // cas -nnnnnoo
+			while (args[a][b] == 'n')
+				b++;
+			if (args[a][b] && args[a][b] != 'n') // cas -nnnnnoo
 				break ;
-			(*j)++;
+			a++;
+			*j = a;
 			**n = 1;
-			*i = 0;
+			b = 0;
 		}
 	}
 }
@@ -65,7 +71,7 @@ int	check_n(char **args, int *n)
 
 	i = 0;
 	j = 1;
-	if (args[j][i] == '-')
+	if (args[j] && args[j][i] == '-')
 		haine_or_not(args, &j, &i, &n);
 	return (j); // et je renvoie le J qui rempli pas les conditions
 }

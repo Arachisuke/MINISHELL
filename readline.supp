@@ -16,3 +16,13 @@
    fun:malloc
    obj:/usr/bin/ls
 }
+{
+   memcheck:Leak
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libtinfo.so.*
+}
+{
+   memcheck:Leak
+   fun:malloc
+   obj:/usr/bin/clear
+}

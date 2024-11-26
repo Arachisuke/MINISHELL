@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/21 13:23:30 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/25 14:00:43 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ int	main(int argc, char **argv, char **envp)
 		// cmds_affichage(all.cmds);
 		if (if_here_doc(&all))
 			continue ;
-		ft_pipex(&all, all.pipex, all.cmds, all.my_env);
+		if (all.cmds->strs[0])
+			ft_pipex(&all, all.pipex, all.cmds, all.my_env);
 		free_env(&all.my_env);
 		ft_final(&all, NULL, NULL, 1);
 	}
 	return (SUCCESS);
 }
-

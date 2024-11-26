@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/21 14:34:52 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 11:22:54 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ void	exec_cd(char *path, t_all *all)
 		return (free(path), free(oldpwd));
 	}
 	else
+	{
+		free(path);
 		path = getcwd(NULL, 0);
+	}
 	if (new_oldpwd(all->my_env, oldpwd, path, all))
 	{
 		free(path);
@@ -103,11 +106,23 @@ int	check_dir(char *path)
 	return (SUCCESS);
 }
 
+int count_line(char **strs)
+{
+	int i;
+
+	i = 0;
+	while(strs[i])
+	{
+		i++;
+	}
+	return(i);
+}
+
 void	ft_cd(t_simple_cmds *cmds, t_all *all)
 {
 	char	*pwd;
 
-	if (cmds && cmds->strs[2]) // cd accepte zero arguments non ? pourquoi 2
+	if (cmds && count_line(cmds->strs) > 2)
 	{
 		ft_printf_fd(2, "minishell: cd: too many arguments\n");
 		return ;

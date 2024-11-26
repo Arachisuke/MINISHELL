@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:51 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/11 15:03:14 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 13:57:01 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	if_egal(t_all *all, char *line, char **key, char **value)
 		{
 			if (i == 0)
 				return (msg_error(all, ERR_EGAL, line), 0);
-			
 			*key = findkey(line, i, *key, flag);
 			if (flag)
 				check_var(all, *key, &value2);
@@ -90,7 +89,6 @@ int	if_egal(t_all *all, char *line, char **key, char **value)
 }
 
 void	ft_export(t_all *all, char **strs)
-// apres avoir vu que export se porte bien on test les arg juste apres
 {
 	int error;
 	int j;
@@ -109,8 +107,13 @@ void	ft_export(t_all *all, char **strs)
 		}
 		modify_env(key, value, all->my_env);
 		j++;
+		if (key)
+			free(key);
+		if (value)
+			free(value);
 	}
 }
+
 
 char	*removequotes(char *line)
 {
@@ -121,6 +124,7 @@ char	*removequotes(char *line)
 
 	i = -1;
 	count = 0;
+	newline = NULL;
 	while (line[++i])
 	{
 		if ((line[i] == -39 || line[i] == -34))
@@ -128,7 +132,9 @@ char	*removequotes(char *line)
 	}
 	if (count == 0)
 		return (line);
-	newline = malloc(sizeof(char) * ft_strlen(line) - count + 1);
+	newline = malloc(sizeof(char) * (ft_strlen(line) - count + 1));
+	if (!newline)
+		return (NULL);
 	i = -1;
 	j = 0;
 	while (line[++i])
@@ -137,6 +143,7 @@ char	*removequotes(char *line)
 			continue ;
 		newline[j++] = line[i];
 	}
+	newline[j] = '\0';
 	free(line);
 	return (newline);
 }

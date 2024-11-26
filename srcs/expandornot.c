@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/05 12:57:09 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 14:16:45 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	condition(char *str, int i)
 		return (1);
 	else if (str[i] == '$' && str[i + 1] && str[i + 1] == '$')
 		return (SUCCESS);
+	// else if (str[i] == '$' && str[i + 1] && str[i + 1] == '?')
+	// 	return (SUCCESS);
 	else if (str[i] == '$' && str[i + 1] && !ft_isalpha(str[i + 1]))
 		return (1);
 	else if (str[i] == '$' && str[i + 1])
@@ -65,6 +67,8 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int *i)
 		(*i)++;
 	if (all->line[*i - 1] == '$' && all->line[*i] == '$')
 		(*tmp)->strexpanded = ft_pid(all);
+	// else if (all->line[*i - 1] == '$' && all->line[*i] == '?')
+	// 	(*tmp)->strexpanded = ft_itoa(all->exit_code);
 	env = malloc(sizeof(char) * (*i - j + 1));
 	if (!env)
 		return (ft_final(all, NULL, ERR_MALLOC, 1));

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:25:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/21 10:30:07 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 13:11:38 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*checkcmd(t_all *all, char **all_path, char *cmd, t_pipex *pipex)
 	{
 		if (access(cmd, X_OK) == -1)
 			return (ft_errchild(all, "Permission denied", pipex, 126), NULL);
-		return (cmd);
+		return (NULL);
 	}
 	if (!all_path)
 		return (NULL);

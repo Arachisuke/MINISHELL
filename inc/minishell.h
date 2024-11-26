@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/21 10:18:03 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 13:04:13 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@
 # define ERR_READ 6
 # define ERR_ENV "error env"
 # define ERR_LINE "error line"
-# define INVALID_SYNTAX "unclosed quotes"
+# define INVALID_SYNTAX "minishell: Invalid syntax: unclosed quotes"
 # define ERR_EGAL "minishell: export: `"
 # define ERR_OPEN_DIR 11
-# define ERR_EXPORT "minishell : "
+# define ERR_BASE "minishell : "
 # define ERR_OPT "export: bad option: "
 
 typedef struct s_parse
@@ -190,7 +190,7 @@ int							state_redirection(t_lexer *stack, t_all *all);
 void						cmds_affichage(t_simple_cmds *cmds);
 char						**malloc_strs(int arg_count);
 char						*free_cmds(t_simple_cmds **cmds);
-void						free_strs(char ***strs);
+void						free_strs(char **strs);
 void						ft_back_redir(t_redir **lst, t_redir *new);
 t_redir						*ft_new_redir(void);
 t_redir						*ft_last_redir(t_redir *lst);
@@ -201,7 +201,7 @@ int							find_var(t_all *all);
 int							find_var(t_all *all);
 int							init_all(t_all *all, char **envp, t_pipex *pipex);
 int							checkredir(char *line, int i);
-char						*free_redir(t_redir **redir);
+char						*free_redir(t_simple_cmds *cmds);
 char						*free_lexer(t_lexer **lexer);
 char	*free_expand(t_expand **expand); // 4
 int							ft_final(t_all *all, char *error, char *msgerror,
@@ -211,7 +211,7 @@ int							count_word_quotes(const char *str, int i,
 								int *compteur);
 int							skip_spaces(char *str);
 int							check_quote_and_redir(char *line, int i, int count);
-int							is_double_redir(char *line, int token);
+int							is_double_redir(char *line, int token, int i);
 void						fill_tab(int indice, int *tab, int **k);
 void						init_parse(t_parse *parse, char *line);
 int							count_arg(t_lexer *curr);
@@ -246,7 +246,6 @@ int							init_struct(t_all *all, t_pipex *pipex,
 
 void						close_fd(t_pipex *pipex, t_simple_cmds *cmds);
 
-
 char						*checkcmd(t_all *all, char **all_path, char *cmd,
 								t_pipex *pipex);
 void						free_tab(int **tab, t_pipex *pipex);
@@ -255,8 +254,7 @@ int							init_variable(t_pipex *pipex, t_all *all);
 int							open_and_close(t_all *all, t_simple_cmds *cmds,
 								t_pipex *pipex);
 
-int							process_final(t_all *all, t_pipex *pipex,
-								t_simple_cmds *cmds);
+int							process_final(t_all *all, t_pipex *pipex);
 int							first_process(t_all *all, t_pipex *pipex,
 								t_simple_cmds *cmds);
 void						parsing_pipex(t_pipex *pipex, char **envp);
@@ -266,14 +264,14 @@ char						*strjoinfrees2(char const *s1, char const *s2);
 
 char						*strjoinegal(char const *s1, char const *s2);
 int							envlist_envchar(t_pipex *pipex, t_my_env *envp);
-int							create_process(t_all *all, t_pipex *pipex,
-								t_simple_cmds *cmds);
+int							create_process(t_all *all, t_pipex *pipex);
 int							ft_lstsize_env(t_my_env *lst);
 int							ft_size_cmds(t_simple_cmds *lst);
 int							onecmd(t_all *all, t_pipex *pipex,
 								t_simple_cmds *cmds);
 int							ft_errparent(t_all *all, char *str, t_pipex *pipex,
 								int msg);
-int	ft_errchild(t_all *all, char *str, t_pipex *pipex, int msg);
+int							ft_errchild(t_all *all, char *str, t_pipex *pipex,
+								int msg);
 
 #endif

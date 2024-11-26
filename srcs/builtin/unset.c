@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:24:05 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/07 11:50:45 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 11:02:02 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	if_unset(t_all *all, char *line)
 		if (ft_strncmp(line + i, "unset", 5)) // exporta=ok
 		{
 			if (line[i + 4] && !flag)
-				return (msg_error(all, ERR_EXPORT, line), 1);
+				return (msg_error(all, ERR_BASE, line), 1);
 			// modifier pour unset
 			return (0);
 		}

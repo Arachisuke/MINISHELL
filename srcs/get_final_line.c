@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:44:55 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/07 14:39:35 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/25 13:26:12 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	get_final_line(t_all *all)
 	{
 		if (line_tmp)
 			free(line_tmp);
-		return (ft_final(all, NULL, ERR_INVALID_INPUT, 1));
+		return (ft_final(all, NULL, NULL, 1));
 	}
 	if (line_tmp)
 		free(line_tmp);

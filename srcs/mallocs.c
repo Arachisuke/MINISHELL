@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:28:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/20 10:45:21 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/26 10:29:19 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	**malloc_strs(int arg_count)
 {
 	char	**strs;
 
-	strs = malloc(sizeof(char *) * (arg_count + 1));
+	strs = ft_calloc(sizeof(char *) , (arg_count + 1));
 	if (!strs)
 		return (NULL);
 	strs[arg_count] = NULL;
