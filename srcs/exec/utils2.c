@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:25:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/26 13:11:38 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/02 12:58:03 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	envlist_envchar(t_pipex *pipex, t_my_env *envp)
 	int			i;
 
 	i = 0;
+	if (!envp)
+		return (0);
 	tmp = envp;
 	pipex->env = malloc(sizeof(char *) * (ft_lstsize_env(envp) + 1));
 	if (!pipex->env)

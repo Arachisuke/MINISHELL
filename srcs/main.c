@@ -6,11 +6,13 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/25 14:00:43 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/02 13:11:27 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	g_sig = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -21,13 +23,15 @@ int	main(int argc, char **argv, char **envp)
 	all.my_env = NULL;
 	if (argc != 1 || argv[1])
 		return (0);
+	ft_signals();
 	while (1)
 	{
 		if (init_all(&all, envp, &pipex))
 			continue ;
 		get_current_dir(&all.line);
-		if (!all.line || !*all.line)
-			continue ;
+		if (!all.line)
+			break ;
+		catchsignals(&all);
 		add_history(all.line);
 		if (verif_space(all.line, &all))
 			continue ;
@@ -61,8 +65,8 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (all.cmds->strs[0])
 			ft_pipex(&all, all.pipex, all.cmds, all.my_env);
-		free_env(&all.my_env);
 		ft_final(&all, NULL, NULL, 1);
 	}
+	free_env(&all.my_env);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/26 13:04:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/02 15:57:13 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # define DQ '\"'
 # define IS_BUILTIN 1
 # define SUCCESS 0
-# define ERR_MALLOC "Allocation failed"
 # define ERR_INVALID_INPUT "syntax error : line"
 # define ERR_FILL_LINE 3
 # define ERR_SYNTAX "minishell : syntax error near unexpected token: `"
@@ -44,6 +43,8 @@
 # define ERR_OPEN_DIR 11
 # define ERR_BASE "minishell : "
 # define ERR_OPT "export: bad option: "
+
+extern int					g_sig;
 
 typedef struct s_parse
 {
@@ -200,6 +201,7 @@ void						expand_affichage(t_expand *expand);
 int							find_var(t_all *all);
 int							find_var(t_all *all);
 int							init_all(t_all *all, char **envp, t_pipex *pipex);
+
 int							checkredir(char *line, int i);
 char						*free_redir(t_simple_cmds *cmds);
 char						*free_lexer(t_lexer **lexer);
@@ -207,8 +209,7 @@ char	*free_expand(t_expand **expand); // 4
 int							ft_final(t_all *all, char *error, char *msgerror,
 								int sortie);
 
-int							count_word_quotes(const char *str, int i,
-								int *compteur);
+int							count_word_quotes(const char *str, int *i);
 int							skip_spaces(char *str);
 int							check_quote_and_redir(char *line, int i, int count);
 int							is_double_redir(char *line, int token, int i);
@@ -216,7 +217,7 @@ void						fill_tab(int indice, int *tab, int **k);
 void						init_parse(t_parse *parse, char *line);
 int							count_arg(t_lexer *curr);
 int							firstquotecheck(char *line, int i);
-char						*ft_pid(t_all *all);
+char						*ft_pid(t_all *all, t_expand **tmp);
 t_my_env					*ft_myenv(t_all *all, char **envp);
 t_my_env					*create_node_env(t_my_env **my_env, int i);
 int							is_negative_quotes(char c);
@@ -273,5 +274,7 @@ int							ft_errparent(t_all *all, char *str, t_pipex *pipex,
 								int msg);
 int							ft_errchild(t_all *all, char *str, t_pipex *pipex,
 								int msg);
+void						ft_signals(void);
+bool						catchsignals(t_all *all);
 
 #endif

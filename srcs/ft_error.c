@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:50:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/26 13:08:22 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/27 11:02:09 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_all(t_all *all)
 		free(all->shell_id);
 	if (all->line)
 		free(all->line);
+	all->line = NULL;
 }
 
 int	is_triple_redir(char *line)

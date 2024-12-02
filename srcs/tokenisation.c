@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/26 10:29:30 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/27 11:59:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	**parse_line(t_all *all, char **strs, t_parse *parse)
 		else if (is_token(all->line[parse->i]))
 		{
 			if (fill_token(all, strs, &parse->j, &parse->i))
-				return (ft_final(all, NULL, ERR_MALLOC, 0), NULL);
+				return (ft_final(all, NULL, NULL, 0), NULL);
 		}
 		else if (is_space(all->line[parse->i]))
 			parse->i++;

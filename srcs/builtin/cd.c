@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/26 11:22:54 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/27 11:59:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int	new_oldpwd(t_my_env *my_env, char *oldpwd, char *pwd, t_all *all)
 			free(my_env->value);
 			my_env->value = ft_strdup(oldpwd);
 			if (!my_env->value)
-				return (ft_final(all, NULL, ERR_MALLOC, 1));
+				return (ft_final(all, NULL, NULL, 1));
 		}
 		else if (!ft_strncmp(my_env->key, "PWD", 3))
 		{
 			free(my_env->value);
 			my_env->value = ft_strdup(pwd);
 			if (!my_env->value)
-				return (ft_final(all, NULL, ERR_MALLOC, 1));
+				return (ft_final(all, NULL, NULL, 1));
 		}
 		my_env = my_env->next;
 	}
@@ -81,7 +81,7 @@ char	*get_home(t_my_env *my_env, t_all *all)
 		{
 			home = ft_strdup(my_env->value);
 			if (!home)
-				ft_final(all, NULL, ERR_MALLOC, 1);
+				ft_final(all, NULL, NULL, 1);
 			return (home);
 		}
 		my_env = my_env->next;
@@ -106,16 +106,16 @@ int	check_dir(char *path)
 	return (SUCCESS);
 }
 
-int count_line(char **strs)
+int	count_line(char **strs)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(strs[i])
+	while (strs[i])
 	{
 		i++;
 	}
-	return(i);
+	return (i);
 }
 
 void	ft_cd(t_simple_cmds *cmds, t_all *all)
@@ -137,7 +137,7 @@ void	ft_cd(t_simple_cmds *cmds, t_all *all)
 	}
 	if (!pwd)
 	{
-		ft_final(all, NULL, ERR_MALLOC, 1);
+		ft_final(all, NULL, NULL, 1);
 		return ;
 	}
 	exec_cd(pwd, all);

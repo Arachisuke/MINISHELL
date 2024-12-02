@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:44:55 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/25 13:26:12 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/27 11:59:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	get_final_line(t_all *all)
 		return (SUCCESS);
 	len_total = get_len_expand_line(all->expand) + ft_strlen(all->line);
 	if (malloc_final_line(&all->line, len_total, &line_tmp))
-		return (ft_final(all, NULL, ERR_MALLOC, 1));
+		return (ft_final(all, NULL, NULL, 1));
 	if (fill_final_line(all->expand, all->line, line_tmp))
 	{
 		if (line_tmp)

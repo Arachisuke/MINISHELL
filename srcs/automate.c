@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:42:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/07 15:49:29 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/27 11:59:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	state_init(t_lexer *stack, t_all *all)
 	t_lexer	*tmp;
 
 	if (!all->line || !stack)
-		return (ft_final(all, NULL, ERR_MALLOC, 1));
+		return (ft_final(all, NULL, NULL, 1));
 	tmp = stack;
 	if (stack->token == STRING)
 	{

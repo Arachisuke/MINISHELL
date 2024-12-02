@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/05 12:56:57 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/27 11:59:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	checkredir(char *line, int i)
 int	find_var(t_all *all)
 {
 	t_expand	*tmp;
-	t_my_env *tmpenv;
+	t_my_env	*tmpenv;
 
 	if (expandornot(all) == 1)
-		return (ft_final(all, NULL, ERR_MALLOC, 1));
+		return (ft_final(all, NULL, NULL, 1));
 	if (!all->expand)
 		return (SUCCESS);
 	tmp = all->expand;
@@ -47,8 +47,8 @@ int	find_var(t_all *all)
 		{
 			while (tmpenv)
 			{
-				if (!ft_strncmp(tmpenv->key, tmp->strtoexpand,
-						tmp->lenbefore - 1))
+				if (!ft_strncmp(tmpenv->key, tmp->strtoexpand, tmp->lenbefore
+						- 1))
 					tmp->strexpanded = tmpenv->value;
 				tmpenv = tmpenv->next;
 			}

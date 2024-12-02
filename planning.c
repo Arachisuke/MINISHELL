@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/26 14:17:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/02 16:10:19 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,3 +319,25 @@ void	other(char *str)
 // le bon message d'erreur
 // $?
 // SIGNAUX
+// attendre andy pour le cd, et les messages d'erreurs
+
+
+
+
+// $?
+// cd
+// message d'erreur
+// le bon output
+// signaux
+
+
+
+
+// activer les signaux et tester
+// verifier le env-i avec jules
+// message d'erreur
+// $?
+
+
+//"<< $""$hola""$$""b"""
+// tab fill tab crois que cest un token

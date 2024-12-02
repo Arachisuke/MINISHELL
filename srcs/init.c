@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/21 09:12:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/02 15:56:58 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	len_env(char **env)
 		i++;
 	return (i);
 }
-char	*ft_pid(t_all *all)
+char	*ft_pid(t_all *all, t_expand **tmp)
 {
 	int	fd;
 
@@ -35,10 +35,10 @@ char	*ft_pid(t_all *all)
 	fd = open("/proc/self/stat", O_RDONLY);
 	if (fd < 0)
 		return (ft_final(all, NULL, ERR_FD, 1), NULL);
-	all->expand->strexpanded = get_next_line(fd);
-	all->id = ft_atoi(all->expand->strexpanded);
-	free(all->expand->strexpanded);
-	printf("IIIIIIIIIIIIIIID = %d\n", all->id);
+	(*tmp)->strexpanded = get_next_line(fd);
+	all->id = ft_atoi((*tmp)->strexpanded);
+	free((*tmp)->strexpanded);
+	// printf("IIIIIIIIIIIIIIID = %d\n", all->id);
 	close(fd);
 	all->shell_id = ft_itoa(all->id);
 	return (all->shell_id);
@@ -52,9 +52,9 @@ char	*ft_pid(t_all *all)
 	fd = open("/proc/self/stat", O_RDONLY);
 	if (fd < 0)
 		return (ft_final(all, NULL, ERR_FD, 1), NULL);
-	all->expand->strexpanded = get_next_line(fd);
-	all->id = ft_atoi(all->expand->strexpanded);
-	free(all->expand->strexpanded);
+	(*tmp)->strexpanded = get_next_line(fd);
+	all->id = ft_atoi((*tmp)->strexpanded);
+	free((*tmp)->strexpanded);
 	printf("IIIIIIIIIIIIIIID = %d\n", all->id);
 	close(fd);
 	all->shell_id = ft_itoa(all->id);
@@ -66,10 +66,6 @@ int	init_all(t_all *all, char **envp, t_pipex *pipex)
 
 	i = 0;
 	all->cmds = NULL;
-	if (!all->my_env) // cest une condition instable...
-		all->my_env = ft_myenv(all, envp);
-	if (!all->my_env)
-		return (1);
 	all->expand = NULL;
 	all->lexer = NULL;
 	all->pipex = pipex;
@@ -83,6 +79,10 @@ int	init_all(t_all *all, char **envp, t_pipex *pipex)
 	all->shell_id = NULL;
 	all->exit_code = 0;
 	all->id = 0;
+	if (!all->my_env) // cest une condition instable...
+		all->my_env = ft_myenv(all, envp);
+	if (!all->my_env)
+		return (1);
 	return (SUCCESS);
 }
 

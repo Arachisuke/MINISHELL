@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:08 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/21 11:38:50 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/02 12:28:33 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_env(t_my_env *my_env)
 {
+	if (!my_env)
+		return ;
 	while (my_env)
 	{
 		ft_printf_fd(1, "%s=%s\n", my_env->key, my_env->value);

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/21 09:43:35 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/11/27 11:59:08 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	passing_next_cmds(t_simple_cmds **tmp, t_all *all, int *i)
 	(*tmp) = (*tmp)->next;
 	(*tmp)->strs = malloc_strs(count_arg(all->tmp_lexer));
 	if (!(*tmp)->strs)
-				return (ft_final(all, NULL, ERR_MALLOC, 1));
+				return (ft_final(all, NULL, NULL, 1));
 
 	*i = 0;
 	return (SUCCESS);
@@ -72,7 +72,7 @@ int	sort_cmds(t_all *all)
 	all->cmds = malloc_cmds_struct(all->tmp_lexer);
 	all->cmds->strs = malloc_strs(count_arg(all->tmp_lexer));
 	if (!all->cmds->strs || !all->cmds)
-				return (ft_final(all, NULL, ERR_MALLOC, 1));
+				return (ft_final(all, NULL, NULL, 1));
 
 	all->tmp_cmds = all->cmds;
 	while (all->tmp_lexer)
@@ -80,7 +80,7 @@ int	sort_cmds(t_all *all)
 		if (all->tmp_lexer->token != PIPE)
 			sort_redir_and_cmds_args(&all, &i);
 		else if (passing_next_cmds(&all->tmp_cmds, all, &i))
-			return (ft_final(all, NULL, ERR_MALLOC, 1));
+			return (ft_final(all, NULL, NULL, 1));
 		if (all->tmp_lexer)
 			all->tmp_lexer = all->tmp_lexer->next;
 	}

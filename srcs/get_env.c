@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:52:42 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/05 12:58:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/02 12:46:54 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_my_env	*ft_myenv(t_all *all, char **envp)
 	t_my_env	*my_env_tmp;
 
 	i = 0;
+	if (!envp)
+		return (NULL);
 	while (envp[i])
 	{
 		create_node_env(&my_env, i);
@@ -72,9 +74,9 @@ t_my_env	*ft_myenv(t_all *all, char **envp)
 	while (envp[i])
 	{
 		if (fill_key_env(envp, i, &my_env->key))
-			return (ft_final(all, NULL, ERR_MALLOC, 1), NULL);
+			return (ft_final(all, NULL, NULL, 1), NULL);
 		if (fill_value_env(envp, i, &my_env->value), NULL)
-			return (ft_final(all, NULL, ERR_MALLOC, 1), NULL);
+			return (ft_final(all, NULL, NULL, 1), NULL);
 		if (my_env->next)
 			my_env = my_env->next;
 		i++;

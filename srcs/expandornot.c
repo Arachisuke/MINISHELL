@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/26 14:16:45 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/02 16:04:06 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,22 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int *i)
 	while (all->line[*i] && (ft_isalnum(all->line[*i]) || all->line[*i] == '_'))
 		(*i)++;
 	if (all->line[*i - 1] == '$' && all->line[*i] == '$')
-		(*tmp)->strexpanded = ft_pid(all);
+		(*tmp)->strexpanded = ft_pid(all, tmp);
 	// else if (all->line[*i - 1] == '$' && all->line[*i] == '?')
 	// 	(*tmp)->strexpanded = ft_itoa(all->exit_code);
 	env = malloc(sizeof(char) * (*i - j + 1));
 	if (!env)
-		return (ft_final(all, NULL, ERR_MALLOC, 1));
+		return (ft_final(all, NULL, NULL, 1));
 	(*tmp)->lenbefore = *i - j + 1;
 	while (j < *i)
 		env[r++] = all->line[j++];
 	env[r] = '\0';
 	(*tmp)->strtoexpand = env;
 	if ((*tmp)->strexpanded)
-		all->line[*i] = ' ';
+	{
+		all->line[*i] = -34;
+		all->line[*i - 1] = -34;
+	}
 	return (SUCCESS);
 }
 
@@ -98,7 +101,7 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 		{
 			tmp = ft_back_expand(&all->expand, ft_new_expand());
 			if (fonctionexpand(all, &tmp, &j))
-				return (ft_final(all, NULL, ERR_MALLOC, 1));
+				return (ft_final(all, NULL, NULL, 1));
 			j--;
 		}
 		else if (all->line[j] == quotes && flag == 1)

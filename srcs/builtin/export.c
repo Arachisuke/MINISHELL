@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:51 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/26 13:57:01 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/02 14:54:20 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	check_var(t_all *all, char *key, char **value2)
 char	*findkey(char *line, int i, char *key, int flag)
 {
 	if (key)
+	{
 		free(key);
+		key = NULL;
+	}
 	if (flag)
 		i--;
 	key = ft_substr(line, 0, i);
@@ -90,37 +93,39 @@ int	if_egal(t_all *all, char *line, char **key, char **value)
 
 void	ft_export(t_all *all, char **strs)
 {
-	int error;
-	int j;
-	char *value;
-	char *key;
+	int		error;
+	int		j;
+	char	*value;
+	char	*key;
+
 	key = NULL;
 	value = NULL;
-	j = 1;
-	while (strs[j])
+	j = 0;
+	while (strs[++j])
 	{
-		error = if_egal(all, strs[j], &key, &value);
+		error = if_egal(all, strs[j], &key, &value); // key si ca se passe bien dans modif env si ca se passe mal dans le while. et en double dans le findkey
 		if (!error)
-		{
-			j++;
 			continue ;
-		}
-		modify_env(key, value, all->my_env);
-		j++;
-		if (key)
-			free(key);
+		modify_env(key, value, all->my_env); 
 		if (value)
+		{
 			free(value);
+			value = NULL;
+		}
+		if (key)
+		{
+			free(key);
+			key = NULL;
+		}
 	}
 }
 
-
 char	*removequotes(char *line)
 {
-	int i;
-	int count;
-	char *newline;
-	int j;
+	int		i;
+	int		count;
+	char	*newline;
+	int		j;
 
 	i = -1;
 	count = 0;
