@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   planning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/02 16:10:19 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/02 16:22:55 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,3 +341,4 @@ void	other(char *str)
 
 //"<< $""$hola""$$""b"""
 // tab fill tab crois que cest un token
+//input csv pas complet
