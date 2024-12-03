@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/02 13:11:27 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 11:06:41 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 		if (malloc_input(&all))
 			continue ;
 		// printf("before = %s\n", all.line);
-		all.line = removequotes(all.line); // jenleve les quotes
+		//all.line = removequotes(all.line); // jenleve les quotes
 		// printf("afterremove = %s\n", all.line);
 		init_parse(&parse, all.line);
 		if (!parse_line(&all, all.strs, &parse))

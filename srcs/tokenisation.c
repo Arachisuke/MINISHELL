@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/27 11:59:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 11:28:37 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ char	*remplir(t_all *all, int start, int end)
 		return (ft_final(all, NULL, ERR_INVALID_INPUT, 10), NULL);
 	while (end - start > i)
 	{
-		if (all->line[j] < 0)
+		if (all->line[j] != -100 && all->line[j] < 0)
 			all->line[j] = all->line[j] * -1;
-		str[i++] = all->line[j++];
+		str[i++] = all->line[j++]; // token et espace a linterieur des guillemet                        les guillemets, et les $$
 	}
 	str[i] = '\0';
+	str = removequotes(str);
 	return (str);
 }
 // probleme si !str la fonction continue et ne renvoit pas null
@@ -78,19 +79,18 @@ int	fill_token(t_all *all, char **strs, int *j, int *i)
 
 void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 {
+	if (all->line[(*parse)->i] < 0)
+		(*parse)->flag = 1;
+	(*parse)->start = (*parse)->i;
+	(*parse)->end = (*parse)->i;
+	while (!is_token_space(all->line[(*parse)->i]) && all->line[(*parse)->i])
 	{
-		(*parse)->start = (*parse)->i;
-		(*parse)->end = (*parse)->i;
-		while (!is_token_space(all->line[(*parse)->i])
-			&& all->line[(*parse)->i])
-		{
-			(*parse)->end++;
-			(*parse)->i++;
-		}
-		if ((*parse)->flag)
-			fill_tab((*parse)->j, all->tab, &k);
-		strs[(*parse)->j++] = remplir(all, (*parse)->start, (*parse)->end);
+		(*parse)->end++;
+		(*parse)->i++;
 	}
+	if ((*parse)->flag)
+		fill_tab((*parse)->j, all->tab, &k);
+	strs[(*parse)->j++] = remplir(all, (*parse)->start, (*parse)->end);
 }
 
 // changement dans le while parse++i et init retrait du	-1 pour gerer pipe collee plus reduction ligne parse_line
@@ -108,6 +108,7 @@ char	**parse_line(t_all *all, char **strs, t_parse *parse)
 		if (!is_token_space(all->line[(parse)->i]) && all->line[(parse)->i])
 		{
 			parsing(&parse, &k, all, strs);
+			parse->flag = 0;
 			if (!all->line[(parse)->i])
 				break ;
 		}

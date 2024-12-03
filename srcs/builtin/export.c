@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:51 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/02 14:54:20 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 11:24:39 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ char	*removequotes(char *line)
 	newline = NULL;
 	while (line[++i])
 	{
-		if ((line[i] == -39 || line[i] == -34))
+		if (line[i] == -100)
 			count++;
 	}
 	if (count == 0)
@@ -144,7 +144,7 @@ char	*removequotes(char *line)
 	j = 0;
 	while (line[++i])
 	{
-		if ((line[i] == -39 || line[i] == -34))
+		if (line[i] == -100)
 			continue ;
 		newline[j++] = line[i];
 	}

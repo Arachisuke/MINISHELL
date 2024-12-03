@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/02 16:04:06 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 11:22:01 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int *i)
 	(*tmp)->strtoexpand = env;
 	if ((*tmp)->strexpanded)
 	{
-		all->line[*i] = -34;
-		all->line[*i - 1] = -34;
+		all->line[*i] = -100;
+		all->line[*i - 1] = -100;
 	}
 	return (SUCCESS);
 }
@@ -94,7 +94,7 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 		if ((all->line[j] == SQ || all->line[j] == DQ) && flag == 0)
 		{
 			quotes = all->line[j];
-			all->line[j] = all->line[j] * -1;
+			all->line[j] = -100;
 			flag = 1;
 		}
 		else if (!condition(all->line, j) && ((flag && quotes == DQ) || !flag))
@@ -107,7 +107,7 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 		else if (all->line[j] == quotes && flag == 1)
 		{
 			flag = 0;
-			all->line[j] = all->line[j] * -1;
+			all->line[j] = -100;
 		}
 		j++;
 	}
@@ -130,7 +130,7 @@ int	expandornot(t_all *all)
 			quotes = all->line[i];
 			if (all->line[i] != '$')
 			{
-				all->line[i] = all->line[i] * -1;
+				all->line[i] = -100;
 				flag = 1;
 			}
 			flag = ft_expand(all, i, quotes, flag);
