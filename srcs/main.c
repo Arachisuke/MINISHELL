@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 11:06:41 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:03:16 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ int	main(int argc, char **argv, char **envp)
 		// cmds_affichage(all.cmds);
 		if (if_here_doc(&all))
 			continue ;
-		if (all.cmds->strs[0])
+		if (all.cmds->strs[0] && (ft_size_cmds(all.cmds) == 1)
+			&& is_builtin(all.cmds->strs[0]))
+			builtins_or_not(&all, all.cmds);
+		else if (all.cmds->strs[0])
 			ft_pipex(&all, all.pipex, all.cmds, all.my_env);
 		ft_final(&all, NULL, NULL, 1);
 	}

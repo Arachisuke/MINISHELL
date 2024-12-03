@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:17:30 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/26 13:12:38 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:09:56 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,6 @@ int	init_struct(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 		pipex->pipefd = malloc(sizeof(int *) * (pipex->nbrcmd - 1));
 	if (pipex->pipefd == NULL && pipex->nbrcmd > 1)
 		return (ft_errchild(all, "malloc", pipex, 1));
-	if (pipex->nbrcmd == 1 && (!ft_strncmp(cmds->strs[0], "exit", 4)
-			&& ft_strlen(cmds->strs[0]) == 4))
-		ft_exit(cmds, all);
 	return (0);
 }
 

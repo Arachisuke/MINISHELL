@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/27 11:59:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:01:56 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	check_dir(char *path)
 	if (!dir)
 	{
 		ft_printf_fd(2, "minishell: cd : %s: %s\n", path, strerror(errno));
-		return (ERR_OPEN_DIR);
+		return (1);
 	}
 	closedir(dir);
 	return (SUCCESS);
@@ -125,6 +125,7 @@ void	ft_cd(t_simple_cmds *cmds, t_all *all)
 	if (cmds && count_line(cmds->strs) > 2)
 	{
 		ft_printf_fd(2, "minishell: cd: too many arguments\n");
+		all->exit_code = 1;
 		return ;
 	}
 	if (!cmds->strs[1])
@@ -132,7 +133,10 @@ void	ft_cd(t_simple_cmds *cmds, t_all *all)
 	else
 	{
 		if (check_dir(cmds->strs[1]))
+		{
+			all->exit_code = 1;
 			return ;
+		}
 		pwd = ft_strdup(cmds->strs[1]);
 	}
 	if (!pwd)

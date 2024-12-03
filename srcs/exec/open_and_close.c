@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_and_close.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:39:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/26 14:58:05 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:10:35 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,10 @@ int	onecmd(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 {
 	open_and_close(all, cmds, pipex);
 	close_fd(pipex, cmds);
-	if (cmds->is_builtin)
-	{
-		builtins_or_not(all, cmds);
-		return(ft_errchild(all, NULL, pipex, 0));
-	}
-	else
-	{
+
 		pipex->path = checkcmd(all, pipex->all_path, cmds->strs[0], pipex);
 		if (!pipex->path)
 			return (ft_errchild(all, "Command not found", pipex, 127));
 		execve(pipex->path, cmds->strs, pipex->env);
 		return (ft_errchild(all, "execve", pipex, 1));
-	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:21:50 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/26 11:34:49 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:05:51 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	check_n(char **args, int *n)
 	return (j); // et je renvoie le J qui rempli pas les conditions
 }
 
-int	ft_echo(char **args)
+int	ft_echo(char **args, t_all *all)
 {
 	int n;
 	int i;
@@ -84,11 +84,11 @@ int	ft_echo(char **args)
 	n = 0;
 	i = check_n(args, &n);
 	if (n && !args[i])
-		return (1);
+		return (all->exit_code = 0, 0);
 	if (!n && !args[i])
 	{
 		ft_putchar_fd('\n', 1);
-		return (1);
+		return (all->exit_code = 0, 0);
 	}
 	while (args[i])
 	{
@@ -99,5 +99,5 @@ int	ft_echo(char **args)
 	}
 	if (!n)
 		write(1, "\n", 1);
-	return (SUCCESS);
+	return (all->exit_code = 0, SUCCESS);
 }
