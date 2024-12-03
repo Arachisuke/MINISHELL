@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   planning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 14:43:46 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 16:02:31 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,3 +350,7 @@ echo $UIDt le pipex.path, si il ya le exit...
 // reduire les lignes.
 // export ""| -> count = 3 
 // heredoc signaux
+
+// env minimal implemente mais pas pu tester l execution de minishell a l'interieur.
+// 				/home/ankammer/Cursus42/minishell> ./minishell
+// 				minishell: ./minishell: Command not found
