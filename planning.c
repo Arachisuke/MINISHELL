@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 11:29:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 11:40:45 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,8 +340,4 @@ void	other(char *str)
 
 
 //"<< $""$hola""$$""b""" @@@@@@@@@
-
-
-
-
-// tab fill tab crois que cest un token
+// tab fill tab crois que cest un token @@@@@
