@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:25:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/02 12:58:03 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 12:49:16 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	free_tab(int **tab, t_pipex *pipex)
 	free(tab);
 	tab = NULL;
 }
-int	wait_childs(pid_t pid, t_pipex *pipex)
+int	wait_childs(pid_t pid, t_pipex *pipex, t_all *all)
 {
 	int	code;
 
@@ -88,7 +88,8 @@ int	wait_childs(pid_t pid, t_pipex *pipex)
 		if (wait(&pipex->status) == pid && WIFEXITED(pipex->status))
 			code = WEXITSTATUS(pipex->status);
 	if (pid == -1)
-		return (127);
+		return (all->exit_code = 127, 127);
+	all->exit_code = code;
 	return (code);
 }
 int	envlist_envchar(t_pipex *pipex, t_my_env *envp)

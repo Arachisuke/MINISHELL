@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 13:03:16 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:59:26 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	pipex;
 
 	all.my_env = NULL;
+	all.exit_code = 0;
 	if (argc != 1 || argv[1])
 		return (0);
 	ft_signals();
@@ -48,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 		if (malloc_input(&all))
 			continue ;
 		// printf("before = %s\n", all.line);
-		//all.line = removequotes(all.line); // jenleve les quotes
+		all.line = removequotes1(all.line); // jenleve les quotes
 		// printf("afterremove = %s\n", all.line);
 		init_parse(&parse, all.line);
 		if (!parse_line(&all, all.strs, &parse))

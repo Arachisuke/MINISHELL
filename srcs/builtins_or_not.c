@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_or_not.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 15:55:15 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/06 14:08:04 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:15:35 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	builtins_or_not(t_all *all, t_simple_cmds *cmds)
 	if (!ft_strncmp(cmds->strs[0], "cd", 2) && cmds->is_builtin)
 		ft_cd(cmds, all);
 	else if (!ft_strncmp(cmds->strs[0], "echo", 4) && cmds->is_builtin)
-		ft_echo(cmds->strs);
+		ft_echo(cmds->strs, all);
 	else if (!ft_strncmp(cmds->strs[0], "env", 3) && cmds->is_builtin)
 		ft_env(all->my_env);
 	else if (!ft_strncmp(cmds->strs[0], "exit", 4) && cmds->is_builtin)

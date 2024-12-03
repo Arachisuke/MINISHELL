@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:51 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/03 11:24:39 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:59:09 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,11 @@ void	ft_export(t_all *all, char **strs)
 	j = 0;
 	while (strs[++j])
 	{
-		error = if_egal(all, strs[j], &key, &value); // key si ca se passe bien dans modif env si ca se passe mal dans le while. et en double dans le findkey
+		error = if_egal(all, strs[j], &key, &value);
+			// key si ca se passe bien dans modif env si ca se passe mal dans le while. et en double dans le findkey
 		if (!error)
 			continue ;
-		modify_env(key, value, all->my_env); 
+		modify_env(key, value, all->my_env);
 		if (value)
 		{
 			free(value);
@@ -146,6 +147,41 @@ char	*removequotes(char *line)
 	{
 		if (line[i] == -100)
 			continue ;
+		newline[j++] = line[i];
+	}
+	newline[j] = '\0';
+	free(line);
+	return (newline);
+}
+char	*removequotes1(char *line)
+{
+	int		i;
+	int		count;
+	char	*newline;
+	int		j;
+
+	i = -1;
+	count = 0;
+	newline = NULL;
+	while (line[++i])
+	{
+		if (line[i] == -100 && line[i + 1] && line[i + 1] == -100)
+			count = count + 2;
+	}
+	if (count == 0)
+		return (line);
+	newline = malloc(sizeof(char) * (ft_strlen(line) - count + 1));
+	if (!newline)
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (line[++i])
+	{
+		if (line[i] == -100 && line[i + 1] && line[i + 1] == -100)
+		{
+			i++;
+			continue ;
+		}
 		newline[j++] = line[i];
 	}
 	newline[j] = '\0';

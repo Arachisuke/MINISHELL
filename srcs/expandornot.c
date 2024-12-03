@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 11:22:01 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 12:47:24 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	condition(char *str, int i)
 		return (1);
 	else if (str[i] == '$' && str[i + 1] && str[i + 1] == '$')
 		return (SUCCESS);
-	// else if (str[i] == '$' && str[i + 1] && str[i + 1] == '?')
-	// 	return (SUCCESS);
+	else if (str[i] == '$' && str[i + 1] && str[i + 1] == '?')
+		return (SUCCESS);
 	else if (str[i] == '$' && str[i + 1] && !ft_isalpha(str[i + 1]))
 		return (1);
 	else if (str[i] == '$' && str[i + 1])
@@ -67,8 +67,8 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int *i)
 		(*i)++;
 	if (all->line[*i - 1] == '$' && all->line[*i] == '$')
 		(*tmp)->strexpanded = ft_pid(all, tmp);
-	// else if (all->line[*i - 1] == '$' && all->line[*i] == '?')
-	// 	(*tmp)->strexpanded = ft_itoa(all->exit_code);
+	else if (all->line[*i - 1] == '$' && all->line[*i] == '?')
+		(*tmp)->strexpanded = ft_itoa(all->exit_code);
 	env = malloc(sizeof(char) * (*i - j + 1));
 	if (!env)
 		return (ft_final(all, NULL, NULL, 1));

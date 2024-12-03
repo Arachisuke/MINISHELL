@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:20:53 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/12 15:03:17 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 14:35:53 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ int	heredoc(t_all *all, t_redir *redir, char *limiteur)
 	file_name = limiteur;
 	redir->fd_here_doc = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (redir->fd_here_doc < 0)
+	{
+		close(redir->fd_here_doc);
 		return (ft_final(all, NULL, ERR_FD, 1));
+	}
 	if (read_and_write(redir->fd_here_doc, limiteur))
-		return (ERR_READ);
+		return (close(redir->fd_here_doc), ERR_READ);
 	close(redir->fd_here_doc);
 	return (SUCCESS);
 }

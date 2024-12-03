@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:32:10 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/26 12:29:22 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:16:03 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int	ft_pipex(t_all *all, t_pipex *pipex, t_simple_cmds *cmds, t_my_env *envp)
 		process_final(all, pipex);
 	close_fd(pipex, cmds);
 	return (ft_errparent(all, NULL, pipex, wait_childs(pipex->pid[pipex->nbrcmd
-				- 1], pipex)));
+				- 1], pipex, all)));
 }

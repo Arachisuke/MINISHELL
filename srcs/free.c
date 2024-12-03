@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:18:46 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/26 13:04:06 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 15:24:35 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,11 @@ char	*free_expand(t_expand **expand) // 4
 	curr = *expand;
 	while (*expand)
 	{
-		(*expand)->strexpanded = NULL;
+		if ((*expand)->strexpanded)
+		{
+			free((*expand)->strexpanded);
+			(*expand)->strexpanded = NULL;
+		}
 		if ((*expand)->strtoexpand)
 			free((*expand)->strtoexpand);
 		curr = (*expand)->next;

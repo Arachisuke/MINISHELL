@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:08 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/02 12:28:33 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 15:23:54 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,15 @@ char	*free_env(t_my_env **env) // a tester
 	while (*env)
 	{
 		if ((*env)->key)
+		{
 			free((*env)->key);
+			(*env)->key = NULL;
+		}
 		if ((*env)->value)
+		{
 			free((*env)->value);
+			(*env)->value = NULL;
+		}
 		tmp = tmp->next;
 		free(*env);
 		*env = NULL;

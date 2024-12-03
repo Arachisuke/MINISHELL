@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:10:54 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/02 13:06:15 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:23:04 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	ft_signals(void)
 	sig.sa_flags = SA_RESTART;
 	sig.sa_handler = &handle_sig;
 	sigaction(SIGINT, &sig, NULL);
-	sigaction(SIGTERM, &sig, NULL);
 	sigaction(SIGQUIT, &sig, NULL);
 }
 

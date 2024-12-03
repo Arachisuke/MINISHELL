@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 11:50:11 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 14:43:46 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,21 +324,29 @@ echo $UIDt le pipex.path, si il ya le exit...
 
 
 
-// $?
-// cd
-// message d'erreur
-// le bon output
-// signaux
+// $?@@@@
+// cd @@@@
+// signaux@@@@
 
-
-
-
-// activer les signaux et tester
-// verifier le env-i avec jules
-// message d'erreur
-// $?
+// $? @@@@
+// gerer all.exitcode. @@@@
 
 
 //"<< $""$hola""$$""b""" @@@@@@@@@
-// tab fill tab crois que cest un token
+// tab fill tab crois que cest un token@@@@
+// activer les signaux et tester
 //input csv pas complet @@@@@
+
+
+
+
+
+
+// verifier le env -i avec jules
+// test de leak.
+// test de output.
+// test de code d'erreur
+// test de message d'erreur
+// reduire les lignes.
+// export ""| -> count = 3 
+// heredoc signaux

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/02 15:57:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:59:37 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ int							is_closed_quotes(char *line, t_parse **parse,
 int							quotes_is_beginning(int *flag);
 void						builtins_or_not(t_all *all, t_simple_cmds *cmds);
 void						ft_cd(t_simple_cmds *cmds, t_all *all);
-int							ft_echo(char **args);
+int							ft_echo(char **args, t_all *all);
 void						ft_env(t_my_env *my_env);
 int							ft_exit(t_simple_cmds *cmds, t_all *all);
 void						ft_export(t_all *all, char **strs);
@@ -238,6 +238,8 @@ t_my_env					*modify_env(char *key, char *value, t_my_env *env);
 t_my_env					*ft_last_env(t_my_env *my_env);
 void						free_all(t_all *all);
 char						*removequotes(char *line);
+char						*removequotes1(char *line);
+
 char	*free_env(t_my_env **env); // 3 ou 1
 int							ft_pipex(t_all *all, t_pipex *pipex,
 								t_simple_cmds *cmds, t_my_env *envp);
@@ -250,7 +252,7 @@ void						close_fd(t_pipex *pipex, t_simple_cmds *cmds);
 char						*checkcmd(t_all *all, char **all_path, char *cmd,
 								t_pipex *pipex);
 void						free_tab(int **tab, t_pipex *pipex);
-int							wait_childs(pid_t pid, t_pipex *data);
+int							wait_childs(pid_t pid, t_pipex *data, t_all *all);
 int							init_variable(t_pipex *pipex, t_all *all);
 int							open_and_close(t_all *all, t_simple_cmds *cmds,
 								t_pipex *pipex);
