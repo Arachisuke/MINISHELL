@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_expand.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:57:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/10/08 15:00:06 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:05:34 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_expand	*ft_new_expand(void)
 	elem->next = NULL;
 	elem->strexpanded = NULL;
 	elem->strtoexpand = NULL;
+	elem->strexpanded2 = NULL;
 	return (elem);
 }
 

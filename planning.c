@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 14:43:46 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/04 15:59:29 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,10 +343,19 @@ echo $UIDt le pipex.path, si il ya le exit...
 
 
 // verifier le env -i avec jules
+
+
+
 // test de leak.
 // test de output.
 // test de code d'erreur
 // test de message d'erreur
 // reduire les lignes.
-// export ""| -> count = 3 
+// export ""| -> count = 3 @@@@
 // heredoc signaux
+
+// ./minishell dans minishell avec | echo ou autre cmd.
+
+
+
+// continuer de reparer les leak de input.csv, et prendre d'autre input csv.

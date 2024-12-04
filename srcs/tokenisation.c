@@ -6,13 +6,13 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 11:28:37 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/04 15:32:11 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*remplir(t_all *all, int start, int end)
+char	*remplir(t_all *all, int start, int end) // remettre a la normal lespace et le token qui sont a linterieur de quotes.
 {
 	char	*str;
 	int		i;
@@ -31,7 +31,7 @@ char	*remplir(t_all *all, int start, int end)
 	{
 		if (all->line[j] != -100 && all->line[j] < 0)
 			all->line[j] = all->line[j] * -1;
-		str[i++] = all->line[j++]; // token et espace a linterieur des guillemet                        les guillemets, et les $$
+		str[i++] = all->line[j++];
 	}
 	str[i] = '\0';
 	str = removequotes(str);
@@ -79,7 +79,7 @@ int	fill_token(t_all *all, char **strs, int *j, int *i)
 
 void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 {
-	if (all->line[(*parse)->i] < 0)
+	if (all->line[(*parse)->i] == -100)
 		(*parse)->flag = 1;
 	(*parse)->start = (*parse)->i;
 	(*parse)->end = (*parse)->i;
