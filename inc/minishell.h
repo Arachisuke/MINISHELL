@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/04 15:31:02 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/04 16:21:17 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_expand
 	char					*strtoexpand;
 	char					*strexpanded;
 	char					*strexpanded2;
+
 	struct s_expand			*next;
 
 }							t_expand;
@@ -228,7 +229,7 @@ int							quotes_is_beginning(int *flag);
 void						builtins_or_not(t_all *all, t_simple_cmds *cmds);
 void						ft_cd(t_simple_cmds *cmds, t_all *all);
 int							ft_echo(char **args, t_all *all);
-void						ft_env(t_my_env *my_env);
+void						ft_env(t_my_env *my_env, t_all *all);
 int							ft_exit(t_simple_cmds *cmds, t_all *all);
 void						ft_export(t_all *all, char **strs);
 void						ft_pwd(t_simple_cmds *cmds);
