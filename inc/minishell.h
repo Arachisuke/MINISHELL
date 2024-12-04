@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/04 16:18:09 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:26:53 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct s_expand
 	int						is_file;
 	char					*strtoexpand;
 	char					*strexpanded;
+	char					*strexpanded2;
+
 	struct s_expand			*next;
 
 }							t_expand;
@@ -238,7 +240,7 @@ t_my_env					*modify_env(char *key, char *value, t_my_env *env);
 t_my_env					*ft_last_env(t_my_env *my_env);
 void						free_all(t_all *all);
 char						*removequotes(char *line);
-char						*removequotes1(char *line);
+char						*removedollarz(char *line);
 
 char	*free_env(t_my_env **env); // 3 ou 1
 int							ft_pipex(t_all *all, t_pipex *pipex,

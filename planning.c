@@ -6,7 +6,11 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:55:41 by wzeraig           #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/12/04 15:59:29 by wzeraig          ###   ########.fr       */
+=======
 /*   Updated: 2024/12/03 16:02:31 by ankammer         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,14 +347,28 @@ echo $UIDt le pipex.path, si il ya le exit...
 
 
 // verifier le env -i avec jules
+
+
+
 // test de leak.
 // test de output.
 // test de code d'erreur
 // test de message d'erreur
 // reduire les lignes.
+<<<<<<< HEAD
+// export ""| -> count = 3 @@@@
+// heredoc signaux
+
+// ./minishell dans minishell avec | echo ou autre cmd.
+
+
+
+// continuer de reparer les leak de input.csv, et prendre d'autre input csv.
+=======
 // export ""| -> count = 3 
 // heredoc signaux
 
 // env minimal implemente mais pas pu tester l execution de minishell a l'interieur.
 // 				/home/ankammer/Cursus42/minishell> ./minishell
 // 				minishell: ./minishell: Command not found
+>>>>>>> refs/remotes/origin/main

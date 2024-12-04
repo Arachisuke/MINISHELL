@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 12:47:24 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/04 15:45:46 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int *i)
 	(*tmp)->strtoexpand = env;
 	if ((*tmp)->strexpanded)
 	{
-		all->line[*i] = -100;
-		all->line[*i - 1] = -100;
+		(*tmp)->strexpanded2 = (*tmp)->strexpanded;
+		all->line[*i] = -87;
+		all->line[*i - 1] = -87;
 	}
 	return (SUCCESS);
 }
