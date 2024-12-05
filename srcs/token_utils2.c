@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:07:20 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/05 15:24:17 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/05 14:48:18 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,29 @@ int	beforequotes(const char *str, int i)
 	else
 		return (0);
 }
-
 int	count_word_quotes(const char *str, int *i)
 {
 	int	quote;
 	int	j;
+	int	tokenspace;
 
 	j = *i;
+	if (j == 0)
+		tokenspace = 1;
+	else
+		tokenspace = is_token_space(str[*i - 1]);
 	quote = str[j];
 	j++;
+	if (!str[j])
+		return (*i = j - 1, 0); // tes ici.... le cas du "HOLA"
 	while (str[j] != quote)
 	{
 		if (str[j] != ' ' && str[j] != quote)
-			return (*i = j, 1);
+		{
+			while (str[j] != quote)
+				j++;
+			return (*i = j, tokenspace);
+		}
 		j++;
 	}
 	return (*i = j, 0);
@@ -60,12 +70,17 @@ int	count_word(const char *str)
 			flag = 0;
 		else if (!is_token_space(str[i]) && str[i] != -100 && !flag)
 			flag = 1;
-		if (str[i] < 0 && i > 0)
-			if (is_token_space(str[i - 1]) && count_word_quotes(str, &i))
+		if (str[i] < 0)
+			if (count_word_quotes(str, &i) && str[i + 1] && is_token_space(str[i
+					+ 1]))
 				compteur++;
-		if ((!is_token_space(str[i]) && is_token_space(str[i + 1])
-				&& str[i] != -100) || (!is_token_space(str[i]) && str[i + 1] == '\0'
-				&& flag))
+		if (!is_token_space(str[i]) && str[i + 1] && is_token_space(str[i + 1])
+			&& flag)
+		{
+			compteur++;
+			flag = 0;
+		}
+		if (!is_token_space(str[i]) && str[i + 1] == '\0')
 			compteur++;
 		i++;
 	}

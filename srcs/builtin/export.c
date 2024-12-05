@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:51 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/05 14:32:09 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/05 11:44:10 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	check_var(t_all *all, char *key, char **value2)
 	}
 	return (0);
 }
-
 char	*findkey(char *line, int i, char *key, int flag)
 {
 	if (key)
@@ -38,11 +37,10 @@ char	*findkey(char *line, int i, char *key, int flag)
 	key = ft_substr(line, 0, i);
 	return (key);
 }
-
 void	findvalue(char *str, char **value, char *value2)
 // je lui ai envoye la str ou ya le egal..
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (*value)
@@ -63,15 +61,6 @@ void	findvalue(char *str, char **value, char *value2)
 		*value = strjoinfree(value2, *value);
 }
 
-int	is_not_egal(char *line, int i, int *flag, t_all *all)
-{
-	if (line[i] == '+' && line[i + 1] == '=')
-		*flag = 1;
-	else
-		return (msg_error(all, ERR_EGAL, line), 1);
-	return (0);
-}
-
 int	if_egal(t_all *all, char *line, char **key, char **value)
 {
 	int		i;
@@ -83,12 +72,14 @@ int	if_egal(t_all *all, char *line, char **key, char **value)
 	i = -1;
 	while (line[++i])
 	{
-		if (!ft_isalpha(line[0]) && line[0] != '_')
+		if (!ft_isalpha(line[0]) && line[0] != '_') // check du debut
 			return (msg_error(all, ERR_EGAL, line), 0);
 		else if (!ft_isalnum(line[i]) && line[i] != '=' && line[i] != '_')
 		{
-			if (is_not_egal(line, i, &flag, all))
-				return (0);
+			if (line[i] == '+' && line[i + 1] == '=')
+				flag = 1;
+			else
+				return (msg_error(all, ERR_EGAL, line), 0);
 		}
 		else if (line[i] == '=')
 		{
@@ -166,12 +157,51 @@ char	*removequotes(char *line)
 	return (newline);
 }
 
-char	*removedollarz(char *line)
+char	*removequotes1(char *line)
 {
 	int		i;
 	int		count;
 	char	*newline;
 	int		j;
+
+	i = 0;
+	count = 0;
+	newline = NULL;
+	while (line[i])
+	{
+		if (line[i] == -100 && line[i + 1] && line[i + 1] == -100)
+		{
+			i++;
+			count = count + 2;
+		}
+		i++;
+	}
+	if (count == 0)
+		return (line);
+	newline = malloc(sizeof(char) * (ft_strlen(line) - count + 1));
+	if (!newline)
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (line[++i])
+	{
+		if (line[i] == -100 && line[i + 1] && line[i + 1] == -100)
+		{
+			i++;
+			continue ;
+		}
+		newline[j++] = line[i];
+	}
+	newline[j] = '\0';
+	free(line);
+	return (newline);
+}
+char	*removedollarz(char *line)
+{
+	int i;
+	int count;
+	char *newline;
+	int j;
 
 	i = -1;
 	count = 0;
@@ -182,7 +212,7 @@ char	*removedollarz(char *line)
 			count++;
 	}
 	if (count == 0)
-		return (line);
+		return (removequotes1(line));
 	newline = malloc(sizeof(char) * (ft_strlen(line) - count + 1));
 	if (!newline)
 		return (NULL);
@@ -196,5 +226,5 @@ char	*removedollarz(char *line)
 	}
 	newline[j] = '\0';
 	free(line);
-	return (newline);
+	return (removequotes1(newline));
 }

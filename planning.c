@@ -361,3 +361,9 @@ echo $UIDt le pipex.path, si il ya le exit...
 // env minimal implemente mais pas pu tester l execution de minishell a l'interieur.
 // 				/home/ankammer/Cursus42/minishell> ./minishell
 // 				minishell: ./minishell: Command not found
+
+
+// removesquotes, remove les quotes basic.
+// removesquotes1, removes les quotes cote a cote.
+// remove dollarz, remove le dollar
+//

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:20:53 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 14:35:53 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 15:22:06 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	if_here_doc(t_all *all)
 			if (redir->token == D_LOWER)
 			{
 				if (heredoc(all, redir, redir->file_name))
-					return (1);
+					return (ft_final(all, NULL, NULL, 1));
 			}
 			redir = redir->next;
 		}
