@@ -346,7 +346,7 @@ echo $UIDt le pipex.path, si il ya le exit...
 
 
 
-// verifier le env -i avec jules
+// verifier le env -i avec jules@@@@@
 
 
 
@@ -355,20 +355,9 @@ echo $UIDt le pipex.path, si il ya le exit...
 // test de code d'erreur
 // test de message d'erreur
 // reduire les lignes.
-<<<<<<< HEAD
-// export ""| -> count = 3 @@@@
-// heredoc signaux
-
-// ./minishell dans minishell avec | echo ou autre cmd.
-
-
-
-// continuer de reparer les leak de input.csv, et prendre d'autre input csv.
-=======
 // export ""| -> count = 3 
 // heredoc signaux
 
 // env minimal implemente mais pas pu tester l execution de minishell a l'interieur.
 // 				/home/ankammer/Cursus42/minishell> ./minishell
 // 				minishell: ./minishell: Command not found
->>>>>>> refs/remotes/origin/main
