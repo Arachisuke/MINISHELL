@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/04 16:26:53 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/05 14:05:11 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ int							init_all(t_all *all, char **envp, t_pipex *pipex);
 int							checkredir(char *line, int i);
 char						*free_redir(t_simple_cmds *cmds);
 char						*free_lexer(t_lexer **lexer);
-char	*free_expand(t_expand **expand); // 4
+char						*free_expand(t_expand **expand);
 int							ft_final(t_all *all, char *error, char *msgerror,
 								int sortie);
 
@@ -232,7 +232,7 @@ int							ft_echo(char **args, t_all *all);
 void						ft_env(t_my_env *my_env, t_all *all);
 int							ft_exit(t_simple_cmds *cmds, t_all *all);
 void						ft_export(t_all *all, char **strs);
-void						ft_pwd(t_simple_cmds *cmds);
+void						ft_pwd(t_simple_cmds *cmds, t_all *all);
 void						ft_unset(t_all *all, char **strs);
 
 void						msg_error(t_all *all, char *msgerror, char *error);
@@ -242,7 +242,7 @@ void						free_all(t_all *all);
 char						*removequotes(char *line);
 char						*removedollarz(char *line);
 
-char	*free_env(t_my_env **env); // 3 ou 1
+char						*free_env(t_my_env **env);
 int							ft_pipex(t_all *all, t_pipex *pipex,
 								t_simple_cmds *cmds, t_my_env *envp);
 

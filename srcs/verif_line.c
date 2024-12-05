@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/02 15:28:18 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 15:19:18 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ int	verif_quotes(t_all *all, char *line)
 	i = 0;
 	while (line[i])
 	{
-		if ((line[i] == SQ || line[i] == DQ) && flag == 0) // debut quotes
+		if ((line[i] == SQ || line[i] == DQ) && flag == 0)
 		{
 			quote = line[i];
 			flag = 1;
 		}
 		else if ((line[i] == ' ' || is_token(line[i])) && flag == 1)
 			line[i] = line[i] * -1;
-		else if (line[i] == quote && flag == 1) /// fin quotes
+		else if (line[i] == quote && flag == 1)
 			flag = 0;
 		i++;
 	}
@@ -63,15 +63,15 @@ int	verif_quotes(t_all *all, char *line)
 	return (SUCCESS);
 }
 
-int	is_double_redir(char *line, int token, int i) // regler !
+int	is_double_redir(char *line, int token, int i)
 {
 	if (((line[i] == '>' && line[i + 1] == '>') || (line[i] == '<' && line[i
-				+ 1] == '<')) && token == 0)
+					+ 1] == '<')) && token == 0)
 		return (1);
 	return (0);
 }
 
-int	check_quote_and_redir(char *line, int i, int count) // le nom est pas coherent avec la fonction.
+int	check_quote_and_redir(char *line, int i, int count)
 {
 	int	token;
 
@@ -92,6 +92,7 @@ int	check_quote_and_redir(char *line, int i, int count) // le nom est pas cohere
 	}
 	return (count);
 }
+
 int	firstquotecheck(char *line, int i)
 {
 	if (line[i] == -34 && line[i + 1] && line[i + 1] == -34 && line[i + 2]

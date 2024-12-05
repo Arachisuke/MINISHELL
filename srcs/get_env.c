@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:52:42 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/04 15:05:46 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/05 11:21:49 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,18 @@ int	init_shlvl(t_all *all, t_my_env *my_env)
 	my_env->value = shlvl_str;
 	return (SUCCESS);
 }
+
+int	set_last_key(t_my_env *my_env_tmp)
+{
+	my_env_tmp->key = ft_strdup("_");
+	if (!my_env_tmp->key)
+		return (1);
+	my_env_tmp->value = ft_strdup("/usr/bin/env");
+	if (!my_env_tmp->value)
+		return (1);
+	return (0);
+}
+
 t_my_env	*minimal_env(t_all *all)
 {
 	t_my_env	*my_env;
@@ -93,13 +105,21 @@ t_my_env	*minimal_env(t_all *all)
 	if (!my_env_tmp->value)
 		return (ft_final(all, NULL, NULL, 1), NULL);
 	my_env_tmp = my_env_tmp->next;
-	my_env_tmp->key = ft_strdup("_");
-	if (!my_env_tmp->key)
-		return (ft_final(all, NULL, NULL, 1), NULL);
-	my_env_tmp->value = ft_strdup("/usr/bin/env");
-	if (!my_env_tmp->value)
+	if (set_last_key(my_env_tmp))
 		return (ft_final(all, NULL, NULL, 1), NULL);
 	return (my_env);
+}
+
+void	set_node_env(t_my_env **my_env, char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		create_node_env(my_env, i);
+		i++;
+	}
 }
 
 t_my_env	*ft_myenv(t_all *all, char **envp)
@@ -111,14 +131,10 @@ t_my_env	*ft_myenv(t_all *all, char **envp)
 	i = 0;
 	if (!envp || !*envp)
 		return (minimal_env(all));
-	while (envp[i])
-	{
-		create_node_env(&my_env, i);
-		i++;
-	}
+	set_node_env(&my_env, envp);
 	my_env_tmp = my_env;
-	i = 0;
-	while (envp[i])
+	i = -1;
+	while (envp[++i])
 	{
 		if (fill_key_env(envp, i, &my_env->key))
 			return (ft_final(all, NULL, NULL, 1), NULL);
@@ -129,7 +145,6 @@ t_my_env	*ft_myenv(t_all *all, char **envp)
 			init_shlvl(all, my_env);
 		if (my_env->next)
 			my_env = my_env->next;
-		i++;
 	}
 	return (my_env_tmp);
 }

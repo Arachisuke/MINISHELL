@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 16:30:40 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/06 15:33:31 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 15:16:33 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,4 @@ int	is_token(char c)
 		i++;
 	}
 	return (SUCCESS);
-}
-
-int	is_negative_quotes(char c)
-{
-	return (c == -34 || c == -39);
 }

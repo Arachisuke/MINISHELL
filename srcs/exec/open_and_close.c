@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:39:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 13:10:35 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/05 14:10:38 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	who_is_last(t_redir *last_infile, t_simple_cmds *cmds, t_all *all)
 	{
 		cmds->fd_infile = open(last_infile->file_name, O_RDONLY);
 		if (cmds->fd_infile == -1)
-			return (ft_errchild(all, " No such file or directory", all->pipex, 127));
+			return (ft_errchild(all, " No such file or directory", all->pipex,
+					127));
 		if (dup2(cmds->fd_infile, STDIN_FILENO) == -1)
 			return (ft_errchild(all, " first process stdin3", all->pipex, 127));
 	}
@@ -82,14 +83,14 @@ int	open_and_close(t_all *all, t_simple_cmds *cmds, t_pipex *pipex)
 			return (127);
 	return (SUCCESS);
 }
+
 int	onecmd(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 {
 	open_and_close(all, cmds, pipex);
 	close_fd(pipex, cmds);
-
-		pipex->path = checkcmd(all, pipex->all_path, cmds->strs[0], pipex);
-		if (!pipex->path)
-			return (ft_errchild(all, "Command not found", pipex, 127));
-		execve(pipex->path, cmds->strs, pipex->env);
-		return (ft_errchild(all, "execve", pipex, 1));
+	pipex->path = checkcmd(all, pipex->all_path, cmds->strs[0], pipex);
+	if (!pipex->path)
+		return (ft_errchild(all, "Command not found", pipex, 127));
+	execve(pipex->path, cmds->strs, pipex->env);
+	return (ft_errchild(all, "execve", pipex, 1));
 }

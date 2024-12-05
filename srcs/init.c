@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/04 12:47:30 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 15:21:16 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	len_env(char **env)
 		i++;
 	return (i);
 }
+
 char	*ft_pid(t_all *all, t_expand **tmp)
 {
 	int	fd;
@@ -38,28 +39,11 @@ char	*ft_pid(t_all *all, t_expand **tmp)
 	(*tmp)->strexpanded = get_next_line(fd);
 	all->id = ft_atoi((*tmp)->strexpanded);
 	free((*tmp)->strexpanded);
-	// printf("IIIIIIIIIIIIIIID = %d\n", all->id);
-	close(fd);
-	all->shell_id = ft_itoa(all->id);
-	return (all->shell_id);
-	if (all->shell_id)
-		return (all->shell_id);
-	if (all->id)
-	{
-		all->shell_id = ft_itoa(all->id);
-		return (all->shell_id);
-	}
-	fd = open("/proc/self/stat", O_RDONLY);
-	if (fd < 0)
-		return (ft_final(all, NULL, ERR_FD, 1), NULL);
-	(*tmp)->strexpanded = get_next_line(fd);
-	all->id = ft_atoi((*tmp)->strexpanded);
-	free((*tmp)->strexpanded);
-	printf("IIIIIIIIIIIIIIID = %d\n", all->id);
 	close(fd);
 	all->shell_id = ft_itoa(all->id);
 	return (all->shell_id);
 }
+
 int	init_all(t_all *all, char **envp, t_pipex *pipex)
 {
 	int	i;
@@ -79,7 +63,7 @@ int	init_all(t_all *all, char **envp, t_pipex *pipex)
 	all->shell_id = NULL;
 	all->id = 0;
 	all->pipex->nbrcmd = 0;
-	if (!all->my_env) // cest une condition instable...
+	if (!all->my_env)
 		all->my_env = ft_myenv(all, envp);
 	if (!all->my_env)
 		return (1);
@@ -91,15 +75,16 @@ void	init_parse(t_parse *parse, char *line)
 	parse->end = 0;
 	parse->flag = 0;
 	parse->i = skip_spaces(line);
-	parse->i = firstquotecheck(line, parse->i); // 1
+	parse->i = firstquotecheck(line, parse->i);
 	parse->j = 0;
 	parse->start = 0;
 	parse->quotes = 0;
 }
+
 void	get_current_dir(char **line)
 {
-	int i;
-	char current_directory[PATH_MAX];
+	int		i;
+	char	current_directory[PATH_MAX];
 
 	i = 0;
 	getcwd(current_directory, PATH_MAX);

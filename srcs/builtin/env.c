@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:08 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/04 15:53:18 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/05 14:07:28 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_env(t_my_env *my_env, t_all *all)
 		my_env = my_env->next;
 	}
 }
+
 char	*free_env(t_my_env **env)
 {
 	t_my_env	*tmp;

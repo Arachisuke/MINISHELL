@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:50:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 13:02:44 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:16:48 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	ft_final(t_all *all, char *error, char *msgerror, int sortie)
 	all->exit_code = sortie;
 	return (sortie);
 }
+
 void	msg_error(t_all *all, char *msgerror, char *error)
 {
 	if (is_triple_redir(all->line) == 3)

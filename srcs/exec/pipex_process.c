@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:29:10 by macos             #+#    #+#             */
-/*   Updated: 2024/11/26 12:35:49 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 14:11:09 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	first_process(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 	if (dup2(all->pipex->pipefd[0][1], STDOUT_FILENO) < 0)
 		return (ft_errchild(all, " first process stdout", pipex, 127));
 	open_and_close(all, cmds, pipex);
-	close_fd(pipex, cmds); // pipefd, et les deux fd de cmds.
+	close_fd(pipex, cmds);
 	if (cmds->is_builtin)
 	{
 		builtins_or_not(all, cmds);
@@ -46,7 +46,7 @@ int	process_final(t_all *all, t_pipex *pipex)
 	if (!pipex->cmds)
 		return (0);
 	open_and_close(all, pipex->cmds, pipex);
-	close_fd(pipex, pipex->cmds); // pipefd, et les deux fd de pipex->cmds.
+	close_fd(pipex, pipex->cmds);
 	if (pipex->cmds->is_builtin)
 	{
 		builtins_or_not(all, pipex->cmds);
@@ -94,7 +94,7 @@ int	process_middle(t_all *all, t_simple_cmds *cmds, int i)
 	if (dup2(all->pipex->pipefd[i][1], STDOUT_FILENO) < 0)
 		return (ft_errchild(all, " middle dup31", all->pipex, 1));
 	open_and_close(all, cmds, all->pipex);
-	close_fd(all->pipex, cmds); // pipefd, et les deux fd de cmds.
+	close_fd(all->pipex, cmds);
 	if (cmds->is_builtin)
 	{
 		builtins_or_not(all, cmds);

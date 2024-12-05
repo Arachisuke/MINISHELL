@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:25:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/04 11:11:51 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 14:14:01 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	parsing_pipex(t_pipex *pipex, char **envp)
 	int	i;
 
 	i = 0;
-	// if (!ft_strncmp(data->argv_copy[1], "here_doc", 8))
-	// 	here_doc(data, data->argv_copy);
 	if (!envp)
 		return ;
 	while (envp[i])
@@ -60,6 +58,7 @@ void	parsing_pipex(t_pipex *pipex, char **envp)
 		i++;
 	}
 }
+
 void	free_tab(int **tab, t_pipex *pipex)
 {
 	int	i;
@@ -79,6 +78,7 @@ void	free_tab(int **tab, t_pipex *pipex)
 	free(tab);
 	tab = NULL;
 }
+
 int	wait_childs(pid_t pid, t_pipex *pipex, t_all *all)
 {
 	int	code;
@@ -92,6 +92,7 @@ int	wait_childs(pid_t pid, t_pipex *pipex, t_all *all)
 	all->exit_code = code;
 	return (code);
 }
+
 int	envlist_envchar(t_pipex *pipex, t_my_env *envp)
 {
 	t_my_env	*tmp;
@@ -113,6 +114,7 @@ int	envlist_envchar(t_pipex *pipex, t_my_env *envp)
 	pipex->env[i] = NULL;
 	return (0);
 }
+
 char	*strjoinegal(char const *s1, char const *s2)
 {
 	char	*s;

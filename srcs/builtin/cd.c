@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/03 13:01:56 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/05 13:59:35 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ int	new_oldpwd(t_my_env *my_env, char *oldpwd, char *pwd, t_all *all)
 	return (SUCCESS);
 }
 
+void	err_pwd(t_all *all, char **path)
+{
+	ft_printf_fd(2, "minishell: cd: %s: %s\n", *path, strerror(errno));
+	free(*path);
+	ft_final(all, NULL, ERR_ENV, 1);
+}
+
 void	exec_cd(char *path, t_all *all)
 {
 	int		i;
@@ -45,11 +52,7 @@ void	exec_cd(char *path, t_all *all)
 	i = 0;
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
-	{
-		ft_printf_fd(2, "minishell: cd: %s\n", strerror(errno));
-		free(path);
-		ft_final(all, NULL, ERR_ENV, 1);
-	}
+		err_pwd(all, &path);
 	if (chdir(path) == -1)
 	{
 		ft_printf_fd(2, "minishell: cd: %s: %s\n", path, strerror(errno));
@@ -90,7 +93,7 @@ char	*get_home(t_my_env *my_env, t_all *all)
 	return (NULL);
 }
 
-int	check_dir(char *path)
+int	check_dir(char *path, t_all *all)
 {
 	DIR	*dir;
 
@@ -100,6 +103,7 @@ int	check_dir(char *path)
 	if (!dir)
 	{
 		ft_printf_fd(2, "minishell: cd : %s: %s\n", path, strerror(errno));
+		all->exit_code = 1;
 		return (1);
 	}
 	closedir(dir);
@@ -122,6 +126,7 @@ void	ft_cd(t_simple_cmds *cmds, t_all *all)
 {
 	char	*pwd;
 
+	all->exit_code = 0;
 	if (cmds && count_line(cmds->strs) > 2)
 	{
 		ft_printf_fd(2, "minishell: cd: too many arguments\n");
@@ -132,11 +137,8 @@ void	ft_cd(t_simple_cmds *cmds, t_all *all)
 		pwd = get_home(all->my_env, all);
 	else
 	{
-		if (check_dir(cmds->strs[1]))
-		{
-			all->exit_code = 1;
+		if (check_dir(cmds->strs[1], all))
 			return ;
-		}
 		pwd = ft_strdup(cmds->strs[1]);
 	}
 	if (!pwd)

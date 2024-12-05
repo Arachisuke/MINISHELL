@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:44:56 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/27 11:59:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 15:18:37 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int	passing_next_cmds(t_simple_cmds **tmp, t_all *all, int *i)
 	(*tmp) = (*tmp)->next;
 	(*tmp)->strs = malloc_strs(count_arg(all->tmp_lexer));
 	if (!(*tmp)->strs)
-				return (ft_final(all, NULL, NULL, 1));
-
+		return (ft_final(all, NULL, NULL, 1));
 	*i = 0;
 	return (SUCCESS);
 }
@@ -72,8 +71,7 @@ int	sort_cmds(t_all *all)
 	all->cmds = malloc_cmds_struct(all->tmp_lexer);
 	all->cmds->strs = malloc_strs(count_arg(all->tmp_lexer));
 	if (!all->cmds->strs || !all->cmds)
-				return (ft_final(all, NULL, NULL, 1));
-
+		return (ft_final(all, NULL, NULL, 1));
 	all->tmp_cmds = all->cmds;
 	while (all->tmp_lexer)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/27 11:59:08 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 14:40:11 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,3 @@ int	find_var(t_all *all)
 	}
 	return (SUCCESS);
 }
-
-// iterer while(i)
-// flag a 1 les redir
-// flag a 0 if flag == 1 et que ya un caractere quelconque

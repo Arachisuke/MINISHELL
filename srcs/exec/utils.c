@@ -3,28 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:17:30 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/03 14:05:16 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 14:59:36 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+void	free_fd_pid(int ***pipefd, int **pid, t_pipex *pipex)
+{
+	if (*pipefd)
+	{
+		free_tab(*pipefd, pipex);
+		*pipefd = NULL;
+	}
+	if (*pid)
+	{
+		free(*pid);
+		*pid = NULL;
+	}
+}
+
 int	ft_errparent(t_all *all, char *str, t_pipex *pipex, int msg)
 {
 	close_fd(pipex, all->cmds);
-	if (pipex->pipefd)
-	{
-		free_tab(pipex->pipefd, pipex); // 1
-		pipex->pipefd = NULL;
-	}
-	if (pipex->pid)
-	{
-		free(pipex->pid);
-		pipex->pid = NULL;
-	}
+	free_fd_pid(&pipex->pipefd, &pipex->pid, pipex);
 	if (pipex->all_path)
 	{
 		free_strs(pipex->all_path);
@@ -49,17 +54,8 @@ int	ft_errchild(t_all *all, char *str, t_pipex *pipex, int msg)
 		ft_printf_fd(2, "minishell: %s: %s\n", pipex->cmds->strs[0], str);
 	close_fd(pipex, all->cmds);
 	ft_final(all, NULL, NULL, 0);
-	free_env(&all->my_env); // ils sont dans ft_exit.
-	if (pipex->pipefd)
-	{
-		free_tab(pipex->pipefd, pipex); // 1
-		pipex->pipefd = NULL;
-	}
-	if (pipex->pid)
-	{
-		free(pipex->pid);
-		pipex->pid = NULL;
-	}
+	free_env(&all->my_env);
+	free_fd_pid(&pipex->pipefd, &pipex->pid, pipex);
 	if (pipex->all_path)
 	{
 		free_strs(pipex->all_path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expandornot.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/04 15:45:46 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 15:20:17 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	is_underscore(char *str, int i)
 	}
 	return (0);
 }
+
 int	condition(char *str, int i)
 {
 	if (checkredir(str, i))
-		// si cest un file return1 donc je cree meme pas dexpand
 		return (1);
 	if (str[i] == '$' && str[i + 1] && ft_isdigit(str[i + 1]))
 	{
@@ -51,6 +51,13 @@ int	condition(char *str, int i)
 	else if (str[i] == '$' && str[i + 1])
 		return (SUCCESS);
 	return (1);
+}
+
+void	set_second_expanded(t_expand ***tmp, int i, char *line)
+{
+	(**tmp)->strexpanded2 = (**tmp)->strexpanded;
+	line[i] = -87;
+	line[i - 1] = -87;
 }
 
 int	fonctionexpand(t_all *all, t_expand **tmp, int *i)
@@ -78,11 +85,7 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int *i)
 	env[r] = '\0';
 	(*tmp)->strtoexpand = env;
 	if ((*tmp)->strexpanded)
-	{
-		(*tmp)->strexpanded2 = (*tmp)->strexpanded;
-		all->line[*i] = -87;
-		all->line[*i - 1] = -87;
-	}
+		set_second_expanded(&tmp, *i, all->line);
 	return (SUCCESS);
 }
 

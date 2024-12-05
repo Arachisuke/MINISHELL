@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 15:55:15 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/04 15:32:38 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/05 11:42:42 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	builtins_or_not(t_all *all, t_simple_cmds *cmds)
 	else if (!ft_strncmp(cmds->strs[0], "export", 6) && cmds->is_builtin)
 		ft_export(all, cmds->strs);
 	else if (!ft_strncmp(cmds->strs[0], "pwd", 3) && cmds->is_builtin)
-		ft_pwd(cmds);
+		ft_pwd(cmds, all);
 	else if (!ft_strncmp(cmds->strs[0], "unset", 5) && cmds->is_builtin)
 		ft_unset(all, cmds->strs);
 }

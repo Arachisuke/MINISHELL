@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:19:59 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/13 15:13:36 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 15:20:02 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ t_my_env	*create_node_env(t_my_env **my_env, int i)
 		ft_back_env(my_env, ft_new_env(i));
 	return (*my_env);
 }
+
 int	ft_lstsize_env(t_my_env *lst)
 {
-	int		i;
+	int			i;
 	t_my_env	*actuel;
 
 	actuel = lst;

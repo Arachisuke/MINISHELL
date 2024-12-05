@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:18:46 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/04 12:12:04 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/05 15:20:30 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	free_strs(char **strs)
 	return ;
 }
 
-char	*free_cmds(t_simple_cmds **cmds) // 2
+char	*free_cmds(t_simple_cmds **cmds)
 {
-	t_simple_cmds *curr;
+	t_simple_cmds	*curr;
 
 	if (!*cmds || !cmds)
 		return (NULL);
@@ -53,10 +53,11 @@ char	*free_cmds(t_simple_cmds **cmds) // 2
 	}
 	return (NULL);
 }
-char	*free_redir(t_simple_cmds *cmds) // 1
+
+char	*free_redir(t_simple_cmds *cmds)
 {
-	t_redir *curr;
-	t_simple_cmds *cmds_tmp;
+	t_redir			*curr;
+	t_simple_cmds	*cmds_tmp;
 
 	if (!cmds)
 		return (NULL);
@@ -64,7 +65,7 @@ char	*free_redir(t_simple_cmds *cmds) // 1
 	while (cmds_tmp)
 	{
 		curr = cmds_tmp->redir;
-		while (cmds_tmp->redir) // filename a le meme pointeur que lexer.string
+		while (cmds_tmp->redir)
 		{
 			cmds_tmp->redir->file_name = NULL;
 			curr = cmds_tmp->redir->next;
@@ -77,9 +78,9 @@ char	*free_redir(t_simple_cmds *cmds) // 1
 	return (NULL);
 }
 
-char	*free_lexer(t_lexer **lexer) // 3 ou 1
+char	*free_lexer(t_lexer **lexer)
 {
-	t_lexer *curr;
+	t_lexer	*curr;
 
 	if (!*lexer || !lexer)
 		return (NULL);
@@ -96,9 +97,9 @@ char	*free_lexer(t_lexer **lexer) // 3 ou 1
 	return (NULL);
 }
 
-char	*free_expand(t_expand **expand) // 4
+char	*free_expand(t_expand **expand)
 {
-	t_expand *curr;
+	t_expand	*curr;
 
 	if (!*expand || !expand)
 		return (NULL);
