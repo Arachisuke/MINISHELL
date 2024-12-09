@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/05 13:59:35 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:09:29 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ void	err_pwd(t_all *all, char **path)
 
 void	exec_cd(char *path, t_all *all)
 {
-	int		i;
 	char	*oldpwd;
 
-	i = 0;
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 		err_pwd(all, &path);
@@ -73,10 +71,8 @@ void	exec_cd(char *path, t_all *all)
 
 char	*get_home(t_my_env *my_env, t_all *all)
 {
-	int		i;
 	char	*home;
 
-	i = 0;
 	home = NULL;
 	while (my_env)
 	{
