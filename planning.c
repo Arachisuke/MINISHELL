@@ -350,20 +350,17 @@ echo $UIDt le pipex.path, si il ya le exit...
 
 
 
-// test de leak.
-// test de output.
-// test de code d'erreur
-// test de message d'erreur
-// reduire les lignes.
-// export ""| -> count = 3 
-// heredoc signaux
+// export ""| -> count = 3 @@@@@@@
 
 // env minimal implemente mais pas pu tester l execution de minishell a l'interieur.
 // 				/home/ankammer/Cursus42/minishell> ./minishell
-// 				minishell: ./minishell: Command not found
+// 				minishell: ./minishell: Command not found @@@@@@@@@@@
 
 
-// removesquotes, remove les quotes basic.
-// removesquotes1, removes les quotes cote a cote.
-// remove dollarz, remove le dollar
-//
+// heredoc signaux
+// reduire les lignes. (unset export count_word et mes dernieres fonctions)
+// test de leak. (inputcsv1 ok, )
+
+
+// test de code d'erreur
+// test de message d'erreur / output
