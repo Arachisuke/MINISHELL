@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:28:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/04 13:57:55 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/09 14:17:13 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,9 @@ int	malloc_input(t_all *all)
 		return (ft_final(all, NULL, ERR_LINE, 1));
 	i = skip_spaces(all->line);
 	i = firstquotecheck(all->line, i);
-		// le cas ou ya "" cat ou ""cat dans le cas ou c colle c bon je ne le prend pas en compte je le saute c comme si cetait vide
-	count = count_word(all->line);
-	//printf("COUUUUNT = %d\n", count);
+	count = count_word(all->line, i, all->utils);
 	count = check_quote_and_redir(all->line, i, count);
-	printf("COUUUUNT = %d\n", count);
+	printf("COUUUUUUUUUUUUUUNT = %d", count);
 	if (count == 0)
 		return (ft_final(all, NULL, NULL, 1));
 	all->strs = malloc(sizeof(char *) * (count + 1));

@@ -363,4 +363,10 @@ echo $UIDt le pipex.path, si il ya le exit...
 
 
 // test de code d'erreur
+
+
 // test de message d'erreur / output
+
+
+
+// changement count_word, if egal.

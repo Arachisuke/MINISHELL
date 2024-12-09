@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:29:10 by macos             #+#    #+#             */
-/*   Updated: 2024/12/05 14:11:09 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:07:23 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	process_final(t_all *all, t_pipex *pipex)
 	int	i;
 
 	i = -1;
+	pipex->cmds = pipex->cmds->next;
 	if (dup2(all->pipex->pipefd[pipex->nbrcmd - 2][0], STDIN_FILENO) < 0)
 		return (ft_errchild(all, " first process stdout", pipex, 127));
 	if (!pipex->cmds)
@@ -71,15 +72,14 @@ int	create_process(t_all *all, t_pipex *pipex)
 
 	j = 1;
 	i = 1;
-	pipex->cmds = pipex->cmds->next;
 	while (pipex->nbrcmd > i + 1)
 	{
 		pipex->pid[i] = fork();
+		all->pipex->cmds = all->pipex->cmds->next;
 		if (pipex->pid[i] == -1)
 			return (ft_errchild(all, "fork", pipex, 1));
 		if (pipex->pid[i] == 0 && pipex->pid[i - 1] > 0)
 			process_middle(all, pipex->cmds, i);
-		pipex->cmds = pipex->cmds->next;
 		i++;
 	}
 	return (0);

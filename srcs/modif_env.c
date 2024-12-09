@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:57:23 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/02 14:53:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/09 12:38:47 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ t_my_env	*modify_env(char *key, char *value, t_my_env *env)
 	while (tmp_env)
 	{
 		if (ft_strlen(tmp_env->key) == ft_strlen(key))
+		{
 			if (!ft_strncmp(tmp_env->key, key, ft_strlen(tmp_env->key)))
 			{
 				free(tmp_env->value);
 				tmp_env->value = ft_strdup(value);
 				break ;
 			}
+		}
 		tmp_env = tmp_env->next;
 		index++;
 	}

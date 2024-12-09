@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/12/09 14:35:27 by ankammer         ###   ########.fr       */
+=======
+/*   Updated: 2024/12/09 14:52:03 by wzeraig          ###   ########.fr       */
+>>>>>>> refs/remotes/origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +87,11 @@ int	minish(t_all *all, t_parse *parse)
 {
 	if (verif_to_final_line(all))
 		return (1);
+<<<<<<< HEAD
 	all->line = removedollarz(all->line);
+=======
+	all->line = removedollarz(all->line, all->utils);
+>>>>>>> refs/remotes/origin/main
 	if (verif_space_to_parse_line(all, parse))
 		return (1);
 	all->lexer = create_node(all, &all->lexer, &all->strs);
@@ -97,12 +105,13 @@ int	main(int argc, char **argv, char **envp)
 	t_parse	parse;
 	t_all	all;
 	t_pipex	pipex;
+	t_utils utils;
 
 	if (check_before_while(argc, argv, &all.my_env, &all.exit_code))
 		return (0);
 	while (1)
 	{
-		if (init_all(&all, envp, &pipex))
+		if (init_all(&all, envp, &pipex, &utils ))
 			continue ;
 		if (get_line_and_signals(&all))
 			break ;
@@ -122,4 +131,8 @@ int	main(int argc, char **argv, char **envp)
 // node_affichage(all.lexer); /// strs et line..et all
 // printf("before = %s\n", all.line);
 // printf("afterremove = %s\n", all.line);
+<<<<<<< HEAD
 // printf("lineafterget = %s\n", all.line);
+=======
+// printf("lineafterget = %s\n", all.line);
+>>>>>>> refs/remotes/origin/main
