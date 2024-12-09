@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:24:05 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/05 15:08:22 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:36:27 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_my_env	*remove_the_first(t_my_env **env)
 {
 	t_my_env	*env_tmp;
 
-	env_tmp = (*env)->next; // egal a la deuxieme node
+	env_tmp = (*env)->next;
 	free((*env)->key);
 	free((*env)->value);
 	free(*env);
@@ -72,8 +72,7 @@ t_my_env	*check_env(char *key, t_my_env *env)
 
 int	if_unset(t_all *all, char *line)
 {
-	int		i;	
-
+	int		i;
 	int		flag;
 	char	quotes;
 
@@ -86,11 +85,10 @@ int	if_unset(t_all *all, char *line)
 			flag = 1;
 			quotes = line[i];
 		}
-		if (ft_strncmp(line + i, "unset", 5)) // exporta=ok
+		if (ft_strncmp(line + i, "unset", 5))
 		{
 			if (line[i + 4] && !flag)
 				return (msg_error(all, ERR_BASE, line), 1);
-			// modifier pour unset
 			return (0);
 		}
 		if (line[i] == quotes && flag)
@@ -102,14 +100,13 @@ int	if_unset(t_all *all, char *line)
 
 void	ft_unset(t_all *all, char **strs)
 {
-	int i;
-	int j;
-	int error;
+	int	i;
+	int	j;
+	int	error;
 
 	i = 0;
 	j = 1;
-
-	error = if_unset(all, strs[0]); // verification de la cmd unset
+	error = if_unset(all, strs[0]);
 	if (error)
 		return ;
 	while (strs[j])

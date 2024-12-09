@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/05 15:21:16 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:04:25 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,16 @@ char	*ft_pid(t_all *all, t_expand **tmp)
 	return (all->shell_id);
 }
 
-int	init_all(t_all *all, char **envp, t_pipex *pipex)
+void	init_utils(t_all *all)
+{
+	all->utils->count = 0;
+	all->utils->flag = 0;
+	all->utils->i = 0;
+	all->utils->j = 0;
+	all->utils->value2 = NULL;
+}
+
+int	init_all(t_all *all, char **envp, t_pipex *pipex, t_utils *utils)
 {
 	int	i;
 
@@ -67,6 +76,8 @@ int	init_all(t_all *all, char **envp, t_pipex *pipex)
 		all->my_env = ft_myenv(all, envp);
 	if (!all->my_env)
 		return (1);
+	all->utils = utils;
+	init_utils(all);
 	return (SUCCESS);
 }
 

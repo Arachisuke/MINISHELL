@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:07:20 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/05 14:48:18 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/09 14:17:35 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,36 +53,58 @@ int	count_word_quotes(const char *str, int *i)
 	return (*i = j, 0);
 }
 
-int	count_word(const char *str)
-{
-	int	i;
-	int	compteur;
-	int	flag;
+// int	count_word(const char *str, int i)
+// {
+// 	int	compteur;
+// 	int	flag;
 
-	if (!str)
-		return (-1);
-	i = 0;
-	compteur = 0;
-	flag = 0;
+// 	compteur = 0;
+// 	flag = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == ' ')
+// 			flag = 0;
+// 		else if (!is_token_space(str[i]) && str[i] != -100 && !flag)
+// 			flag = 1;
+// 		if (str[i] < 0)
+// 			if (count_word_quotes(str, &i) && str[i + 1] && is_token_space(str[i
+// 					+ 1]))
+// 				compteur++;
+// 		if ((!is_token_space(str[i]) && str[i + 1] && is_token_space(str[i
+					//+ 1]))
+// 				|| ((!is_token_space(str[i]) && str[i + 1] == '\0') && flag))
+// 		{
+// 			compteur++;
+// 			flag = 0;
+// 		}
+// 		i++;
+// 	}
+// 	return (compteur);
+// }
+int	count_word(const char *str, int i, t_utils *s)
+{
+	s->count = 0;
+	s->flag = 0;
 	while (str[i])
 	{
 		if (str[i] == ' ')
-			flag = 0;
-		else if (!is_token_space(str[i]) && str[i] != -100 && !flag)
-			flag = 1;
+			s->flag = 0;
+		else if (!is_token_space(str[i]) && str[i] != -100 && !s->flag)
+			s->flag = 1;
 		if (str[i] < 0)
 			if (count_word_quotes(str, &i) && str[i + 1] && is_token_space(str[i
 					+ 1]))
-				compteur++;
+				s->count++;
 		if (!is_token_space(str[i]) && str[i + 1] && is_token_space(str[i + 1])
-			&& flag)
+			&& s->flag)
 		{
-			compteur++;
-			flag = 0;
+			s->count++;
+			s->flag = 0;
 		}
 		if (!is_token_space(str[i]) && str[i + 1] == '\0')
-			compteur++;
+			s->count++;
 		i++;
 	}
-	return (compteur);
+	return (s->count);
 }
+

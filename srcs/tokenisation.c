@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/05 12:09:51 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:45:22 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*remplir(t_all *all, int start, int end) // remettre a la normal lespace et le token qui sont a linterieur de quotes.
+char	*remplir(t_all *all, int start, int end)
 {
 	char	*str;
 	int		i;
@@ -34,12 +34,9 @@ char	*remplir(t_all *all, int start, int end) // remettre a la normal lespace et
 		str[i++] = all->line[j++];
 	}
 	str[i] = '\0';
-	str = removequotes(str);
+	str = removequotes(str, all->utils);
 	return (str);
 }
-// probleme si !str la fonction continue et ne renvoit pas null
-// return (NULL) + verif parseline puis ft_final?
-// changer free(strs) -> return (NULL) a voir avec walid!
 
 char	*tokenisation(char *line, int **index)
 {
@@ -50,7 +47,7 @@ char	*tokenisation(char *line, int **index)
 	{
 		str = malloc(sizeof(char) * 3);
 		if (!str)
-			return (NULL); // sortie d'erreur free puis exit! utiliser erno
+			return (NULL);
 		str[0] = line[**index];
 		str[1] = line[**index + 1];
 		str[2] = '\0';
@@ -61,7 +58,7 @@ char	*tokenisation(char *line, int **index)
 	{
 		str = malloc(sizeof(char) * 2);
 		if (!str)
-			return (NULL); // sortie d'erreur free puis exit! utiliser erno
+			return (NULL);
 		str[0] = line[**index];
 		str[1] = '\0';
 	}
@@ -92,11 +89,6 @@ void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 		fill_tab((*parse)->j, all->tab, &k);
 	strs[(*parse)->j++] = remplir(all, (*parse)->start, (*parse)->end);
 }
-
-// changement dans le while parse++i et init retrait du	-1 pour gerer pipe collee plus reduction ligne parse_line
-// parse++i -> probleme lorsque pipe collee incrementait 2 x!
-// creation de token utils 2
-// voir fonction tokenisation !
 
 char	**parse_line(t_all *all, char **strs, t_parse *parse)
 {

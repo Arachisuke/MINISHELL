@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:50:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/05 15:16:48 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/09 11:22:43 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ void	msg_error(t_all *all, char *msgerror, char *error)
 	else
 		ft_putstr_fd(msgerror, 2);
 	ft_putchar_fd('\n', 1);
+	all->exit_code = 1;
 }

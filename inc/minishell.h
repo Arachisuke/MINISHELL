@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 17:21:34 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/05 14:05:11 by ankammer         ###   ########.fr       */
+/*   Created: 2024/12/09 14:42:58 by wzeraig           #+#    #+#             */
+/*   Updated: 2024/12/09 14:47:38 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,16 @@ typedef struct s_lexer
 	struct s_lexer			*next;
 	struct s_lexer			*prev;
 }							t_lexer;
+
+typedef struct s_utils
+{
+	int						i;
+	int						j;
+	int						flag;
+	int						count;
+	char					*value2;
+}							t_utils;
+
 typedef struct s_expand
 {
 	int						i;
@@ -148,6 +158,7 @@ typedef struct s_all
 	t_my_env				*my_env;
 	t_pipex					*pipex;
 	int						exit_code;
+	t_utils					*utils;
 }							t_all;
 
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
@@ -167,7 +178,7 @@ int							sort_cmds(t_all *all);
 t_expand					*ft_back_expand(t_expand **lst, t_expand *new);
 t_expand					*ft_new_expand(void);
 int							is_token_space(char c);
-int							count_word(const char *str);
+int							count_word(const char *str, int i, t_utils *s);
 char						*remplir(t_all *all, int start, int end);
 int							checktab(int *tab, int j);
 char						*tokenisation(char *line, int **index);
@@ -202,7 +213,8 @@ t_expand					*create_nodexpand(t_expand **expand, int nbrexpand);
 void						expand_affichage(t_expand *expand);
 int							find_var(t_all *all);
 int							find_var(t_all *all);
-int							init_all(t_all *all, char **envp, t_pipex *pipex);
+int							init_all(t_all *all, char **envp, t_pipex *pipex,
+								t_utils *utils);
 
 int							checkredir(char *line, int i);
 char						*free_redir(t_simple_cmds *cmds);
@@ -239,8 +251,8 @@ void						msg_error(t_all *all, char *msgerror, char *error);
 t_my_env					*modify_env(char *key, char *value, t_my_env *env);
 t_my_env					*ft_last_env(t_my_env *my_env);
 void						free_all(t_all *all);
-char						*removequotes(char *line);
-char						*removedollarz(char *line);
+char						*removequotes(char *line, t_utils *s);
+char						*removedollarz(char *line, t_utils *s);
 
 char						*free_env(t_my_env **env);
 int							ft_pipex(t_all *all, t_pipex *pipex,
