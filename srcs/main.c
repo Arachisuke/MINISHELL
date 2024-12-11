@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/11 13:06:25 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/11 13:35:50 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,11 @@ int	minish(t_all *all, t_parse *parse)
 {
 	if (verif_to_final_line(all))
 		return (1);
+<<<<<<< HEAD
+	all->line = removedollarz(all->line);
+=======
 	all->line = removedollarz(all->line, all->utils);
+>>>>>>> refs/remotes/origin/main
 	if (verif_space_to_parse_line(all, parse))
 		return (1);
 	all->lexer = create_node(all, &all->lexer, &all->strs);
@@ -125,4 +129,8 @@ int	main(int argc, char **argv, char **envp)
 // node_affichage(all.lexer); /// strs et line..et all
 // printf("before = %s\n", all.line);
 // printf("afterremove = %s\n", all.line);
+<<<<<<< HEAD
 // printf("lineafterget = %s\n", all.line);
+=======
+// printf("lineafterget = %s\n", all.line);
+>>>>>>> refs/remotes/origin/main
