@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 16:35:24 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/05 12:10:01 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:33:39 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,18 @@ int	count_arg(t_lexer *curr)
 		tmp = tmp->next;
 	}
 	return (count);
+}
+int	ft_strictcmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (ft_strlen(s2) != ft_strlen(s1))
+		return(1);
+
+	while (n > i && s1[i] == s2[i] && s1[i])
+		i++;
+	if (i < n)
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (0);
 }

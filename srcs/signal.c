@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:10:54 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/05 15:19:44 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:19:46 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_signals(void)
 {
 	struct sigaction	sig;
 
-	rl_catch_signals = 0;
+	rl_catch_signals = 0; 
 	sigemptyset(&sig.sa_mask);
 	sig.sa_flags = SA_RESTART;
 	sig.sa_handler = &handle_sig;

@@ -370,3 +370,31 @@ echo $UIDt le pipex.path, si il ya le exit...
 
 
 // changement count_word, if egal.
+
+
+
+
+
+// 10 DECEMBRE
+
+// test de message d'erreur et output.
+// test de code de sortie.
+// se faire tester
+
+
+
+// le cas du .
+
+//echo "" e
+//export ""
+// export -HOLA=bonjour pa le meme msg d'erreur
+// export HO!LA=bonjour same
+
+
+
+// jusqua la ligne 164.
+
+// signaux heredoc ctrl c 
+
+
+// . ou ..

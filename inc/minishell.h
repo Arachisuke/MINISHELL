@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 14:42:58 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/09 14:47:38 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/10 12:33:57 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define ERR_INVALID_INPUT "syntax error : line"
 # define ERR_FILL_LINE 3
 # define ERR_SYNTAX "minishell : syntax error near unexpected token: `"
+# define ERR_SYNTAXPIPE "minishell : syntax error near unexpected token: `|"
 # define ERR_FD "failed to open file descriptor"
 # define ERR_READ 6
 # define ERR_ENV "error env"
@@ -190,6 +191,9 @@ t_lexer						*ft_new(t_all *all, void *content, int i);
 void						ft_back(t_lexer **lst, t_lexer *new);
 t_lexer						*ft_last(t_lexer *lst);
 int							ft_size(t_lexer *lst);
+int							ft_strictcmp(const char *s1, const char *s2,
+								size_t n);
+
 int							if_here_doc(t_all *all);
 void						get_current_dir(char **line);
 void						node_affichage(t_lexer *lexer);

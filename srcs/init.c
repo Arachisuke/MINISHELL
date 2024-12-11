@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/09 14:04:25 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/11 12:17:20 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,15 @@ void	get_current_dir(char **line)
 	char	current_directory[PATH_MAX];
 
 	i = 0;
-	getcwd(current_directory, PATH_MAX);
+	if (!getcwd(current_directory, PATH_MAX))
+	{
+		chdir(getenv("OLDPWD"));
+		if (!getcwd(current_directory, PATH_MAX))
+		{
+			*line = readline("minishell> ");
+			return;
+		}
+	}
 	i = ft_strlen(current_directory);
 	current_directory[i] = '>';
 	current_directory[i + 1] = ' ';

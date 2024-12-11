@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expandornot.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:38:41 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/05 15:20:17 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/11 10:50:01 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ int	is_underscore(char *str, int i)
 	return (0);
 }
 
-int	condition(char *str, int i)
+int	condition(char *str, int i, int flag)
 {
 	if (checkredir(str, i))
 		return (1);
+	if (!flag && str[i] == '$' && str[i + 1] && str[i + 1] == SQ)
+		return (str[i] = -87, 1);
+	if (!flag && str[i] == '$' && str[i + 1] && str[i + 1] == DQ)
+		return (str[i] = -87, 1);
 	if (str[i] == '$' && str[i + 1] && ft_isdigit(str[i + 1]))
-	{
-		str[i] = ' ';
-		str[i + 1] = ' ';
-		return (1);
-	}
+		return (str[i] = ' ', str[i + 1] = ' ', 1);
 	else if (is_underscore(str, i))
 		return (1);
 	else if (str[i] == '$' && str[i + 1] && str[i + 1] == SQ)
@@ -72,9 +72,9 @@ int	fonctionexpand(t_all *all, t_expand **tmp, int *i)
 	j = *i;
 	while (all->line[*i] && (ft_isalnum(all->line[*i]) || all->line[*i] == '_'))
 		(*i)++;
-	if (all->line[*i - 1] == '$' && all->line[*i] == '$')
+	if ((all->line[*i - 1] == -87 || all->line[*i - 1] == '$') && all->line[*i] == '$')
 		(*tmp)->strexpanded = ft_pid(all, tmp);
-	else if (all->line[*i - 1] == '$' && all->line[*i] == '?')
+	else if ((all->line[*i - 1] == -87 || all->line[*i - 1] == '$') && all->line[*i] == '?')
 		(*tmp)->strexpanded = ft_itoa(all->exit_code);
 	env = malloc(sizeof(char) * (*i - j + 1));
 	if (!env)
@@ -101,7 +101,8 @@ int	ft_expand(t_all *all, int j, char quotes, int flag)
 			all->line[j] = -100;
 			flag = 1;
 		}
-		else if (!condition(all->line, j) && ((flag && quotes == DQ) || !flag))
+		else if (!condition(all->line, j, flag) && ((flag && quotes == DQ)
+				|| !flag))
 		{
 			tmp = ft_back_expand(&all->expand, ft_new_expand());
 			if (fonctionexpand(all, &tmp, &j))

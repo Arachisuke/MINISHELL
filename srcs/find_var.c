@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/05 14:40:11 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:34:02 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	find_var(t_all *all)
 		{
 			while (tmpenv)
 			{
-				if (!ft_strncmp(tmpenv->key, tmp->strtoexpand, tmp->lenbefore
+				if (!ft_strictcmp(tmpenv->key, tmp->strtoexpand, tmp->lenbefore
 						- 1))
 					tmp->strexpanded = tmpenv->value;
 				tmpenv = tmpenv->next;
