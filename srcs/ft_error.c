@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:50:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/09 11:22:43 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/11 15:12:25 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	free_all(t_all *all)
 {
+	if (all->cmds)
+		free_redir(all->cmds);
 	if (all->strs)
 	{
 		free_strs(all->strs);
 		all->strs = NULL;
 	}
-	if (all->cmds)
-		free_redir(all->cmds);
 	if (all->cmds)
 		free_cmds(&all->cmds);
 	if (all->lexer)

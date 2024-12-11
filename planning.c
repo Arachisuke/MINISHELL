@@ -385,8 +385,6 @@ echo $UIDt le pipex.path, si il ya le exit...
 
 // le cas du .
 
-//echo "" e
-//export ""
 // export -HOLA=bonjour pa le meme msg d'erreur@@@@
 // export HO!LA=bonjour same @@@@
 
@@ -398,3 +396,12 @@ echo $UIDt le pipex.path, si il ya le exit...
 
 
 // . ou .. @@@@
+
+
+
+//echo "" e
+//export ""
+// export hola=cmd a ne pas gerer
+// heredoc signal
+// tester les 400
+// tester les 200 autres

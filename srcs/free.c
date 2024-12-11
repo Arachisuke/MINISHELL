@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:18:46 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/05 15:20:30 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:08:13 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	*free_redir(t_simple_cmds *cmds)
 		curr = cmds_tmp->redir;
 		while (cmds_tmp->redir)
 		{
+			if (cmds_tmp->redir->fd_here_doc)
+				unlink(cmds_tmp->redir->file_name);
 			cmds_tmp->redir->file_name = NULL;
 			curr = cmds_tmp->redir->next;
 			free(cmds_tmp->redir);

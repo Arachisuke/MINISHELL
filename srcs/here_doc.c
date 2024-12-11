@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:20:53 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/05 15:22:06 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/11 15:02:31 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	if_here_doc(t_all *all)
 		}
 		cmds = cmds->next;
 	}
+	ft_sig_heredoc();
 	return (SUCCESS);
 }

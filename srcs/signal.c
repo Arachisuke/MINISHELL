@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:10:54 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/10 16:19:46 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/11 15:03:19 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ void	sig_heredoc(int s)
 	g_sig = s;
 	close(STDIN_FILENO);
 	ft_printf_fd(2, "^C");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	ft_sig_heredoc(void)
@@ -53,7 +56,7 @@ void	ft_signals(void)
 {
 	struct sigaction	sig;
 
-	rl_catch_signals = 0; 
+	rl_catch_signals = 0;
 	sigemptyset(&sig.sa_mask);
 	sig.sa_flags = SA_RESTART;
 	sig.sa_handler = &handle_sig;

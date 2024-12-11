@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:09:41 by ankammer          #+#    #+#             */
-/*   Updated: 2024/11/14 15:31:04 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/11 15:07:17 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_redir	*ft_new_redir(void)
 	elem->token = 6;
 	elem->next = NULL;
 	elem->fd_here_doc = 0;
-	elem->ifhdoc = 0;
 	return (elem);
 }
 

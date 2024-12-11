@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 14:42:58 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/11 13:07:25 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/11 15:07:13 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ typedef struct s_redir
 	char					*file_name;
 	t_token					token;
 	int						fd_here_doc;
-	int						ifhdoc;
 	struct s_redir			*next;
 
 }							t_redir;
@@ -297,5 +296,6 @@ int							ft_errchild(t_all *all, char *str, t_pipex *pipex,
 void						ft_signals(void);
 bool						catchsignals(t_all *all);
 int							verif_dir(char **strs, t_all *all);
+void						ft_sig_heredoc(void);
 
 #endif
