@@ -6,11 +6,40 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/09 14:00:42 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/11 13:10:44 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	verif_dir(char **strs, t_all *all)
+{
+	DIR	*dir;
+
+	if (!strs || !*strs)
+		return (SUCCESS);
+	if (strs[0][0] == '/' || (strs[0][0] == '.' && strs[0][1] == '/'))
+	{
+		dir = opendir(strs[0]);
+		if (!dir)
+			return (closedir(dir), ft_printf_fd(2, "minishell: %s: No such file or directory\n", strs[0],
+					strerror(errno)), ft_final(all, NULL, NULL, 127));
+		else
+			return (closedir(dir), ft_printf_fd(2, "minishell: %s: Is a directory\n", strs[0]),
+				ft_final(all, NULL, NULL, 126));
+		closedir(dir);
+	}
+	else if (strs[0][0] == '.' && strs[0][1])
+		return (ft_printf_fd(2, "minishell: %s: command not found\n", strs[0]),
+			ft_final(all, NULL, NULL, 127));
+	else if (strs[0][0] == '.' && !strs[0][1] && strs[1])
+		return (ft_printf_fd(2, "minishell: %s: %s: file not found\n", strs[0],
+				strs[1]), ft_final(all, NULL, NULL, 1));
+	else if (strs[0][0] == '.' && !strs[0][1] && !strs[1])
+		return (ft_printf_fd(2, "minishell: %s: filename argument required\n",strs[0]), 
+		ft_printf_fd(2, "%s: usage: %s filename [arguments]\n", strs[0], strs[0]), ft_final(all, NULL, NULL, 1));
+	return (SUCCESS);
+}
 
 int	skip_spaces(char *str)
 {
@@ -26,7 +55,6 @@ int	verif_space(char *str, t_all *all)
 {
 	int	i;
 
-	
 	i = 0;
 	while (str[i])
 	{
@@ -67,7 +95,7 @@ int	verif_quotes(t_all *all, char *line)
 int	is_double_redir(char *line, int token, int i)
 {
 	if (((line[i] == '>' && line[i + 1] == '>') || (line[i] == '<' && line[i
-					+ 1] == '<')) && token == 0)
+				+ 1] == '<')) && token == 0)
 		return (1);
 	return (0);
 }

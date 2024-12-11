@@ -387,8 +387,8 @@ echo $UIDt le pipex.path, si il ya le exit...
 
 //echo "" e
 //export ""
-// export -HOLA=bonjour pa le meme msg d'erreur
-// export HO!LA=bonjour same
+// export -HOLA=bonjour pa le meme msg d'erreur@@@@
+// export HO!LA=bonjour same @@@@
 
 
 
@@ -397,4 +397,4 @@ echo $UIDt le pipex.path, si il ya le exit...
 // signaux heredoc ctrl c 
 
 
-// . ou ..
+// . ou .. @@@@

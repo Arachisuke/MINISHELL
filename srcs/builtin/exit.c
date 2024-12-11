@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:26 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/03 14:11:04 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/11 13:15:07 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	str_is_numeric(char *str)
 
 int	ft_exit(t_simple_cmds *cmds, t_all *all)
 {
-	if (all->pipex->nbrcmd == 1)
+	if (ft_size_cmds(all->cmds) == 1)
 		ft_printf_fd(1, "exit\n");
 	if (cmds->strs[1])
 	{

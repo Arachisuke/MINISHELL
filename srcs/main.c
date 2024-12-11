@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/09 14:52:03 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/11 13:06:25 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	state_init_to_here_doc(t_all *all)
 	if (state_init(all->lexer, all))
 		return (1);
 	if (sort_cmds(all))
+		return (1);
+	if (verif_dir(all->cmds->strs, all))
 		return (1);
 	if (if_here_doc(all))
 		return (1);
@@ -97,13 +99,13 @@ int	main(int argc, char **argv, char **envp)
 	t_parse	parse;
 	t_all	all;
 	t_pipex	pipex;
-	t_utils utils;
+	t_utils	utils;
 
 	if (check_before_while(argc, argv, &all.my_env, &all.exit_code))
 		return (0);
 	while (1)
 	{
-		if (init_all(&all, envp, &pipex, &utils ))
+		if (init_all(&all, envp, &pipex, &utils))
 			continue ;
 		if (get_line_and_signals(&all))
 			break ;

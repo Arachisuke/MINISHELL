@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/09 15:13:15 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/11 13:05:22 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,40 +18,56 @@ int	new_oldpwd(t_my_env *my_env, char *oldpwd, char *pwd, t_all *all)
 	{
 		if (!ft_strncmp(my_env->key, "OLDPWD", 6))
 		{
-			free(my_env->value);
-			my_env->value = ft_strdup(oldpwd);
-			if (!my_env->value)
-				return (ft_final(all, NULL, NULL, 1));
+			if (oldpwd)
+			{
+				free(my_env->value);
+				my_env->value = ft_strdup(oldpwd);
+				if (!my_env->value)
+					return (ft_final(all, NULL, NULL, 1));
+			}
 		}
 		else if (!ft_strncmp(my_env->key, "PWD", 3))
 		{
-			free(my_env->value);
-			my_env->value = ft_strdup(pwd);
-			if (!my_env->value)
-				return (ft_final(all, NULL, NULL, 1));
+			if (pwd)
+			{
+				free(my_env->value);
+				my_env->value = ft_strdup(pwd);
+				if (!my_env->value)
+					return (ft_final(all, NULL, NULL, 1));
+			}
 		}
 		my_env = my_env->next;
 	}
-	free(oldpwd);
-	free(pwd);
+	if (oldpwd)
+		free(oldpwd);
+	if (pwd)
+		free(pwd);
 	return (SUCCESS);
 }
-
-void	err_pwd(t_all *all, char **path)
+char	*get_oldpwd(t_my_env *my_env, t_all *all)
 {
-	ft_printf_fd(2, "minishell: cd: %s: %s\n", *path, strerror(errno));
-	free(*path);
-	ft_final(all, NULL, ERR_ENV, 1);
+	char	*oldpwd;
+
+	oldpwd = NULL;
+	while (my_env)
+	{
+		if (!ft_strncmp(my_env->key, "PWD", 3))
+		{
+			oldpwd = ft_strdup(my_env->value);
+			if (!oldpwd)
+				ft_final(all, NULL, NULL, 1);
+			return (oldpwd);
+		}
+		my_env = my_env->next;
+	}
+	return (NULL);
 }
 
 void	exec_cd(char *path, t_all *all)
 {
-	
 	char	*oldpwd;
 
-	oldpwd = getcwd(NULL, 0);
-	if (!oldpwd)
-		err_pwd(all, &path);
+	oldpwd = get_oldpwd(all->my_env, all);
 	if (chdir(path) == -1)
 	{
 		ft_printf_fd(2, "minishell: cd: %s: %s\n", path, strerror(errno));
@@ -121,7 +137,7 @@ int	count_line(char **strs)
 
 void	ft_cd(t_simple_cmds *cmds, t_all *all)
 {
-	char	*pwd;
+	char *pwd;
 
 	all->exit_code = 0;
 	if (cmds && count_line(cmds->strs) > 2)
