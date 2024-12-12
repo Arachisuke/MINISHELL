@@ -6,11 +6,27 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/11 13:10:44 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/12 12:02:33 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	file_or_dir(DIR **dir, char *str)
+{
+	if (!access(str, F_OK))
+	{
+		*dir = opendir(str);
+		if (!*dir)
+		{
+			if (!access(str, X_OK))
+				return (SUCCESS);
+			else
+				return (1);
+		}
+	}
+	return (2);
+}
 
 int	verif_dir(char **strs, t_all *all)
 {
@@ -18,26 +34,25 @@ int	verif_dir(char **strs, t_all *all)
 
 	if (!strs || !*strs)
 		return (SUCCESS);
+	dir = NULL;
 	if (strs[0][0] == '/' || (strs[0][0] == '.' && strs[0][1] == '/'))
 	{
-		dir = opendir(strs[0]);
+		if (file_or_dir(&dir, strs[0]) == 1)
+			return (ft_final(all, strs[0], "Permission denied", ERR_DIR));
+		else if (!file_or_dir(&dir, strs[0]))
+			return (SUCCESS);
 		if (!dir)
-			return (closedir(dir), ft_printf_fd(2, "minishell: %s: No such file or directory\n", strs[0],
-					strerror(errno)), ft_final(all, NULL, NULL, 127));
+			return (closedir(dir), ft_final(all, strs[0], NSF, ERR_DIDIR));
 		else
-			return (closedir(dir), ft_printf_fd(2, "minishell: %s: Is a directory\n", strs[0]),
-				ft_final(all, NULL, NULL, 126));
+			return (closedir(dir), ft_final(all, strs[0], ISD, ERR_DIR));
 		closedir(dir);
 	}
 	else if (strs[0][0] == '.' && strs[0][1])
-		return (ft_printf_fd(2, "minishell: %s: command not found\n", strs[0]),
-			ft_final(all, NULL, NULL, 127));
+		return (ft_final(all, strs[0], "command not found", ERR_DIDIR));
 	else if (strs[0][0] == '.' && !strs[0][1] && strs[1])
-		return (ft_printf_fd(2, "minishell: %s: %s: file not found\n", strs[0],
-				strs[1]), ft_final(all, NULL, NULL, 1));
+		return (ft_final(all, strs[0], "file not found", ERR_USAGE));
 	else if (strs[0][0] == '.' && !strs[0][1] && !strs[1])
-		return (ft_printf_fd(2, "minishell: %s: filename argument required\n",strs[0]), 
-		ft_printf_fd(2, "%s: usage: %s filename [arguments]\n", strs[0], strs[0]), ft_final(all, NULL, NULL, 1));
+		return (ft_final(all, strs[0], FAR, ERR_USAGE));
 	return (SUCCESS);
 }
 

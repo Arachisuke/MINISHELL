@@ -405,3 +405,17 @@ echo $UIDt le pipex.path, si il ya le exit...
 // heredoc signal
 // tester les 400
 // tester les 200 autres
+//424 a 428 je laisse pour andy
+
+// "chmod 000 minishell    ./minishell" // no such file or directory
+//minishell: ./Makefile: No such file or directory
+// env | grep shlvl,  a partir de zsh cest bon mais de bash cst mauvais, il vaut un dans bash et on passe a 3
+// pourquoi on ne doit pas affiche export
+
+
+// /home/wzeraig/Documents/42/minishell/main> ./minishell on ne peut pas la lancer ya ecris no such file or directory.
+
+
+
+
+// gerer les signaux, double minishell

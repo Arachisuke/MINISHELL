@@ -6,13 +6,13 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:20:53 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/11 15:02:31 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/12 16:03:25 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	read_and_write(int HD, char *limiteur)
+int	read_and_write(int HD, char *limiteur, t_all *all, t_redir *redir)
 {
 	char	*str;
 
@@ -20,8 +20,19 @@ int	read_and_write(int HD, char *limiteur)
 	while (1)
 	{
 		str = readline("> ");
+		if (str == NULL && g_sig == SIGINT)
+		{
+			if (all->fd_in)
+			{
+				dup2(all->fd_in, STDIN_FILENO);
+				if (!redir->next)
+					close(all->fd_in);
+			}
+			g_sig = 0;
+			return (2);
+		}
 		if (str == NULL)
-			return (ERR_READ);
+			return (1);
 		if (ft_strlen(str) == ft_strlen(limiteur))
 		{
 			if (!ft_strncmp(str, limiteur, ft_strlen(limiteur)))
@@ -48,7 +59,7 @@ int	heredoc(t_all *all, t_redir *redir, char *limiteur)
 		close(redir->fd_here_doc);
 		return (ft_final(all, NULL, ERR_FD, 1));
 	}
-	if (read_and_write(redir->fd_here_doc, limiteur))
+	if (read_and_write(redir->fd_here_doc, limiteur, all, redir) == 1)
 		return (close(redir->fd_here_doc), ERR_READ);
 	close(redir->fd_here_doc);
 	return (SUCCESS);
@@ -59,21 +70,39 @@ int	if_here_doc(t_all *all)
 	t_redir			*redir;
 	t_simple_cmds	*cmds;
 
+	if (!find_shlvl(all))
+		ft_sig_heredoc();
 	cmds = all->cmds;
 	while (cmds)
 	{
+		all->fd_in = dup(STDIN_FILENO); /// 1
 		redir = cmds->redir;
 		while (redir)
 		{
 			if (redir->token == D_LOWER)
 			{
-				if (heredoc(all, redir, redir->file_name))
-					return (ft_final(all, NULL, NULL, 1));
+				if (heredoc(all, redir, redir->file_name) == 1)
+					return (printf("heredoc = 1"), ft_final(all, NULL, NULL,
+							1));
 			}
 			redir = redir->next;
 		}
 		cmds = cmds->next;
 	}
-	ft_sig_heredoc();
 	return (SUCCESS);
 }
+
+// sig heredoc
+// heredoc, readline, si str == NULL et gsig == sigint
+// return(1) // ppuis redup,
+// et close fd_in peut etre que ca relance le prochain heredoc.
+// puis close, puis relance le while, trouver le deuxieme heredoc
+
+// heredoc, doit afficher ^C
+// parent doit afficher ^C,
+// parent + enfant minishell, enfant minishell ne doit pas affiche.
+
+
+
+
+//

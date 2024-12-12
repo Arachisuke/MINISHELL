@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:23:51 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/09 14:50:22 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/12 11:25:36 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,19 @@ int	if_egal(t_all *all, char *line, char **key, char **value)
 	while (line[++all->utils->i])
 	{
 		if (!ft_isalpha(line[0]) && line[0] != '_')
-			return (msg_error(all, ERR_EGAL, line), 0);
+			return (msg_error(all, ERR_EGAL, line, 1), 0);
 		else if (!ft_isalnum(line[all->utils->i]) && line[all->utils->i] != '='
 			&& line[all->utils->i] != '_')
 		{
 			if (line[all->utils->i] == '+' && line[all->utils->i + 1] == '=')
 				all->utils->flag = 1;
 			else
-				return (msg_error(all, ERR_EGAL, line), 0);
+				return (msg_error(all, ERR_EGAL, line, 1), 0);
 		}
 		else if (line[all->utils->i] == '=')
 		{
 			if (!findkey(line, all->utils->i, key, all->utils->flag))
-				return (msg_error(all, ERR_EGAL, line), 0);
+				return (msg_error(all, ERR_EGAL, line, 1), 0);
 			return (check_var(all, *key, &all->utils->value2, all->utils->flag),
 				findvalue(line, value, all->utils->value2), 1);
 		}

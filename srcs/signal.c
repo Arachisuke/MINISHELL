@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:10:54 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/11 15:03:19 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/12 16:00:47 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	handle_sig(int s)
 	}
 	else if (s == SIGINT)
 	{
-		printf("^C\n");
+		ft_printf_fd(1,"^Cc\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -35,11 +35,8 @@ void	handle_sig(int s)
 void	sig_heredoc(int s)
 {
 	g_sig = s;
-	close(STDIN_FILENO);
 	ft_printf_fd(2, "^C");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	close(STDIN_FILENO);
 }
 
 void	ft_sig_heredoc(void)

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:26 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/11 13:15:07 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/12 15:27:57 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,13 @@ bool	str_is_numeric(char *str)
 	}
 	return (0);
 }
-
 int	ft_exit(t_simple_cmds *cmds, t_all *all)
 {
 	if (ft_size_cmds(all->cmds) == 1)
 		ft_printf_fd(1, "exit\n");
 	if (cmds->strs[1])
 	{
-		if (!str_is_numeric(cmds->strs[1]))
+		if (!str_is_numeric(cmds->strs[1])) // 1
 		{
 			all->exit_code = ft_atoi(cmds->strs[1]);
 			if (cmds->strs[2])

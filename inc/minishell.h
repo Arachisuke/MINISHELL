@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 14:42:58 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/11 15:07:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/12 15:53:20 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,19 @@
 # define SQ '\''
 # define DQ '\"'
 # define IS_BUILTIN 1
+# define NSF "No such file or directory"
 # define SUCCESS 0
 # define ERR_INVALID_INPUT "syntax error : line"
+# define ISD "Is a directory"
+# define FAR "filename argument required"
 # define ERR_FILL_LINE 3
 # define ERR_SYNTAX "minishell : syntax error near unexpected token: `"
 # define ERR_SYNTAXPIPE "minishell : syntax error near unexpected token: `|"
 # define ERR_FD "failed to open file descriptor"
 # define ERR_READ 6
+# define ERR_DIR 126
+# define ERR_DIDIR 127
+# define ERR_USAGE 1
 # define ERR_ENV "error env"
 # define ERR_LINE "error line"
 # define INVALID_SYNTAX "minishell: Invalid syntax: unclosed quotes"
@@ -159,6 +165,7 @@ typedef struct s_all
 	t_pipex					*pipex;
 	int						exit_code;
 	t_utils					*utils;
+	int						fd_in;
 }							t_all;
 
 t_simple_cmds				*malloc_cmds_struct(t_lexer *current);
@@ -250,7 +257,8 @@ void						ft_export(t_all *all, char **strs);
 void						ft_pwd(t_simple_cmds *cmds, t_all *all);
 void						ft_unset(t_all *all, char **strs);
 
-void						msg_error(t_all *all, char *msgerror, char *error);
+void						msg_error(t_all *all, char *msgerror, char *error,
+								int sortie);
 t_my_env					*modify_env(char *key, char *value, t_my_env *env);
 t_my_env					*ft_last_env(t_my_env *my_env);
 void						free_all(t_all *all);
@@ -297,5 +305,6 @@ void						ft_signals(void);
 bool						catchsignals(t_all *all);
 int							verif_dir(char **strs, t_all *all);
 void						ft_sig_heredoc(void);
+int							find_shlvl(t_all *all);
 
 #endif

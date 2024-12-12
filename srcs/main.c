@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/11 14:55:00 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/12 16:02:54 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	check_before_while(int argc, char **argv, t_my_env **my_env, int *exit_code)
 		return (1);
 	*my_env = NULL;
 	*exit_code = 0;
-	ft_signals();
 	return (0);
 }
 
@@ -64,7 +63,8 @@ int	get_line_and_signals(t_all *all)
 	get_current_dir(&all->line);
 	if (!all->line)
 		return (1);
-	catchsignals(all);
+	if (!find_shlvl(all))
+		catchsignals(all);
 	add_history(all->line);
 	return (0);
 }
@@ -86,7 +86,6 @@ int	minish(t_all *all, t_parse *parse)
 	if (verif_to_final_line(all))
 		return (1);
 	all->line = removedollarz(all->line, all->utils);
-
 	if (verif_space_to_parse_line(all, parse))
 		return (1);
 	all->lexer = create_node(all, &all->lexer, &all->strs);
@@ -106,6 +105,8 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	while (1)
 	{
+		if (!find_shlvl(&all))
+			ft_signals();
 		if (init_all(&all, envp, &pipex, &utils))
 			continue ;
 		if (get_line_and_signals(&all))
@@ -127,4 +128,3 @@ int	main(int argc, char **argv, char **envp)
 // printf("before = %s\n", all.line);
 // printf("afterremove = %s\n", all.line);
 // printf("lineafterget = %s\n", all.line);
-

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:50:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/11 15:12:25 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/12 12:59:48 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,19 @@ int	is_triple_redir(char *line)
 
 int	ft_final(t_all *all, char *error, char *msgerror, int sortie)
 {
+	if (all->fd_in)
+	{
+		dup2(all->fd_in, STDIN_FILENO);
+		close(all->fd_in);
+	}
 	if (msgerror)
-		msg_error(all, msgerror, error);
+		msg_error(all, msgerror, error, sortie);
 	free_all(all);
 	all->exit_code = sortie;
 	return (sortie);
 }
 
-void	msg_error(t_all *all, char *msgerror, char *error)
+void	msg_error(t_all *all, char *msgerror, char *error, int sortie)
 {
 	if (is_triple_redir(all->line) == 3)
 		ft_putstr_fd("newline", 2);
@@ -73,8 +78,21 @@ void	msg_error(t_all *all, char *msgerror, char *error)
 		ft_printf_fd(2, "%s%s': not a valid identifier", msgerror, error);
 	else if (!ft_strncmp(msgerror, ERR_BASE, 14))
 		ft_printf_fd(2, "%s%s': command not found", msgerror, error);
+	else if (sortie == ERR_DIR) // 126
+		ft_printf_fd(2, "minishell: %s: %s", error, msgerror);
+	else if (sortie == ERR_DIDIR) // 127
+		ft_printf_fd(2, "minishell: %s: %s", error, msgerror);
+	else if (sortie == ERR_USAGE && !ft_strncmp(msgerror, "file not found", 14))
+		// 1
+		ft_printf_fd(2, "minishell: %s: %s: %s", error, all->cmds->strs[1],
+			msgerror);
+	else if (sortie == ERR_USAGE) // 1
+	{
+		ft_printf_fd(2, "minishell: %s: %s\n", error, msgerror);
+		ft_printf_fd(2, "%s: usage: %s filename [arguments]", error, error);
+	}
 	else
 		ft_putstr_fd(msgerror, 2);
 	ft_putchar_fd('\n', 1);
-	all->exit_code = 1;
+	all->exit_code = sortie; // 1
 }

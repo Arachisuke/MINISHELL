@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:25:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/05 14:14:01 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:23:36 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ char	*checkcmd(t_all *all, char **all_path, char *cmd, t_pipex *pipex)
 	char	*path;
 
 	i = 0;
-	if (ft_strchr(cmd, '.') && ft_strlen(cmd) == 1)
-		return (path = ft_strdup(""), path);
-	if (access(cmd, F_OK) == 0)
+	if (cmd && access(cmd, F_OK) == 0)
 	{
 		if (access(cmd, X_OK) == -1)
 			return (ft_errchild(all, "Permission denied", pipex, 126), NULL);
@@ -28,7 +26,7 @@ char	*checkcmd(t_all *all, char **all_path, char *cmd, t_pipex *pipex)
 	}
 	if (!all_path)
 		return (NULL);
-	while (all_path[i])
+	while (all_path[i] && cmd)
 	{
 		path = ft_strjoin(all_path[i], "/");
 		path = strjoinfree(path, cmd);

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:24:05 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/09 12:36:27 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/12 11:25:46 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	if_unset(t_all *all, char *line)
 		if (ft_strncmp(line + i, "unset", 5))
 		{
 			if (line[i + 4] && !flag)
-				return (msg_error(all, ERR_BASE, line), 1);
+				return (msg_error(all, ERR_BASE, line, 1), 1);
 			return (0);
 		}
 		if (line[i] == quotes && flag)

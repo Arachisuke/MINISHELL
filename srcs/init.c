@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/11 12:17:20 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/12 12:59:29 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	init_all(t_all *all, char **envp, t_pipex *pipex, t_utils *utils)
 	if (!all->my_env)
 		return (1);
 	all->utils = utils;
+	all->fd_in = 0;
 	init_utils(all);
 	return (SUCCESS);
 }

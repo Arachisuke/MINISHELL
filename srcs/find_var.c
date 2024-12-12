@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/10 12:34:02 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/12 15:56:47 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,18 @@ int	find_var(t_all *all)
 		tmpenv = all->my_env;
 	}
 	return (SUCCESS);
+}
+int	find_shlvl(t_all *all)
+{
+	t_my_env *tmpenv;
+	tmpenv = all->my_env;
+
+	while (tmpenv)
+	{
+		if (!ft_strictcmp(tmpenv->key, "SHLVL" ,5)
+			&& ft_atoi(tmpenv->value) > 2)
+			return (1);
+		tmpenv = tmpenv->next;
+	}
+	return (0);
 }
