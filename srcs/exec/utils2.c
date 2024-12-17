@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:25:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/12 10:23:36 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/15 16:31:29 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	wait_childs(pid_t pid, t_pipex *pipex, t_all *all)
 {
 	int	code;
 
+	ft_nosignals();
 	code = EXIT_FAILURE;
 	while (errno != ECHILD)
 		if (wait(&pipex->status) == pid && WIFEXITED(pipex->status))

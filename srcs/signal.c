@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 12:10:54 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/12 16:00:47 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/15 16:15:51 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	handle_sig(int s)
 {
 	g_sig = s;
+	// printf("s = %d", s);
 	if (wait(NULL) != -1)
 	{
 		if (s == SIGQUIT)
@@ -23,7 +24,7 @@ void	handle_sig(int s)
 	}
 	else if (s == SIGINT)
 	{
-		ft_printf_fd(1,"^Cc\n");
+		ft_printf_fd(1,"^handle_sig\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -34,8 +35,9 @@ void	handle_sig(int s)
 
 void	sig_heredoc(int s)
 {
+
 	g_sig = s;
-	ft_printf_fd(2, "^C");
+	ft_printf_fd(2, "^sig_heredoc");
 	close(STDIN_FILENO);
 }
 
@@ -47,6 +49,16 @@ void	ft_sig_heredoc(void)
 	sig.sa_handler = &sig_heredoc;
 	sigemptyset(&sig.sa_mask);
 	sigaction(SIGINT, &sig, NULL);
+}
+void	ft_nosignals(void)
+{
+    struct sigaction sa;
+
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    sa.sa_handler = SIG_IGN; // Ignorer les signaux
+    sigaction(SIGINT, &sa, NULL);
+    sigaction(SIGQUIT, &sa, NULL);
 }
 
 void	ft_signals(void)

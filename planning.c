@@ -419,3 +419,40 @@ echo $UIDt le pipex.path, si il ya le exit...
 
 
 // gerer les signaux, double minishell
+
+// i
+// add_node process_final ft_unset 
+// j
+// create process i et j
+
+
+
+
+
+
+
+// pere, ft_signal, catch signal et fin.
+// enfant ft_signal -> catch fin
+// enfant minishell alias shlvl3, -> ft_signal catch -> fin
+
+
+// si je suis en double avec minish, je veux que le pere fasse son ft_signal pour savoir comment reagir, et son catch pour le code de retour
+// le shlvl 3, je veux pas quil ecrivent donc pas de ft_signal, mais je catch le signal.
+// le heredoc je veux quil ft_signal, et catch signal.
+
+
+
+
+//➜  MINISHELL git:(main) ✗ ./minishell
+///Users/macos/Documents/Ecole/42/MINISHELL> /minishell
+///[2]    12810 segmentation fault  ./minishell
+//➜  MINISHELL git:(main) ✗ 
+// ou ./nimportequoi
+
+
+
+// grep shlvl .... ctrl c ?? ctrl d ?? le ctrl c passe le ctrl passe si je le fais 2 fois de suite.
+
+
+
+// finito les signaux suppriner tout les truc superflux, les g_sig ect verifie oe double heredoc mtn et verif total @@@

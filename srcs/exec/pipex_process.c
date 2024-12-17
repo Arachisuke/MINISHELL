@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:29:10 by macos             #+#    #+#             */
-/*   Updated: 2024/12/09 15:07:23 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/14 15:31:43 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ int	first_process(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 
 int	process_final(t_all *all, t_pipex *pipex)
 {
-	int	i;
-
-	i = -1;
+	
 	pipex->cmds = pipex->cmds->next;
 	if (dup2(all->pipex->pipefd[pipex->nbrcmd - 2][0], STDIN_FILENO) < 0)
 		return (ft_errchild(all, " first process stdout", pipex, 127));
@@ -68,9 +66,7 @@ int	process_final(t_all *all, t_pipex *pipex)
 int	create_process(t_all *all, t_pipex *pipex)
 {
 	int	i;
-	int	j;
-
-	j = 1;
+	
 	i = 1;
 	while (pipex->nbrcmd > i + 1)
 	{

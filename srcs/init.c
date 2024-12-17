@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/12 12:59:29 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/14 16:15:06 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	init_utils(t_all *all)
 	all->utils->i = 0;
 	all->utils->j = 0;
 	all->utils->value2 = NULL;
+	g_sig = 0;
 }
 
 int	init_all(t_all *all, char **envp, t_pipex *pipex, t_utils *utils)

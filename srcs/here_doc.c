@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:20:53 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/12 16:03:25 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/15 16:31:12 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	read_and_write(int HD, char *limiteur, t_all *all, t_redir *redir)
 				if (!redir->next)
 					close(all->fd_in);
 			}
-			g_sig = 0;
 			return (2);
 		}
 		if (str == NULL)
@@ -59,6 +58,7 @@ int	heredoc(t_all *all, t_redir *redir, char *limiteur)
 		close(redir->fd_here_doc);
 		return (ft_final(all, NULL, ERR_FD, 1));
 	}
+	ft_sig_heredoc();
 	if (read_and_write(redir->fd_here_doc, limiteur, all, redir) == 1)
 		return (close(redir->fd_here_doc), ERR_READ);
 	close(redir->fd_here_doc);
@@ -70,8 +70,6 @@ int	if_here_doc(t_all *all)
 	t_redir			*redir;
 	t_simple_cmds	*cmds;
 
-	if (!find_shlvl(all))
-		ft_sig_heredoc();
 	cmds = all->cmds;
 	while (cmds)
 	{

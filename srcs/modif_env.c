@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   modif_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:57:23 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/09 12:38:47 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/14 15:29:56 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	add_node(t_my_env *env, char *key, char *value, int index)
 {
 	t_my_env	*tmp_env;
-	int			i;
 
-	i = 0;
 	create_node_env(&env, index);
 	tmp_env = ft_last_env(env);
 	tmp_env->index = index;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 14:42:58 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/12 15:53:20 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/15 16:07:26 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <linux/limits.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -306,5 +306,5 @@ bool						catchsignals(t_all *all);
 int							verif_dir(char **strs, t_all *all);
 void						ft_sig_heredoc(void);
 int							find_shlvl(t_all *all);
-
+void	ft_nosignals(void);
 #endif

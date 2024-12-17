@@ -27,15 +27,17 @@ DEPS = $(OBJ:.o=.d)
 LIBFT = ./libft/libft.a
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3
-LD_FLAGS = -lreadline -lncurses -lcurses
+# CFLAGS = -Wall -Werror -Wextra -g3
+# LD_FLAGS = -lreadline -lncurses -lcurses
+CFLAGS += -I/usr/local/opt/readline/include
+LDFLAGS += -L/usr/local/opt/readline/lib -lreadline
 
 LIB_SHELL = minishell.a
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT) $(LIB_SHELL)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LD_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
 $(LIB_SHELL): $(OBJ)
 	ar rcs $(LIB_SHELL) $(OBJ)

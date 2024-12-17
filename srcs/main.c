@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/12 16:02:54 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/15 16:16:16 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ int	get_line_and_signals(t_all *all)
 {
 	get_current_dir(&all->line);
 	if (!all->line)
-		return (1);
-	if (!find_shlvl(all))
-		catchsignals(all);
+		return (all->exit_code = 0 ,g_sig = 0, 1);
+	catchsignals(all);
 	add_history(all->line);
 	return (0);
 }
@@ -100,20 +99,23 @@ int	main(int argc, char **argv, char **envp)
 	t_all	all;
 	t_pipex	pipex;
 	t_utils	utils;
+	int test;
+
+	test = 0;
 
 	if (check_before_while(argc, argv, &all.my_env, &all.exit_code))
 		return (0);
+		
 	while (1)
 	{
-		if (!find_shlvl(&all))
-			ft_signals();
 		if (init_all(&all, envp, &pipex, &utils))
 			continue ;
+		ft_signals();
 		if (get_line_and_signals(&all))
 			break ;
 		if (minish(&all, &parse))
 			continue ;
-		pipex_or_builtin(&all);
+		pipex_or_builtin(&all);		
 		ft_final(&all, NULL, NULL, all.exit_code);
 	}
 	free_env(&all.my_env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:24:05 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/12 11:25:46 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/14 15:29:42 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ int	if_unset(t_all *all, char *line)
 
 void	ft_unset(t_all *all, char **strs)
 {
-	int	i;
+	
 	int	j;
 	int	error;
 
-	i = 0;
+
 	j = 1;
 	error = if_unset(all, strs[0]);
 	if (error)

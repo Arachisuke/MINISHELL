@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:17:30 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/05 14:59:36 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:32:09 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_fd_pid(int ***pipefd, int **pid, t_pipex *pipex)
 
 int	ft_errparent(t_all *all, char *str, t_pipex *pipex, int msg)
 {
-	close_fd(pipex, all->cmds);
+	close_fd(pipex, all->cmds);	
 	free_fd_pid(&pipex->pipefd, &pipex->pid, pipex);
 	if (pipex->all_path)
 	{
