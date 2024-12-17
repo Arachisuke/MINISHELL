@@ -7,7 +7,7 @@ EXEC_DIR = $(SRC_DIR)/exec
 
 
 # Définition des sources
-SRC = $(SRC_DIR)/fonction.c $(SRC_DIR)/main.c $(SRC_DIR)/init_node.c \
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/init_node.c \
       $(SRC_DIR)/tokenisation.c $(SRC_DIR)/verif_line.c $(SRC_DIR)/automate.c \
       $(SRC_DIR)/here_doc.c $(SRC_DIR)/find_var.c $(SRC_DIR)/sort_cmds.c \
       $(SRC_DIR)/init_tcmds.c $(SRC_DIR)/sort_cmds_utils.c $(SRC_DIR)/free.c \
@@ -27,17 +27,15 @@ DEPS = $(OBJ:.o=.d)
 LIBFT = ./libft/libft.a
 
 CC = cc
-# CFLAGS = -Wall -Werror -Wextra -g3
-# LD_FLAGS = -lreadline -lncurses -lcurses
-CFLAGS += -I/usr/local/opt/readline/include
-LDFLAGS += -L/usr/local/opt/readline/lib -lreadline
+CFLAGS = -Wall -Werror -Wextra -g3
+LD_FLAGS = -lreadline -lncurses -lcurses
 
 LIB_SHELL = minishell.a
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT) $(LIB_SHELL)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LDFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LD_FLAGS) -o $(NAME)
 
 $(LIB_SHELL): $(OBJ)
 	ar rcs $(LIB_SHELL) $(OBJ)

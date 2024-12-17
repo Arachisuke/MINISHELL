@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 14:42:58 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/15 16:07:26 by macos            ###   ########.fr       */
+/*   Updated: 2024/12/17 15:29:19 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,9 +302,12 @@ int							ft_errparent(t_all *all, char *str, t_pipex *pipex,
 int							ft_errchild(t_all *all, char *str, t_pipex *pipex,
 								int msg);
 void						ft_signals(void);
+void						ft_signals_parent(void);
 bool						catchsignals(t_all *all);
 int							verif_dir(char **strs, t_all *all);
 void						ft_sig_heredoc(void);
 int							find_shlvl(t_all *all);
-void	ft_nosignals(void);
+void						ft_nosignals(void);
+void	ft_signals_child(void); // 1
+
 #endif

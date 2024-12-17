@@ -6,36 +6,43 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:22:47 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/11 13:35:25 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:33:15 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+int	set_old_and_new_pwd(t_my_env **my_env, char *oldpwd, char *pwd)
+{
+	if (!ft_strncmp((*my_env)->key, "OLDPWD", 6))
+	{
+		if (oldpwd)
+		{
+			free((*my_env)->value);
+			(*my_env)->value = ft_strdup(oldpwd);
+			if (!(*my_env)->value)
+				return (1);
+		}
+	}
+	else if (!ft_strncmp((*my_env)->key, "PWD", 6))
+	{
+		if (pwd)
+		{
+			free((*my_env)->value);
+			(*my_env)->value = ft_strdup(pwd);
+			if (!(*my_env)->value)
+				return (1);
+		}
+	}
+	return (SUCCESS);
+}
+
 int	new_oldpwd(t_my_env *my_env, char *oldpwd, char *pwd, t_all *all)
 {
 	while (my_env)
 	{
-		if (!ft_strncmp(my_env->key, "OLDPWD", 6))
-		{
-			if (oldpwd)
-			{
-				free(my_env->value);
-				my_env->value = ft_strdup(oldpwd);
-				if (!my_env->value)
-					return (ft_final(all, NULL, NULL, 1));
-			}
-		}
-		else if (!ft_strncmp(my_env->key, "PWD", 3))
-		{
-			if (pwd)
-			{
-				free(my_env->value);
-				my_env->value = ft_strdup(pwd);
-				if (!my_env->value)
-					return (ft_final(all, NULL, NULL, 1));
-			}
-		}
+		if (set_old_and_new_pwd(&my_env, oldpwd, pwd))
+			return (ft_final(all, NULL, NULL, 1));
 		my_env = my_env->next;
 	}
 	if (oldpwd)

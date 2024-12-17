@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:25:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 11:29:59 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:14:15 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,14 @@ int	wait_childs(pid_t pid, t_pipex *pipex, t_all *all)
 {
 	int	code;
 
-	 
+	ft_nosignals();
+	ft_signals_child(); // rajoute un retour a la ligne.
 	code = EXIT_FAILURE;
 	while (errno != ECHILD)
 		if (wait(&pipex->status) == pid && WIFEXITED(pipex->status))
+		{
 			code = WEXITSTATUS(pipex->status);
+		}
 	if (pid == -1)
 		return (all->exit_code = 127, 127);
 	all->exit_code = code;

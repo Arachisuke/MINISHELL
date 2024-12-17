@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:42:38 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/11/21 11:00:42 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:26:11 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	count_words(const char *str, char c)
 	compteur = 0;
 	while (str[i])
 	{
-		if ((str[i] != c && str[i + 1] == c) || (str[i] != c && str[i
-				+ 1] == '\0'))
+		if ((str[i] != c && str[i + 1] == c)
+			|| (str[i] != c && str[i + 1] == '\0'))
 			compteur++;
 		i++;
 	}

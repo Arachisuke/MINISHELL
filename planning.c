@@ -292,7 +292,7 @@ void	other(char *str)
 // enfant il free all, free env, et errchild
 // parent il free all free env et errparent
 // si ya un exit, tu fais la total de l'enfant ou du parent.
-echo $UIDt le pipex.path, si il ya le exit...
+//echo $UIDt le pipex.path, si il ya le exit...
 // donc dans le exit autant mettre le errchild a la place du VRAI exit donc dans le ft_exit on change pas errchld qui a la vrai fonction exit en elle donc elle free et apres exit, ca ne change rien.
 // dans exit je met errchild qui lui a deja free env et ft_final, et free de la session pipex
 // errparent necessite que de free la session pipex car il exit pas donc il va se faire free dans le main apres.

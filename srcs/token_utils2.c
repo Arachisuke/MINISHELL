@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:07:20 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/09 14:17:35 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:27:58 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	count_word_quotes(const char *str, int *i)
 // 					+ 1]))
 // 				compteur++;
 // 		if ((!is_token_space(str[i]) && str[i + 1] && is_token_space(str[i
-					//+ 1]))
+//+ 1]))
 // 				|| ((!is_token_space(str[i]) && str[i + 1] == '\0') && flag))
 // 		{
 // 			compteur++;
@@ -107,4 +107,3 @@ int	count_word(const char *str, int i, t_utils *s)
 	}
 	return (s->count);
 }
-

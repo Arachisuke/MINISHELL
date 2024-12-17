@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 16:35:24 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/10 12:33:39 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:26:56 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,26 @@ int	ft_strictcmp(const char *s1, const char *s2, size_t n)
 	if (i < n)
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	return (0);
+}
+
+void	get_current_dir(char **line)
+{
+	int		i;
+	char	current_directory[PATH_MAX];
+
+	i = 0;
+	if (!getcwd(current_directory, PATH_MAX))
+	{
+		chdir(getenv("OLDPWD"));
+		if (!getcwd(current_directory, PATH_MAX))
+		{
+			*line = readline("minishell> ");
+			return ;
+		}
+	}
+	i = ft_strlen(current_directory);
+	current_directory[i] = '>';
+	current_directory[i + 1] = ' ';
+	current_directory[i + 2] = '\0';
+	*line = readline(current_directory);
 }

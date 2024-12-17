@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:20:53 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/15 16:31:12 by macos            ###   ########.fr       */
+/*   Updated: 2024/12/17 15:28:26 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,5 @@ int	if_here_doc(t_all *all)
 // heredoc, doit afficher ^C
 // parent doit afficher ^C,
 // parent + enfant minishell, enfant minishell ne doit pas affiche.
-
-
-
 
 //

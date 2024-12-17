@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:50:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/15 16:31:09 by macos            ###   ########.fr       */
+/*   Updated: 2024/12/17 15:28:04 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,14 @@ void	msg_error(t_all *all, char *msgerror, char *error, int sortie)
 		ft_printf_fd(2, "%s%s': not a valid identifier", msgerror, error);
 	else if (!ft_strncmp(msgerror, ERR_BASE, 14))
 		ft_printf_fd(2, "%s%s': command not found", msgerror, error);
-	else if (sortie == ERR_DIR) // 126
+	else if (sortie == ERR_DIR)
 		ft_printf_fd(2, "minishell: %s: %s", error, msgerror);
-	else if (sortie == ERR_DIDIR) // 127
+	else if (sortie == ERR_DIDIR)
 		ft_printf_fd(2, "minishell: %s: %s", error, msgerror);
 	else if (sortie == ERR_USAGE && !ft_strncmp(msgerror, "file not found", 14))
-		// 1
 		ft_printf_fd(2, "minishell: %s: %s: %s", error, all->cmds->strs[1],
 			msgerror);
-	else if (sortie == ERR_USAGE) // 1
+	else if (sortie == ERR_USAGE)
 	{
 		ft_printf_fd(2, "minishell: %s: %s\n", error, msgerror);
 		ft_printf_fd(2, "%s: usage: %s filename [arguments]", error, error);
@@ -94,5 +93,5 @@ void	msg_error(t_all *all, char *msgerror, char *error, int sortie)
 	else
 		ft_putstr_fd(msgerror, 2);
 	ft_putchar_fd('\n', 1);
-	all->exit_code = sortie; // 1
+	all->exit_code = sortie;
 }

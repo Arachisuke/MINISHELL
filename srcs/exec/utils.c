@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:17:30 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 11:24:47 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:29:32 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_fd_pid(int ***pipefd, int **pid, t_pipex *pipex)
 
 int	ft_errparent(t_all *all, char *str, t_pipex *pipex, int msg)
 {
-	close_fd(pipex, all->cmds);	
+	close_fd(pipex, all->cmds);
 	free_fd_pid(&pipex->pipefd, &pipex->pid, pipex);
 	if (pipex->all_path)
 	{

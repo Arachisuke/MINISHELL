@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/14 16:15:06 by macos            ###   ########.fr       */
+/*   Updated: 2024/12/17 15:26:48 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,26 +92,4 @@ void	init_parse(t_parse *parse, char *line)
 	parse->j = 0;
 	parse->start = 0;
 	parse->quotes = 0;
-}
-
-void	get_current_dir(char **line)
-{
-	int		i;
-	char	current_directory[PATH_MAX];
-
-	i = 0;
-	if (!getcwd(current_directory, PATH_MAX))
-	{
-		chdir(getenv("OLDPWD"));
-		if (!getcwd(current_directory, PATH_MAX))
-		{
-			*line = readline("minishell> ");
-			return;
-		}
-	}
-	i = ft_strlen(current_directory);
-	current_directory[i] = '>';
-	current_directory[i + 1] = ' ';
-	current_directory[i + 2] = '\0';
-	*line = readline(current_directory);
 }
