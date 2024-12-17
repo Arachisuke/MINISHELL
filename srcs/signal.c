@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 12:10:54 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/15 16:15:51 by macos            ###   ########.fr       */
+/*   Created: 2024/12/17 11:19:37 by wzeraig           #+#    #+#             */
+/*   Updated: 2024/12/17 11:31:38 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	handle_sig(int s)
+void handle_sig(int s)
 {
 	g_sig = s;
 	// printf("s = %d", s);
@@ -24,7 +24,7 @@ void	handle_sig(int s)
 	}
 	else if (s == SIGINT)
 	{
-		ft_printf_fd(1,"^handle_sig\n");
+		ft_printf_fd(1, "^C\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -33,37 +33,39 @@ void	handle_sig(int s)
 		g_sig = 0;
 }
 
-void	sig_heredoc(int s)
+void sig_heredoc(int s)
 {
 
 	g_sig = s;
-	ft_printf_fd(2, "^sig_heredoc");
+	ft_printf_fd(2, "^C\n");
 	close(STDIN_FILENO);
 }
 
-void	ft_sig_heredoc(void)
+void ft_sig_heredoc(void)
 {
-	struct sigaction	sig;
+	struct sigaction sig;
 
 	sig.sa_flags = 0;
 	sig.sa_handler = &sig_heredoc;
 	sigemptyset(&sig.sa_mask);
 	sigaction(SIGINT, &sig, NULL);
 }
-void	ft_nosignals(void)
+void ft_nosignals(void)
 {
-    struct sigaction sa;
+	struct sigaction sa;
 
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sa.sa_handler = SIG_IGN; // Ignorer les signaux
-    sigaction(SIGINT, &sa, NULL);
-    sigaction(SIGQUIT, &sa, NULL);
+	rl_catch_signals = 0;
+
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 }
 
-void	ft_signals(void)
+void ft_signals(void)
 {
-	struct sigaction	sig;
+	struct sigaction sig;
 
 	rl_catch_signals = 0;
 	sigemptyset(&sig.sa_mask);
@@ -73,7 +75,7 @@ void	ft_signals(void)
 	sigaction(SIGQUIT, &sig, NULL);
 }
 
-bool	catchsignals(t_all *all)
+bool catchsignals(t_all *all)
 {
 	if (g_sig == SIGINT)
 	{
