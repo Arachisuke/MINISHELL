@@ -6,11 +6,29 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:27:45 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 15:59:03 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	take_strexpand(char *value, char **dest)
+{
+	int	i;
+	int	flag;
+
+	flag = 0;
+	i = 0;
+	*dest = value;
+	while ((*dest)[i])
+	{
+		if (is_token((*dest)[i]))
+			(*dest)[i] = (*dest)[i] * -1;
+		i++;
+	}
+	//	while( )
+	printf("dest = %s", *dest);
+}
 
 int	checkredir(char *line, int i)
 {
@@ -49,7 +67,7 @@ int	find_var(t_all *all)
 			{
 				if (!ft_strictcmp(tmpenv->key, tmp->strtoexpand, tmp->lenbefore
 						- 1))
-					tmp->strexpanded = tmpenv->value;
+					take_strexpand(tmpenv->value, &tmp->strexpanded);
 				tmpenv = tmpenv->next;
 			}
 		}
@@ -67,7 +85,10 @@ int	find_shlvl(t_all *all)
 	{
 		if (!ft_strictcmp(tmpenv->key, "SHLVL", 5)
 			&& ft_atoi(tmpenv->value) > 2)
+		{
+			printf("SHLVL = %s", tmpenv->value);
 			return (1);
+		}
 		tmpenv = tmpenv->next;
 	}
 	return (0);

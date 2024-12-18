@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:36 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:31:07 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:02:40 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	main(int argc, char **argv, char **envp)
 		if (init_all(&all, envp, &pipex, &utils))
 			continue ;
 		ft_signals();
-		if (!find_shlvl(&all))
+		if (find_shlvl(&all))
 			ft_nosignals();
 		if (get_line_and_signals(&all))
 			break ;

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:20:53 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/18 10:57:06 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 11:35:40 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	read_and_write(int HD, char *limiteur, t_all *all, t_redir *redir)
 		str = readline("> ");
 		if (str == NULL && g_sig == SIGINT)
 		{
-			if (all->fd_in)
+			if (all->fd_in > 0)
 			{
 				dup2(all->fd_in, STDIN_FILENO);
 				if (!redir->next)
@@ -52,10 +52,13 @@ int	heredoc(t_all *all, t_redir *redir, char *limiteur)
 	char	*file_name;
 
 	all->fd_in = dup(STDIN_FILENO); /// 1
+	if (all->fd_in < 0)
+		return (ft_final(all, NULL, ERR_FD, 1));
 	file_name = limiteur;
 	redir->fd_here_doc = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (redir->fd_here_doc < 0)
 	{
+		close(all->fd_in);
 		close(redir->fd_here_doc);
 		return (ft_final(all, NULL, ERR_FD, 1));
 	}

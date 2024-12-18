@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:19:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:05:42 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 15:56:12 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_sig_child(int s)
 	}
 	else if (s == SIGINT)
 	{
-		printf("\n");
+		printf("efwffewfefew\n");
 	}
 	else if (s == SIGQUIT)
 		g_sig = 0;

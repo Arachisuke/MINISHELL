@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:52:26 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/09 12:45:22 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 14:07:51 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	fill_token(t_all *all, char **strs, int *j, int *i)
 
 void	parsing(t_parse **parse, int *k, t_all *all, char **strs)
 {
-	if (all->line[(*parse)->i] == -100)
+	if (((all->line[(*parse)->i] == -100 || all->line[(*parse)->i] == -124))
+		|| ((all->line[(*parse)->i] == -62 || all->line[(*parse)->i] == -60)))
 		(*parse)->flag = 1;
 	(*parse)->start = (*parse)->i;
 	(*parse)->end = (*parse)->i;

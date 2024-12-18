@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:07:20 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/17 15:27:58 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 13:04:31 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ int	count_word_quotes(const char *str, int *i)
 	quote = str[j];
 	j++;
 	if (!str[j])
-		return (*i = j - 1, 0); // tes ici.... le cas du "HOLA"
+		return (*i = j - 1, 0);
 	while (str[j] != quote)
 	{
 		if (str[j] != ' ' && str[j] != quote)
 		{
-			while (str[j] != quote)
+			while (str[j] != quote && str[j])
 				j++;
 			return (*i = j, tokenspace);
 		}

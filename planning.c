@@ -455,4 +455,13 @@ void	other(char *str)
 
 
 
-// finito les signaux suppriner tout les truc superflux, les g_sig ect verifie oe double heredoc mtn et verif total @@@
+// finito les signaux suppriner tout les truc superflux, les g_sig ect verifie oe double heredoc mtn et verif total @@@\
+
+
+
+
+
+
+// gerer la norm de get env jusqua la fin.
+// refaire le test de test2, et le input.csv
+
