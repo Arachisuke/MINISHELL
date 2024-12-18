@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:17:30 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:29:32 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:50:26 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,55 +24,6 @@ void	free_fd_pid(int ***pipefd, int **pid, t_pipex *pipex)
 		free(*pid);
 		*pid = NULL;
 	}
-}
-
-int	ft_errparent(t_all *all, char *str, t_pipex *pipex, int msg)
-{
-	close_fd(pipex, all->cmds);
-	free_fd_pid(&pipex->pipefd, &pipex->pid, pipex);
-	if (pipex->all_path)
-	{
-		free_strs(pipex->all_path);
-		pipex->all_path = NULL;
-	}
-	if (pipex->path)
-		pipex->path = NULL;
-	if (pipex->env)
-	{
-		free_strs(pipex->env);
-		pipex->env = NULL;
-	}
-	if (str)
-		ft_printf_fd(2, "minishell: %s: %s\n", pipex->cmds->strs[0], str);
-	pipex->cmds = NULL;
-	return (msg);
-}
-
-int	ft_errchild(t_all *all, char *str, t_pipex *pipex, int msg)
-{
-	if (str)
-		ft_printf_fd(2, "minishell: %s: %s\n", pipex->cmds->strs[0], str);
-	close_fd(pipex, all->cmds);
-	ft_final(all, NULL, NULL, 0);
-	free_env(&all->my_env);
-	free_fd_pid(&pipex->pipefd, &pipex->pid, pipex);
-	if (pipex->all_path)
-	{
-		free_strs(pipex->all_path);
-		pipex->all_path = NULL;
-	}
-	if (pipex->path)
-	{
-		free(pipex->path);
-		pipex->path = NULL;
-	}
-	if (pipex->env)
-	{
-		free_strs(pipex->env);
-		pipex->env = NULL;
-	}
-	pipex->cmds = NULL;
-	exit(msg);
 }
 
 void	close_fd(t_pipex *pipex, t_simple_cmds *cmds)

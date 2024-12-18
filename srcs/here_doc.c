@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:20:53 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:28:26 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 10:57:06 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	heredoc(t_all *all, t_redir *redir, char *limiteur)
 {
 	char	*file_name;
 
+	all->fd_in = dup(STDIN_FILENO); /// 1
 	file_name = limiteur;
 	redir->fd_here_doc = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (redir->fd_here_doc < 0)
@@ -73,7 +74,6 @@ int	if_here_doc(t_all *all)
 	cmds = all->cmds;
 	while (cmds)
 	{
-		all->fd_in = dup(STDIN_FILENO); /// 1
 		redir = cmds->redir;
 		while (redir)
 		{

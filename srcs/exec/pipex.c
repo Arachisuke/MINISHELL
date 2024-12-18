@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:32:10 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:29:45 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:50:09 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int	ft_pipex(t_all *all, t_pipex *pipex, t_simple_cmds *cmds, t_my_env *envp)
 		process_final(all, pipex);
 	close_fd(pipex, cmds);
 	return (ft_errparent(all, NULL, pipex, wait_childs(pipex->pid[pipex->nbrcmd
-				- 1], pipex, all)));
+					- 1], pipex, all)));
 }

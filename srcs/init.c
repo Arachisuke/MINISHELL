@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:00:39 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:26:48 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 10:25:36 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	init_utils(t_all *all)
 	all->utils->count = 0;
 	all->utils->flag = 0;
 	all->utils->i = 0;
-	all->utils->j = 0;
+	all->utils->ret = 0;
 	all->utils->value2 = NULL;
 	g_sig = 0;
 }

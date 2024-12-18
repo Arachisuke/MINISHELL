@@ -17,7 +17,7 @@ SRC = $(SRC_DIR)/main.c $(SRC_DIR)/init_node.c \
       $(SRC_DIR)/token_utils2.c $(SRC_DIR)/utils.c $(SRC_DIR)/init_env.c \
       $(BUILTIN_DIR)/cd.c $(BUILTIN_DIR)/echo.c  $(SRC_DIR)/builtins_or_not.c \
 	  $(BUILTIN_DIR)/export.c $(BUILTIN_DIR)/unset.c $(SRC_DIR)/modif_env.c $(BUILTIN_DIR)/env.c \
-	  $(BUILTIN_DIR)/exit.c $(BUILTIN_DIR)/pwd.c $(EXEC_DIR)/open_and_close.c \
+	  $(BUILTIN_DIR)/exit.c $(BUILTIN_DIR)/pwd.c $(EXEC_DIR)/open_and_close.c $(BUILTIN_DIR)/cd_utils.c $(EXEC_DIR)/utils3.c \
 	  $(EXEC_DIR)/pipex_process.c $(EXEC_DIR)/pipex.c $(EXEC_DIR)/utils.c $(EXEC_DIR)/utils2.c $(SRC_DIR)/signal.c $(SRC_DIR)/removes.c 
 
 # Génération des objets en fonction des sources (respecte les sous-dossiers)

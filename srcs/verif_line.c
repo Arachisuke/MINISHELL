@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:51:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:27:55 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 10:30:44 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ int	verif_dir(char **strs, t_all *all)
 	dir = NULL;
 	if (strs[0][0] == '/' || (strs[0][0] == '.' && strs[0][1] == '/'))
 	{
-		if (file_or_dir(&dir, strs[0]) == 1)
+		all->utils->ret = file_or_dir(&dir, strs[0]);
+		if (all->utils->ret == 1)
 			return (ft_final(all, strs[0], "Permission denied", ERR_DIR));
-		else if (!file_or_dir(&dir, strs[0]))
+		else if (!all->utils->ret)
 			return (SUCCESS);
 		if (!dir)
-			return (closedir(dir), ft_final(all, strs[0], NSF, ERR_DIDIR));
+			return (ft_final(all, strs[0], NSF, ERR_DIDIR));
 		else
 			return (closedir(dir), ft_final(all, strs[0], ISD, ERR_DIR));
-		closedir(dir);
 	}
 	else if (strs[0][0] == '.' && strs[0][1])
 		return (ft_final(all, strs[0], "command not found", ERR_DIDIR));

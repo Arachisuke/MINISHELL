@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 14:42:58 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:29:19 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 10:25:08 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_utils
 	int						flag;
 	int						count;
 	char					*value2;
+	int						ret;
 }							t_utils;
 
 typedef struct s_expand
@@ -308,6 +309,9 @@ int							verif_dir(char **strs, t_all *all);
 void						ft_sig_heredoc(void);
 int							find_shlvl(t_all *all);
 void						ft_nosignals(void);
-void	ft_signals_child(void); // 1
+void						ft_signals_child(void);
+void						exec_cd(char *path, t_all *all);
+void						free_fd_pid(int ***pipefd, int **pid,
+								t_pipex *pipex);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:25:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:14:15 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/17 15:49:49 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,64 +82,16 @@ int	wait_childs(pid_t pid, t_pipex *pipex, t_all *all)
 	int	code;
 
 	ft_nosignals();
-	ft_signals_child(); // rajoute un retour a la ligne.
+	ft_signals_child();
 	code = EXIT_FAILURE;
 	while (errno != ECHILD)
-		if (wait(&pipex->status) == pid && WIFEXITED(pipex->status))
-		{
-			code = WEXITSTATUS(pipex->status);
-		}
+	{
+		if (wait(&pipex->status) == pid)
+			if (WIFEXITED(pipex->status))
+				code = WEXITSTATUS(pipex->status);
+	}
 	if (pid == -1)
 		return (all->exit_code = 127, 127);
 	all->exit_code = code;
 	return (code);
-}
-
-int	envlist_envchar(t_pipex *pipex, t_my_env *envp)
-{
-	t_my_env	*tmp;
-	int			i;
-
-	i = 0;
-	if (!envp)
-		return (0);
-	tmp = envp;
-	pipex->env = malloc(sizeof(char *) * (ft_lstsize_env(envp) + 1));
-	if (!pipex->env)
-		return (1);
-	while (tmp)
-	{
-		pipex->env[i] = strjoinegal(tmp->key, tmp->value);
-		tmp = tmp->next;
-		i++;
-	}
-	pipex->env[i] = NULL;
-	return (0);
-}
-
-char	*strjoinegal(char const *s1, char const *s2)
-{
-	char	*s;
-	int		i;
-	int		j;
-
-	if (s1 == NULL)
-		return (NULL);
-	if (s2 == NULL)
-		return (NULL);
-	j = 0;
-	i = 0;
-	s = malloc((sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 2));
-	if (s == NULL)
-		return (NULL);
-	while (s1[i])
-	{
-		s[i] = s1[i];
-		i++;
-	}
-	s[i++] = '=';
-	while (s2[j])
-		s[i++] = s2[j++];
-	s[i] = '\0';
-	return (s);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:50:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:28:04 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 11:02:04 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_all(t_all *all)
 	if (all->expand)
 		free_expand(&all->expand);
 	if (all->shell_id)
-		free(all->shell_id);
+		all->shell_id = NULL;
 	if (all->line)
 		free(all->line);
 	all->line = NULL;
