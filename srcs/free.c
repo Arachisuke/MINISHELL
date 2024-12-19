@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:18:46 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/11 15:08:13 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/19 12:45:01 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_strs(char **strs)
 	i = 0;
 	if (!strs || !*strs)
 		return ;
-	while ((strs)[i])
+	while (strs[i])
 	{
 		free(strs[i]);
 		strs[i] = NULL;

@@ -6,7 +6,7 @@
 /*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:39:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 14:12:29 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/19 11:33:15 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	open_and_close(t_all *all, t_simple_cmds *cmds, t_pipex *pipex)
 
 int	onecmd(t_all *all, t_pipex *pipex, t_simple_cmds *cmds)
 {
-	ft_signals_child();
 	open_and_close(all, cmds, pipex);
 	close_fd(pipex, cmds);
 	pipex->path = checkcmd(all, pipex->all_path, cmds->strs[0], pipex);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   removes.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:32:32 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/09 13:53:39 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 13:14:34 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ char	*removequotes1(char *line, t_utils *s)
 char	*removedollarz(char *line, t_utils *s)
 {
 	char	*newline;
-	s->i = -1;
 
+	s->i = -1;
 	s->count = 0;
 	newline = NULL;
 	while (line[++(s->i)])

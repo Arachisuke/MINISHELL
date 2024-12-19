@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:07:20 by ankammer          #+#    #+#             */
-/*   Updated: 2024/12/18 13:04:31 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/19 13:57:48 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	beforequotes(const char *str, int i)
 	else
 		return (0);
 }
+
 int	count_word_quotes(const char *str, int *i)
 {
 	int	quote;
@@ -91,9 +92,9 @@ int	count_word(const char *str, int i, t_utils *s)
 			s->flag = 0;
 		else if (!is_token_space(str[i]) && str[i] != -100 && !s->flag)
 			s->flag = 1;
-		if (str[i] < 0)
+		if (str[i] == -100)
 			if (count_word_quotes(str, &i) && str[i + 1] && is_token_space(str[i
-					+ 1]))
+						+ 1]))
 				s->count++;
 		if (!is_token_space(str[i]) && str[i + 1] && is_token_space(str[i + 1])
 			&& s->flag)

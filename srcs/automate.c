@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   automate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:42:02 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:28:23 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/18 11:36:08 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,10 @@ int	state_string(t_lexer *stack, t_all *all)
 	return (SUCCESS);
 }
 
-int	state_pipe(t_lexer *stack, t_all *all) // echo | // | // || // echo ||
-											// | echo
+int	state_pipe(t_lexer *stack, t_all *all)
 {
 	if (stack->i == 0 && stack->next && stack->next->token != PIPE)
 		return (ft_final(all, stack->string, ERR_SYNTAX, 2));
-
 	if (stack->next)
 		stack = stack->next;
 	else

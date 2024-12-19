@@ -7,10 +7,10 @@ EXEC_DIR = $(SRC_DIR)/exec
 
 
 # Définition des sources
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/init_node.c \
-      $(SRC_DIR)/tokenisation.c $(SRC_DIR)/verif_line.c $(SRC_DIR)/automate.c \
-      $(SRC_DIR)/here_doc.c $(SRC_DIR)/find_var.c $(SRC_DIR)/sort_cmds.c \
-      $(SRC_DIR)/init_tcmds.c $(SRC_DIR)/sort_cmds_utils.c $(SRC_DIR)/free.c \
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/init_node.c $(SRC_DIR)/expandornot_utils.c $(SRC_DIR)/get_env_utils.c \
+      $(SRC_DIR)/tokenisation.c $(SRC_DIR)/verif_line.c $(SRC_DIR)/automate.c $(SRC_DIR)/main_set.c \
+      $(SRC_DIR)/here_doc.c $(SRC_DIR)/find_var.c $(SRC_DIR)/sort_cmds.c $(SRC_DIR)/signal_utils.c \
+      $(SRC_DIR)/init_tcmds.c $(SRC_DIR)/sort_cmds_utils.c $(SRC_DIR)/free.c $(SRC_DIR)/verif_line2.c \
       $(SRC_DIR)/init_t_redir.c $(SRC_DIR)/expandornot.c $(SRC_DIR)/init_expand.c \
       $(SRC_DIR)/get_env.c $(SRC_DIR)/get_final_line.c $(SRC_DIR)/mallocs.c \
       $(SRC_DIR)/init.c $(SRC_DIR)/ft_error.c $(SRC_DIR)/token_utils.c \

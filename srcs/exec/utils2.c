@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:25:08 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:49:49 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:17:57 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ int	wait_childs(pid_t pid, t_pipex *pipex, t_all *all)
 {
 	int	code;
 
-	ft_nosignals();
-	ft_signals_child();
+	ft_newsignals();
 	code = EXIT_FAILURE;
 	while (errno != ECHILD)
 	{

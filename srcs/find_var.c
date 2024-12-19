@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/18 15:59:03 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/19 13:58:54 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	take_strexpand(char *value, char **dest)
 			(*dest)[i] = (*dest)[i] * -1;
 		i++;
 	}
-	//	while( )
-	printf("dest = %s", *dest);
 }
 
 int	checkredir(char *line, int i)
@@ -76,17 +74,17 @@ int	find_var(t_all *all)
 	}
 	return (SUCCESS);
 }
+
 int	find_shlvl(t_all *all)
 {
-	t_my_env *tmpenv;
-	tmpenv = all->my_env;
+	t_my_env	*tmpenv;
 
+	tmpenv = all->my_env;
 	while (tmpenv)
 	{
 		if (!ft_strictcmp(tmpenv->key, "SHLVL", 5)
 			&& ft_atoi(tmpenv->value) > 2)
 		{
-			printf("SHLVL = %s", tmpenv->value);
 			return (1);
 		}
 		tmpenv = tmpenv->next;

@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 14:42:58 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/18 10:25:08 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:02:40 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # define ERR_EGAL "minishell: export: `"
 # define ERR_OPEN_DIR 11
 # define ERR_BASE "minishell : "
+# define ERR_DDOC "minishell: warning: here-document at line 1 delimited by end-of-file (wanted `"
 # define ERR_OPT "export: bad option: "
 
 extern int					g_sig;
@@ -245,10 +246,6 @@ int							firstquotecheck(char *line, int i);
 char						*ft_pid(t_all *all, t_expand **tmp);
 t_my_env					*ft_myenv(t_all *all, char **envp);
 t_my_env					*create_node_env(t_my_env **my_env, int i);
-int							is_negative_quotes(char c);
-int							is_closed_quotes(char *line, t_parse **parse,
-								char **strs);
-int							quotes_is_beginning(int *flag);
 void						builtins_or_not(t_all *all, t_simple_cmds *cmds);
 void						ft_cd(t_simple_cmds *cmds, t_all *all);
 int							ft_echo(char **args, t_all *all);
@@ -303,15 +300,25 @@ int							ft_errparent(t_all *all, char *str, t_pipex *pipex,
 int							ft_errchild(t_all *all, char *str, t_pipex *pipex,
 								int msg);
 void						ft_signals(void);
-void						ft_signals_parent(void);
 bool						catchsignals(t_all *all);
 int							verif_dir(char **strs, t_all *all);
-void						ft_sig_heredoc(void);
+void						ft_signal_heredoc(void);
 int							find_shlvl(t_all *all);
-void						ft_nosignals(void);
-void						ft_signals_child(void);
 void						exec_cd(char *path, t_all *all);
 void						free_fd_pid(int ***pipefd, int **pid,
 								t_pipex *pipex);
+int							condition(char *str, int i, int flag);
+int							fill_value_env(char **envp, int i, char **value);
+int							init_shlvl(t_all *all, t_my_env *my_env);
+int							get_line_and_signals(t_all *all);
+void						pipex_or_builtin(t_all *all);
+int							state_init_to_here_doc(t_all *all);
+int							verif_to_final_line(t_all *all);
+int							check_before_while(int argc, char **argv,
+								t_my_env **my_env, int *exit_code);
+void						handle_sig_child(int s);
+void						ft_signal_heredoc(void);
+void						ft_newsignals(void);
+void						sig_heredoc(int s);
 
 #endif

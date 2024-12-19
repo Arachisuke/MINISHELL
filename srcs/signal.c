@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:19:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/18 15:56:12 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/19 14:01:07 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,18 @@
 void	handle_sig(int s)
 {
 	g_sig = s;
-	// printf("s = %d", s);
 	if (wait(NULL) != -1)
 	{
 		if (s == SIGQUIT)
-			printf("Quit (core dumped)");
+			printf("Quit (core dumped)1");
 		printf("\n");
 	}
 	else if (s == SIGINT)
 	{
-		ft_printf_fd(1, "^handle_sig\n");
+		ft_printf_fd(1, "^C\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-	}
-	else if (s == SIGQUIT)
-		g_sig = 0;
-}
-void	handle_sig_child(int s)
-{
-	g_sig = s;
-	if (wait(NULL) != -1)
-	{
-		if (s == SIGQUIT)
-			printf("Quit (core dumped)");
-		printf("\n");
-	}
-	else if (s == SIGINT)
-	{
-		printf("efwffewfefew\n");
 	}
 	else if (s == SIGQUIT)
 		g_sig = 0;
@@ -52,27 +35,19 @@ void	handle_sig_child(int s)
 void	sig_heredoc(int s)
 {
 	g_sig = s;
-	ft_printf_fd(2, "^sig_heredoc");
+	ft_printf_fd(2, "^C");
 	close(STDIN_FILENO);
 }
 
-void	ft_sig_heredoc(void)
-{
-	struct sigaction	sig;
+void	ft_nosignals(void)
 
-	sig.sa_flags = 0;
-	sig.sa_handler = &sig_heredoc;
-	sigemptyset(&sig.sa_mask);
-	sigaction(SIGINT, &sig, NULL);
-}
-void	ft_nosignals(void) // si je lui dis juste de faire un retour a la ligne.
 {
 	struct sigaction	sa;
 
 	rl_catch_signals = 0;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
-	sa.sa_handler = &handle_sig_child;
+	sa.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
 }
@@ -87,16 +62,6 @@ void	ft_signals(void)
 	sig.sa_handler = &handle_sig;
 	sigaction(SIGINT, &sig, NULL);
 	sigaction(SIGQUIT, &sig, NULL);
-}
-void	ft_signals_child(void)
-{
-	struct sigaction	sig;
-
-	rl_catch_signals = 0;
-	sig.sa_flags = SA_RESTART;
-	sig.sa_handler = &handle_sig_child;
-	sigemptyset(&sig.sa_mask);
-	sigaction(SIGINT, &sig, NULL);
 }
 
 bool	catchsignals(t_all *all)

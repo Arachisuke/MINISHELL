@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 15:20:53 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/18 11:35:40 by wzeraig          ###   ########.fr       */
+/*   Updated: 2024/12/19 13:56:48 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	read_and_write(int HD, char *limiteur, t_all *all, t_redir *redir)
+int	read_and_write(int HD, char *limiteur, t_all *all)
 {
 	char	*str;
 
@@ -21,17 +21,10 @@ int	read_and_write(int HD, char *limiteur, t_all *all, t_redir *redir)
 	{
 		str = readline("> ");
 		if (str == NULL && g_sig == SIGINT)
-		{
-			if (all->fd_in > 0)
-			{
-				dup2(all->fd_in, STDIN_FILENO);
-				if (!redir->next)
-					close(all->fd_in);
-			}
-			return (2);
-		}
+			return (dup2(all->fd_in, STDIN_FILENO), close(all->fd_in), 2);
 		if (str == NULL)
-			return (1);
+			return (ft_printf_fd(1, ERR_DDOC), ft_printf_fd(1, "%s')\n",
+					limiteur), 1);
 		if (ft_strlen(str) == ft_strlen(limiteur))
 		{
 			if (!ft_strncmp(str, limiteur, ft_strlen(limiteur)))
@@ -51,7 +44,7 @@ int	heredoc(t_all *all, t_redir *redir, char *limiteur)
 {
 	char	*file_name;
 
-	all->fd_in = dup(STDIN_FILENO); /// 1
+	all->fd_in = dup(STDIN_FILENO);
 	if (all->fd_in < 0)
 		return (ft_final(all, NULL, ERR_FD, 1));
 	file_name = limiteur;
@@ -62,10 +55,11 @@ int	heredoc(t_all *all, t_redir *redir, char *limiteur)
 		close(redir->fd_here_doc);
 		return (ft_final(all, NULL, ERR_FD, 1));
 	}
-	ft_sig_heredoc();
-	if (read_and_write(redir->fd_here_doc, limiteur, all, redir) == 1)
+	ft_signal_heredoc();
+	if (read_and_write(redir->fd_here_doc, limiteur, all) == 2)
 		return (close(redir->fd_here_doc), ERR_READ);
 	close(redir->fd_here_doc);
+	close(all->fd_in);
 	return (SUCCESS);
 }
 
@@ -82,9 +76,8 @@ int	if_here_doc(t_all *all)
 		{
 			if (redir->token == D_LOWER)
 			{
-				if (heredoc(all, redir, redir->file_name) == 1)
-					return (printf("heredoc = 1"), ft_final(all, NULL, NULL,
-							1));
+				if (heredoc(all, redir, redir->file_name) == ERR_READ)
+					return (ft_final(all, NULL, NULL, 1));
 			}
 			redir = redir->next;
 		}
