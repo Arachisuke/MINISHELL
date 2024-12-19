@@ -6,7 +6,7 @@
 /*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/19 13:58:54 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:49:09 by ankammer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,18 @@ void	take_strexpand(char *value, char **dest)
 	while ((*dest)[i])
 	{
 		if (is_token((*dest)[i]))
+			flag = 1;
+		i++;
+	}
+	i = 0;
+	while ((*dest)[i])
+	{
+		if (is_token((*dest)[i]) && flag == 1)
 			(*dest)[i] = (*dest)[i] * -1;
+		if ((*dest)[i] == ' ' && !flag)
+			(*dest)[i] = (*dest)[i] * -1;
+		if ((*dest)[i] == '-' && !flag && (*dest)[i - 1] && (*dest)[i - 1] < 0)
+			(*dest)[i - 1] = (*dest)[i - 1] * -1;
 		i++;
 	}
 }

@@ -3,3 +3,4 @@
 .v*
 *.a
 minishell
+.nfs*
