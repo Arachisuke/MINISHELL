@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:50:37 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/19 13:57:12 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:10:18 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	is_triple_redir(char *line)
 
 int	ft_final(t_all *all, char *error, char *msgerror, int sortie)
 {
-	if (all->fd_in)
+	if (all->fd_in > 0)
 	{
 		dup2(all->fd_in, STDIN_FILENO);
 		close(all->fd_in);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:17:30 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/17 15:50:26 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:08:29 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ void	close_fd(t_pipex *pipex, t_simple_cmds *cmds)
 	int	i;
 
 	i = 0;
-	if (cmds && cmds->redir && cmds->redir->fd_here_doc)
+	if (cmds && cmds->redir && cmds->redir->fd_here_doc > 0)
 		close(cmds->redir->fd_here_doc);
-	if (cmds && cmds->fd_infile)
+	if (cmds && cmds->fd_infile > 0)
 		close(cmds->fd_infile);
 	if (cmds && cmds->fd_outfile > 0)
 		close(cmds->fd_outfile);
 	while (pipex->nbrcmd - 1 > i)
 	{
-		if (pipex->pipefd[i])
+		if (pipex->pipefd[i] > 0)
 		{
 			close(pipex->pipefd[i][0]);
 			close(pipex->pipefd[i][1]);
