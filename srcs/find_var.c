@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:53:17 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/19 15:49:09 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/23 11:39:24 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	take_strexpand(char *value, char **dest)
 			(*dest)[i] = (*dest)[i] * -1;
 		if ((*dest)[i] == ' ' && !flag)
 			(*dest)[i] = (*dest)[i] * -1;
-		if ((*dest)[i] == '-' && !flag && (*dest)[i - 1] && (*dest)[i - 1] < 0)
-			(*dest)[i - 1] = (*dest)[i - 1] * -1;
+		if ((*dest)[i + 1] && (*dest)[i + 1] == '-' && !flag && (*dest)[i] < 0)
+			(*dest)[i] = (*dest)[i] * -1;
 		i++;
 	}
 }

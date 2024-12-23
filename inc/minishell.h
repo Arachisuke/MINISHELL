@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankammer <ankammer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzeraig <wzeraig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 14:42:58 by wzeraig           #+#    #+#             */
-/*   Updated: 2024/12/19 14:02:40 by ankammer         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:10:00 by wzeraig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@
 # define ERR_EGAL "minishell: export: `"
 # define ERR_OPEN_DIR 11
 # define ERR_BASE "minishell : "
-# define ERR_DDOC "minishell: warning: here-document at line 1 delimited by end-of-file (wanted `"
+# define ERR_DDOC "minishell: warning: here-document at \
+line 1 delimited by end-of-file (wanted `"
 # define ERR_OPT "export: bad option: "
 
 extern int					g_sig;
@@ -122,7 +123,7 @@ typedef struct s_simple_cmds
 	char					**strs;
 	bool					is_builtin;
 	int						num_redirections;
-	int fd_outfile; // rajout de fd pour infile et outfile
+	int						fd_outfile;
 	int						fd_infile;
 	t_redir					*redir;
 	struct s_simple_cmds	*next;
